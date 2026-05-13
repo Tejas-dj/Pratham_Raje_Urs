@@ -1,0 +1,209 @@
+"use client";
+
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { NAV_ITEMS } from "@/lib/data";
+import { useCursorContext } from "@/providers/CursorProvider";
+
+export default function MobileNavDrawer() {
+  const [open, setOpen] = useState(false);
+  const { setCursor, resetCursor } = useCursorContext();
+
+  function handleNavClick(href: string) {
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
+  }
+
+  return (
+    <>
+      {/* Hamburger toggle — only on mobile */}
+      <motion.button
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        onMouseEnter={() => setCursor("crosshair")}
+        onMouseLeave={resetCursor}
+        style={{
+          position: "fixed",
+          top: 14,
+          right: 16,
+          zIndex: 9995,
+          background: "rgba(10,10,10,0.9)",
+          border: "1px solid rgba(212,175,119,0.3)",
+          borderRadius: 4,
+          width: 36,
+          height: 36,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 5,
+          cursor: "none",
+          backdropFilter: "blur(8px)",
+        }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={i}
+            style={{
+              width: 18,
+              height: 1.5,
+              background: "#d4af77",
+              borderRadius: 1,
+              transformOrigin: "center",
+            }}
+            animate={
+              open
+                ? i === 0
+                  ? { rotate: 45, y: 6.5 }
+                  : i === 1
+                  ? { opacity: 0 }
+                  : { rotate: -45, y: -6.5 }
+                : { rotate: 0, y: 0, opacity: 1 }
+            }
+            transition={{ duration: 0.2 }}
+          />
+        ))}
+      </motion.button>
+
+      {/* Drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              style={{
+                position: "fixed",
+                inset: 0,
+                background: "rgba(0,0,0,0.7)",
+                zIndex: 9993,
+                backdropFilter: "blur(4px)",
+              }}
+            />
+
+            {/* Film-strip bottom sheet */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0, bottom: 0.2 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.y > 80) setOpen(false);
+              }}
+              style={{
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                zIndex: 9994,
+                background: "#0d0d0d",
+                borderTop: "2px solid rgba(212,175,119,0.2)",
+                borderRadius: "16px 16px 0 0",
+                padding: "12px 0 40px",
+              }}
+            >
+              {/* Drag handle */}
+              <div
+                style={{
+                  width: 36,
+                  height: 4,
+                  background: "rgba(212,175,119,0.3)",
+                  borderRadius: 2,
+                  margin: "0 auto 16px",
+                }}
+              />
+
+              {/* Logo */}
+              <div
+                style={{
+                  textAlign: "center",
+                  fontFamily: "var(--font-cinzel), serif",
+                  fontSize: 12,
+                  letterSpacing: "0.6em",
+                  color: "rgba(212,175,119,0.5)",
+                  marginBottom: 20,
+                  textTransform: "uppercase",
+                }}
+              >
+                INFINITE FRAMES
+              </div>
+
+              {/* Nav items as horizontal film strip */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
+                  padding: "0 24px",
+                }}
+              >
+                {NAV_ITEMS.map((item, i) => (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    onClick={() => handleNavClick(item.href)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 16,
+                      padding: "14px 0",
+                      background: "none",
+                      border: "none",
+                      borderBottom: "1px solid rgba(212,175,119,0.08)",
+                      cursor: "none",
+                      textAlign: "left",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 8,
+                        height: 12,
+                        border: "1px solid rgba(212,175,119,0.3)",
+                        borderRadius: 1,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "var(--font-cinzel), serif",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        letterSpacing: "0.25em",
+                        color: "#f5f0e8",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                    <div style={{ flex: 1 }} />
+                    <span
+                      style={{
+                        fontFamily: "Courier New, monospace",
+                        fontSize: 9,
+                        color: "rgba(212,175,119,0.3)",
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

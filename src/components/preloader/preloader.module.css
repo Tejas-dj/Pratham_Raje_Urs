@@ -1,0 +1,179 @@
+.leader {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.leaderBg {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+}
+
+/* Left perforation strip */
+.perfLeft,
+.perfRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px 0;
+  gap: 0;
+}
+.perfLeft { left: 0; border-right: 1px solid rgba(212,175,119,0.15); }
+.perfRight { right: 0; border-left: 1px solid rgba(212,175,119,0.15); }
+
+.perf {
+  width: 16px;
+  height: 24px;
+  border: 1.5px solid rgba(212,175,119,0.4);
+  border-radius: 2px;
+  background: #0a0a0a;
+  flex-shrink: 0;
+}
+
+/* Top/Bottom edge perforations */
+.perfTop,
+.perfBottom {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.perfTop { top: 0; border-bottom: 1px solid rgba(212,175,119,0.15); }
+.perfBottom { bottom: 0; border-top: 1px solid rgba(212,175,119,0.15); }
+
+/* Countdown circle */
+.countdownWrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdownNumber {
+  font-family: var(--font-cinzel), serif;
+  font-size: 96px;
+  font-weight: 900;
+  color: #f5f0e8;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  animation: countFlicker 0.15s steps(2) infinite;
+  text-shadow: 0 0 40px rgba(255,255,255,0.3);
+}
+
+.countdownRing {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(212,175,119,0.3);
+  border-radius: 50%;
+}
+
+.countdownRing::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212,175,119,0.15);
+  border-radius: 50%;
+}
+
+/* Center cross lines */
+.crossH, .crossV {
+  position: absolute;
+  background: rgba(212,175,119,0.2);
+}
+.crossH { left: -80px; right: -80px; height: 1px; top: 50%; }
+.crossV { top: -80px; bottom: -80px; width: 1px; left: 50%; }
+
+/* Typewriter reveal */
+.nameReveal {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(14px, 2vw, 20px);
+  font-weight: 700;
+  color: #d4af77;
+  letter-spacing: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+/* Burn overlay */
+.burnOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #fff9e8, #fff8d4);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Dust specks */
+.dust {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(245, 240, 232, 0.6);
+  pointer-events: none;
+  animation: dustDrift 2s linear infinite;
+}
+
+/* Film brand label */
+.filmLabel {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  color: rgba(212,175,119,0.4);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.frameCount {
+  position: absolute;
+  bottom: 28px;
+  right: 52px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: rgba(245,240,232,0.3);
+  letter-spacing: 0.2em;
+}
+
+@keyframes countFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes dustDrift {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(-60px) translateX(20px) scale(0.6); opacity: 0; }
+}
