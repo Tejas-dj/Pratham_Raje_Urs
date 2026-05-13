@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import HeroText from "./HeroText";
 import HeroButtons from "./HeroButtons";
+import HeroShowreel from "./HeroShowreel";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const HeroScene = dynamic(() => import("./HeroScene"), {
@@ -41,8 +42,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
-        minHeight: 600,
+        minHeight: "100vh",
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
@@ -51,22 +51,22 @@ export default function Hero({ preloaderDone }: HeroProps) {
       }}
       aria-label="Hero — Pratham Raje Urs"
     >
-      {/* 3D WebGL scene (desktop only) */}
-      {!isMobile && !reduced && <HeroScene />}
+      {/* ── Layer 1: Fullscreen video showreel (all devices) ── */}
+      <HeroShowreel />
 
-      {/* Mobile fallback bg */}
-      {isMobile && (
+      {/* ── Layer 2: 3D WebGL scene, desktop only — blends over the video ── */}
+      {!isMobile && !reduced && (
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: `
-              radial-gradient(ellipse at 30% 40%, rgba(212,175,119,0.08) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 70%, rgba(126,212,212,0.05) 0%, transparent 50%),
-              #0a0a0a
-            `,
+            zIndex: 2,
+            opacity: 0.42,
+            mixBlendMode: "screen",
           }}
-        />
+        >
+          <HeroScene />
+        </div>
       )}
 
       {/* Scan line overlay */}
@@ -76,8 +76,22 @@ export default function Hero({ preloaderDone }: HeroProps) {
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          zIndex: 2,
-          opacity: 0.4,
+          zIndex: 5,
+          opacity: 0.25,
+        }}
+        aria-hidden
+      />
+
+      {/* Film grain overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: "-100%",
+          pointerEvents: "none",
+          zIndex: 6,
+          opacity: 0.05,
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+          animation: "grain-shift 8s steps(10) infinite",
         }}
         aria-hidden
       />
@@ -89,7 +103,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          zIndex: 3,
+          zIndex: 7,
         }}
         aria-hidden
       />
@@ -124,6 +138,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
             alignItems: "center",
             gap: 8,
             animation: "float-slow 3s ease-in-out infinite",
+            zIndex: 11,
           }}
         >
           <span

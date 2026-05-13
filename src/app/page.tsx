@@ -33,6 +33,7 @@ const TheVault = dynamic(() => import("@/components/vault/TheVault"), {
           letterSpacing: "0.4em",
           color: "rgba(212,175,119,0.3)",
           textTransform: "uppercase",
+          animation: "film-flicker 2s infinite alternate",
         }}
       >
         Loading The Vault…

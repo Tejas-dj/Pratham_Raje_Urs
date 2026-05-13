@@ -5,6 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCursorContext } from "@/providers/CursorProvider";
 import VideoModal from "@/components/shared/VideoModal";
 
+import ProjectCard from "@/components/vault/ProjectCard";
+import CinematicModal from "@/components/vault/CinematicModal";
+import { PROJECTS } from "@/lib/data";
+import type { Project } from "@/types";
+
 interface HeroButtonsProps {
   ready: boolean;
   onEnterReel?: () => void;
@@ -13,6 +18,7 @@ interface HeroButtonsProps {
 export default function HeroButtons({ ready, onEnterReel }: HeroButtonsProps) {
   const [videoOpen, setVideoOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { setCursor, resetCursor } = useCursorContext();
 
   function scrollToAbout() {
@@ -122,50 +128,71 @@ export default function HeroButtons({ ready, onEnterReel }: HeroButtonsProps) {
         </motion.button>
       </motion.div>
 
-      {/* Currently Screening ticker */}
+      {/* Currently Screening / Projects Horizontal Scroll */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={ready ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 3.8 }}
         style={{
-          marginTop: 32,
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          fontFamily: "var(--font-inter), sans-serif",
-          fontSize: 11,
-          letterSpacing: "0.15em",
-          color: "rgba(245,240,232,0.4)",
-          textTransform: "uppercase",
-          overflow: "hidden",
+          marginTop: 48,
+          width: "100%",
           maxWidth: "100vw",
         }}
       >
-        <span
-          style={{
-            background: "#ff5e5e",
-            color: "#fff",
-            padding: "2px 8px",
-            fontSize: 9,
-            letterSpacing: "0.2em",
-            fontWeight: 700,
-            borderRadius: 1,
-            flexShrink: 0,
-          }}
-        >
-          ● LIVE
-        </span>
-        <div style={{ overflow: "hidden", flex: 1 }}>
-          <div
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          padding: "0 24px",
+          marginBottom: 16,
+          justifyContent: "center",
+        }}>
+          <span
             style={{
-              display: "inline-block",
-              whiteSpace: "nowrap",
-              animation: "ticker 20s linear infinite",
+              background: "#ff5e5e",
+              color: "#fff",
+              padding: "2px 8px",
+              fontSize: 9,
+              letterSpacing: "0.2em",
+              fontWeight: 700,
+              borderRadius: 1,
             }}
           >
-            Currently Screening: She Asked for Sunflowers &nbsp;·&nbsp; The Christmas Guest (Phalke Selected) &nbsp;·&nbsp; Before The Coffee Gets Cold &nbsp;·&nbsp; DOT. &nbsp;·&nbsp; Talon Wedding Films &nbsp;·&nbsp;{" "}
-            Currently Screening: She Asked for Sunflowers &nbsp;·&nbsp; The Christmas Guest (Phalke Selected) &nbsp;·&nbsp; Before The Coffee Gets Cold &nbsp;·&nbsp; DOT. &nbsp;·&nbsp; Talon Wedding Films &nbsp;·&nbsp;
-          </div>
+            ● LIVE
+          </span>
+          <span style={{
+            fontFamily: "var(--font-inter), sans-serif",
+            fontSize: 11,
+            letterSpacing: "0.15em",
+            color: "rgba(245,240,232,0.4)",
+            textTransform: "uppercase",
+          }}>
+            Currently Screening
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            gap: 16,
+            overflowX: "auto",
+            padding: "0 24px 24px",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
+            maxWidth: 1200,
+            margin: "0 auto",
+          }}
+          className="hide-scrollbar"
+        >
+          {PROJECTS.map((project) => (
+            <div key={project.id} style={{ minWidth: 200, width: 200, flexShrink: 0 }}>
+              <ProjectCard
+                project={project}
+                onClick={() => setSelectedProject(project)}
+              />
+            </div>
+          ))}
         </div>
       </motion.div>
 
@@ -175,6 +202,13 @@ export default function HeroButtons({ ready, onEnterReel }: HeroButtonsProps) {
         isOpen={videoOpen}
         onClose={() => setVideoOpen(false)}
         title="She Asked for Sunflowers"
+      />
+
+      {/* Cinematic Modal for Project Cards */}
+      <CinematicModal
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
       />
 
       {/* Booking modal (simplified script-page form) */}

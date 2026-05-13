@@ -24,6 +24,7 @@ const Theater3D = dynamic(() => import("./Theater3D"), {
         fontSize: 12,
         letterSpacing: "0.3em",
         color: "rgba(212,175,119,0.3)",
+        animation: "film-flicker 2s infinite alternate",
       }}
     >
       LOADING THEATER…
