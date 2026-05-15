@@ -143,8 +143,23 @@ body {
   background: #0a0a0a;
   color: #f5f0e8;
   font-family: var(--font-family-inter);
+  line-height: 1.8;
   overflow-x: hidden;
   cursor: none; /* custom cursor */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-cinzel);
+  letter-spacing: 0.08em;
+}
+
+p {
+  line-height: 1.8;
+  margin-bottom: 1.5em;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 /* Hide default cursor everywhere */

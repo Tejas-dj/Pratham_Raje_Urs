@@ -116,64 +116,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
         }}
       />
 
-      {/* ── FRAME 001 badge — cinematic top-left label ── */}
-      <div
-        style={{
-          position: "absolute",
-          top: 24,
-          left: 28,
-          zIndex: 10,
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          opacity: visible ? 1 : 0,
-          transition: "opacity 2.4s ease 0.8s",
-        }}
-      >
-        {/* Red recording dot */}
-        <span
-          style={{
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            background: "#ff4444",
-            boxShadow: "0 0 8px rgba(255,68,68,0.9), 0 0 16px rgba(255,68,68,0.4)",
-            animation: "reel-recording-blink 1.4s ease-in-out infinite",
-            flexShrink: 0,
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "var(--font-cinzel), serif",
-            fontSize: "clamp(0.55rem, 1vw, 0.75rem)",
-            fontWeight: 600,
-            letterSpacing: "0.45em",
-            color: "rgba(212,175,119,0.85)",
-            textTransform: "uppercase",
-          }}
-        >
-          FRAME&nbsp;001
-        </span>
-        <span
-          style={{
-            width: 40,
-            height: 1,
-            background: "rgba(212,175,119,0.4)",
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: "clamp(0.45rem, 0.85vw, 0.6rem)",
-            fontWeight: 400,
-            letterSpacing: "0.3em",
-            color: "rgba(245,240,232,0.35)",
-            textTransform: "uppercase",
-          }}
-        >
-          SHOWREEL
-        </span>
-      </div>
+
 
       {/* ── Timecode — bottom right, like a camera LCD ── */}
       <div

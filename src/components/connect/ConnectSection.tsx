@@ -257,11 +257,11 @@ export default function ConnectSection() {
           )}
         </button>
 
-        <div style={{ opacity: 0.3 }}>
+        <div style={{ opacity: 0.7 }}>
           <img
             src="/images/talon-logo.svg"
             alt="Talon Production House"
-            style={{ height: 28, width: "auto", display: "block" }}
+            style={{ height: 80, width: "auto", display: "block" }}
           />
         </div>
 

@@ -10,6 +10,8 @@ export interface LightboxPhoto {
   project: string;
   year: string;
   category: string;
+  role: string;
+  btsNote?: string;
 }
 
 interface PhotoLightboxProps {
@@ -277,18 +279,55 @@ export default function PhotoLightbox({
                 {photo.alt}
               </motion.p>
             </AnimatePresence>
+            {photo.btsNote && (
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={`bts-${current}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  style={{
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: 11,
+                    color: "rgba(212,175,119,0.8)",
+                    marginTop: 8,
+                    maxWidth: 500,
+                    lineHeight: 1.4,
+                    fontStyle: "italic",
+                  }}
+                >
+                  * {photo.btsNote}
+                </motion.p>
+              </AnimatePresence>
+            )}
           </div>
 
-          <span
-            style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: 12,
-              color: "rgba(212,175,119,0.35)",
-              letterSpacing: "0.15em",
-            }}
-          >
-            {photo.year}
-          </span>
+          <div style={{ textAlign: "right" }}>
+            <span
+              style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: 11,
+                color: "rgba(212,175,119,0.5)",
+                letterSpacing: "0.15em",
+                display: "block",
+                marginBottom: 4,
+                textTransform: "uppercase"
+              }}
+            >
+              {photo.role}
+            </span>
+            <span
+              style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: 12,
+                color: "rgba(212,175,119,0.35)",
+                letterSpacing: "0.15em",
+              }}
+            >
+              {photo.year}
+            </span>
+          </div>
         </div>
 
         {/* ── Prev / Next arrows ── */}

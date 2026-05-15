@@ -3,14 +3,8 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import HeroText from "./HeroText";
-import HeroButtons from "./HeroButtons";
 import HeroShowreel from "./HeroShowreel";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-
-const HeroScene = dynamic(() => import("./HeroScene"), {
-  ssr: false,
-  loading: () => null,
-});
 
 interface HeroProps {
   preloaderDone: boolean;
@@ -42,7 +36,8 @@ export default function Hero({ preloaderDone }: HeroProps) {
       style={{
         position: "relative",
         width: "100%",
-        minHeight: "100vh",
+        minHeight: isMobile ? "85vh" : "100vh",
+        height: "100svh",
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
@@ -54,20 +49,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
       {/* ── Layer 1: Fullscreen video showreel (all devices) ── */}
       <HeroShowreel />
 
-      {/* ── Layer 2: 3D WebGL scene, desktop only — blends over the video ── */}
-      {!isMobile && !reduced && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 2,
-            opacity: 0.42,
-            mixBlendMode: "screen",
-          }}
-        >
-          <HeroScene />
-        </div>
-      )}
+
 
       {/* Scan line overlay */}
       <div
@@ -118,54 +100,13 @@ export default function Hero({ preloaderDone }: HeroProps) {
           alignItems: "center",
           justifyContent: "center",
           width: "100%",
-          padding: "80px 24px 24px",
+          padding: "0 24px",
         }}
       >
         <HeroText ready={ready} />
-        <HeroButtons ready={ready} />
+
       </div>
 
-      {/* Scroll indicator */}
-      {ready && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 32,
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 8,
-            animation: "float-slow 3s ease-in-out infinite",
-            zIndex: 11,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: 9,
-              letterSpacing: "0.4em",
-              color: "rgba(212,175,119,0.4)",
-              textTransform: "uppercase",
-            }}
-          >
-            Scroll
-          </span>
-          <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
-            <rect x="1" y="1" width="18" height="28" rx="9" stroke="rgba(212,175,119,0.3)" strokeWidth="1" />
-            <rect x="9" y="6" width="2" height="8" rx="1" fill="rgba(212,175,119,0.6)">
-              <animateTransform
-                attributeName="transform"
-                type="translate"
-                values="0 0; 0 8; 0 0"
-                dur="1.8s"
-                repeatCount="indefinite"
-              />
-            </rect>
-          </svg>
-        </div>
-      )}
     </section>
   );
 }

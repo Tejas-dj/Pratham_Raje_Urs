@@ -64,15 +64,21 @@ export default function FilmLeader({ onComplete }: FilmLeaderProps) {
     setTimeout(() => onComplete(), 800);
   }
 
-  // Random dust specks
-  const dustSpecks = Array.from({ length: 14 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 2,
-    duration: 1.5 + Math.random() * 1.5,
-  }));
+  // Deterministic dust specks to prevent hydration mismatch
+  const dustSpecks = Array.from({ length: 14 }, (_, i) => {
+    const prng = (seed: number) => {
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    };
+    return {
+      id: i,
+      x: prng(i * 1.1 + 1) * 100,
+      y: prng(i * 1.2 + 2) * 100,
+      size: prng(i * 1.3 + 3) * 3 + 1,
+      delay: prng(i * 1.4 + 4) * 2,
+      duration: 1.5 + prng(i * 1.5 + 5) * 1.5,
+    };
+  });
 
   return (
     <div ref={containerRef} className={styles.leader}>

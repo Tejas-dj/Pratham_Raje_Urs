@@ -57,15 +57,26 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   }
 
   return (
+    <>
+      <style>{`
+        .project-card-wrapper {
+          aspect-ratio: 2/3;
+        }
+        @media (max-width: 768px) {
+          .project-card-wrapper {
+            aspect-ratio: 16/9 !important;
+          }
+        }
+      `}</style>
     <motion.div
       ref={cardRef}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onMouseMove={handleMouseMove}
       onClick={onClick}
+      className="project-card-wrapper"
       style={{
         position: "relative",
-        aspectRatio: "2/3",
         borderRadius: 2,
         overflow: "hidden",
         cursor: "none",
@@ -249,5 +260,6 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         </motion.div>
       </div>
     </motion.div>
+    </>
   );
 }

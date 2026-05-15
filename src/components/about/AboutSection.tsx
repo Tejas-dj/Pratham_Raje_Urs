@@ -70,8 +70,8 @@ export default function AboutSection() {
       >
         {/* Opening quote */}
         <motion.blockquote
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           style={{
             textAlign: "center",
@@ -109,8 +109,8 @@ export default function AboutSection() {
 
         {/* Section title */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
           style={{ marginBottom: 40 }}
         >
@@ -150,8 +150,8 @@ export default function AboutSection() {
 
         {/* Film Roll */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)", scale: 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.35 }}
           style={{ marginBottom: 60 }}
         >
@@ -164,13 +164,14 @@ export default function AboutSection() {
             display: "flex",
             gap: 48,
             alignItems: "flex-start",
+            justifyContent: "center",
             flexWrap: "wrap",
           }}
         >
           {/* Portrait */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, x: -40, filter: "blur(10px)", scale: 0.95 }}
+            animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)", scale: 1 } : {}}
             transition={{ duration: 0.9, delay: 0.5 }}
           >
             <InteractivePortrait />
@@ -178,8 +179,8 @@ export default function AboutSection() {
 
           {/* Bio text */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.9, delay: 0.6 }}
             style={{ flex: 1, minWidth: 280, maxWidth: 600 }}
           >

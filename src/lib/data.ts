@@ -1,10 +1,10 @@
-﻿import type { Project, Service, JournalPost } from "@/types";
+import type { Project, Service, JournalPost } from "@/types";
 
 export const PROJECTS: Project[] = [
   {
     id: "sunflowers",
     title: "She Asked for Sunflowers",
-    role: "Director Â· DOP Â· Editor Â· Actor",
+    role: "Director · DOP · Editor · Actor",
     poster: "/images/image_tester_1.png",
     video: "/videos/sample_video.mp4",
     badges: ["He Stars In This"],
@@ -16,7 +16,7 @@ export const PROJECTS: Project[] = [
   {
     id: "christmas",
     title: "The Christmas Guest",
-    role: "Director Â· DOP",
+    role: "Director · DOP",
     poster: "/images/image_tester_1.png",
     video: "/videos/sample_video.mp4",
     badges: ["Dada Saheb Phalke Selected"],
@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
   {
     id: "coffee",
     title: "Before The Coffee Gets Cold",
-    role: "Director Â· DOP Â· Editor",
+    role: "Director · DOP · Editor",
     poster: "/images/image_tester_1.png",
     video: "/videos/sample_video.mp4",
     badges: [],
@@ -40,14 +40,14 @@ export const PROJECTS: Project[] = [
   {
     id: "dot",
     title: "DOT.",
-    role: "Director Â· DOP",
+    role: "Director · DOP",
     poster: "/images/image_tester_1.png",
     video: null,
     badges: [],
     year: 2024,
     category: "narrative",
     description:
-      "A single frame. A single feeling. DOT. is Pratham's most experimental short â€” a visual poem about existence stripped down to its most elemental form.",
+      "A single frame. A single feeling. DOT. is Pratham's most experimental short — a visual poem about existence stripped down to its most elemental form.",
   },
   {
     id: "wedding",
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     year: 2023,
     category: "acting",
     description:
-      "Stepping in front of the lens for the first time. Pratham's acting debut â€” a deeply personal performance that proved the director understands his actors because he has been one.",
+      "Stepping in front of the lens for the first time. Pratham's acting debut — a deeply personal performance that proved the director understands his actors because he has been one.",
   },
 ];
 
@@ -80,36 +80,36 @@ export const SERVICES: Service[] = [
     id: "wedding",
     title: "Wedding Cinematography & Photography",
     description:
-      "Your real emotions, your biggest day, transformed into lifelong visual poetry. Talon captures every glance, every tear, every burst of laughter â€” with cinematic precision and a deeply personal touch.",
+      "Your real emotions, your biggest day, transformed into lifelong visual poetry. Talon captures every glance, every tear, every burst of laughter — with cinematic precision and a deeply personal touch.",
     color: "#D4AF77",
-    icon: "â¤",
+    icon: "heart",
     videoLoop: "/videos/sample_video.mp4",
   },
   {
     id: "narrative",
     title: "Narrative Shorts & Indie Kannada Films",
     description:
-      "Emotionally raw stories that chase feelings, not formulas. From concept to final grade â€” Pratham brings the full weight of a festival-selected filmmaker to every project.",
+      "Emotionally raw stories that chase feelings, not formulas. From concept to final grade — Pratham brings the full weight of a festival-selected filmmaker to every project.",
     color: "#7ED4D4",
-    icon: "ðŸŽ¬",
+    icon: "film",
     videoLoop: "/videos/sample_video.mp4",
   },
   {
     id: "commercial",
     title: "Commercial & Brand Films",
     description:
-      "Visual stories that make brands unforgettable. Cinematic storytelling applied to your product â€” because great brands deserve more than ads. They deserve films.",
+      "Visual stories that make brands unforgettable. Cinematic storytelling applied to your product — because great brands deserve more than ads. They deserve films.",
     color: "#FF5E5E",
-    icon: "âœ¦",
+    icon: "star",
     videoLoop: "/videos/sample_video.mp4",
   },
   {
     id: "dop",
-    title: "DOP Â· Editing Â· Color Grading",
+    title: "DOP · Editing · Color Grading",
     description:
-      "Hire the eye. LV Prasad-trained, Phalke-selected. Full post-production pipeline â€” from set to screen â€” with obsessive cinematic precision and that signature Kannada golden-hour warmth.",
+      "Hire the eye. LV Prasad-trained, Phalke-selected. Full post-production pipeline — from set to screen — with obsessive cinematic precision and that signature Kannada golden-hour warmth.",
     color: "#F5F0E8",
-    icon: "â—Ž",
+    icon: "aperture",
     videoLoop: "/videos/sample_video.mp4",
   },
 ];
@@ -122,21 +122,21 @@ export const ABOUT_FRAMES = [
     image: "/images/image_tester_1.png",
   },
   {
-    year: "2016 Â· Age 10",
+    year: "2016 · Age 10",
     title: "First Frame",
     description: "A smartphone. A sunlit lane. The first time light was trapped in a frame. Nothing was ever the same.",
     image: "/images/image_tester_1.png",
     hasVideo: true,
   },
   {
-    year: "2023â€“24",
-    title: "LV Prasad Â· Chennai",
+    year: "2023–24",
+    title: "LV Prasad · Chennai",
     description: "Trained at the legendary LV Prasad College of Cinematography. Learning the grammar of light.",
     image: "/images/image_tester_1.png",
   },
   {
     year: "2023",
-    title: "Sees Kaddi Â· Actor",
+    title: "Sees Kaddi · Actor",
     description: "The director steps in front of the lens. Understanding the actor's vulnerability from the inside.",
     image: "/images/image_tester_1.png",
   },

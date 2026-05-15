@@ -14,6 +14,8 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "She Asked for Sunflowers",
     year: "2024",
     category: "Narrative Short",
+    role: "Director | DOP",
+    btsNote: "Shot entirely during a 15-minute magic hour window before the storm hit.",
     aspect: "tall",
   },
   {
@@ -23,6 +25,8 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "Before The Coffee Gets Cold",
     year: "2024",
     category: "Narrative Short",
+    role: "DOP",
+    btsNote: "Used a custom prism filter to catch the neon reflections off the wet window.",
     aspect: "wide",
   },
   {
@@ -32,6 +36,8 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "The Christmas Guest",
     year: "2023",
     category: "Phalke Selected",
+    role: "Director",
+    btsNote: "We lit the entire scene using only practical tungsten bulbs and the Christmas tree lights.",
     aspect: "square",
   },
   {
@@ -41,6 +47,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "Mysuru Streets",
     year: "2024",
     category: "Still Photography",
+    role: "Photographer",
     aspect: "tall",
   },
   {
@@ -50,6 +57,8 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "Wedding Cinema — Talon",
     year: "2025",
     category: "Wedding Film",
+    role: "Director | Editor",
+    btsNote: "Captured on a vintage 35mm lens to give the digital sensor an organic, timeless feel.",
     aspect: "wide",
   },
   {
@@ -59,6 +68,8 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "DOT.",
     year: "2024",
     category: "Narrative Short",
+    role: "DOP",
+    btsNote: "The stark contrast was achieved with a single 10K light positioned 50 feet down the alley.",
     aspect: "tall",
   },
   {
@@ -68,6 +79,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "Behind The Frame",
     year: "2025",
     category: "Making Of",
+    role: "Director",
     aspect: "wide",
   },
   {
@@ -77,6 +89,8 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "Karnataka Diaries",
     year: "2023",
     category: "Documentary",
+    role: "DOP | Drone Op",
+    btsNote: "Woke up at 4 AM to hike 3 miles just to catch the morning mist rolling off the fields.",
     aspect: "wide",
   },
   {
@@ -86,6 +100,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
     project: "Sees Kaddi",
     year: "2023",
     category: "Acting Reel",
+    role: "Actor | Co-Director",
     aspect: "tall",
   },
 ];
@@ -258,7 +273,7 @@ function PhotoCard({
             {photo.project}
           </motion.p>
 
-          {/* Year */}
+          {/* Role & Year */}
           <motion.span
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
@@ -266,12 +281,13 @@ function PhotoCard({
             style={{
               fontFamily: "'Courier New', monospace",
               fontSize: 10,
-              color: "rgba(212,175,119,0.5)",
-              letterSpacing: "0.2em",
+              color: "rgba(212,175,119,0.7)",
+              letterSpacing: "0.15em",
             }}
           >
-            {photo.year}
+            {photo.role} &nbsp;&middot;&nbsp; {photo.year}
           </motion.span>
+
         </motion.div>
 
         {/* ── "Open" expand icon, center, only on hover ── */}
@@ -415,7 +431,8 @@ export default function PhotographySection() {
             }
             @media (max-width: 480px) {
               .gallery-masonry {
-                columns: 1;
+                columns: 2 150px;
+                column-gap: 8px;
               }
             }
           `}</style>

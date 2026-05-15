@@ -46,7 +46,7 @@ export default function FilmStripNav() {
         left: 0,
         right: 0,
         zIndex: 9990,
-        height: 60,
+        height: 80,
         background: "rgba(5,5,5,0.92)",
         backdropFilter: "blur(12px)",
         borderBottom: "1px solid rgba(212,175,119,0.12)",
@@ -89,7 +89,7 @@ export default function FilmStripNav() {
           src="/images/talon-logo.svg"
           alt="Talon Production House"
           style={{
-            height: 36,
+            height: 60,
             width: "auto",
             display: "block",
             filter: "drop-shadow(0 0 8px rgba(212,175,119,0.35))",
