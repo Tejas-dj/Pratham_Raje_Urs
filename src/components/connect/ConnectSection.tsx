@@ -121,7 +121,7 @@ export default function ConnectSection() {
               margin: "0 auto",
             }}
           >
-            Whether it&apos;s a wedding, a short film, a brand story, or just a feeling you need to put on screen —
+            Whether it&apos;s a short film, a brand story, or just a feeling you need to put on screen,
             reach out. Pratham answers everything personally.
           </p>
         </motion.div>
@@ -331,10 +331,9 @@ export default function ConnectSection() {
                 marginBottom: 20,
               }}
             >
-              You found it. These are the frames no one was supposed to see —
-              age 10, a Nokia, a sunlit lane in Mysuru, and the first moment
-              Pratham realized cinema was the only language big enough for what
-              he felt.
+              You found it. These are the frames no one was supposed to see.
+              A Nokia, a sunlit lane in Mysuru, and the first moment Pratham
+              realized cinema was the only language big enough for what he felt.
             </p>
             <div
               style={{

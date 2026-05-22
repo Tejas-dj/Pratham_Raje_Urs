@@ -13,11 +13,11 @@ export default function SoundToggle() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 2 }}
-      aria-label={enabled ? "Mute ambient sound" : "Enable ambient sound"}
+      aria-label={enabled ? "Mute showreel audio" : "Unmute showreel audio"}
       style={{
         position: "fixed",
         bottom: 24,
-        left: 24,
+        right: 24,
         zIndex: 9997,
         background: "rgba(10,10,10,0.8)",
         border: "1px solid rgba(212,175,119,0.3)",

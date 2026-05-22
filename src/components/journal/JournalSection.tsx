@@ -19,7 +19,7 @@ export default function JournalSection() {
         background: "#0a0a0a",
         padding: "100px 0 80px",
       }}
-      aria-label="Journal — Director's Sketchbook"
+      aria-label="Journal: Director's Sketchbook"
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
         {/* Header */}

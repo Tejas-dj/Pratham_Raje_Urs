@@ -44,7 +44,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
         justifyContent: "center",
         background: "#0a0a0a",
       }}
-      aria-label="Hero — Pratham Raje Urs"
+      aria-label="Hero: Pratham Raje Urs"
     >
       {/* ── Layer 1: Fullscreen video showreel (all devices) ── */}
       <HeroShowreel />
@@ -59,7 +59,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
           inset: 0,
           pointerEvents: "none",
           zIndex: 5,
-          opacity: 0.25,
+          opacity: 0.06,
         }}
         aria-hidden
       />

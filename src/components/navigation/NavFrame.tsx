@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useCursorContext } from "@/providers/CursorProvider";
 
@@ -14,8 +14,14 @@ interface NavFrameProps {
 
 export default function NavFrame({ label, href, clip, isActive, onClick }: NavFrameProps) {
   const [hovered, setHovered] = useState(false);
+  // Stable server value "42" is replaced after mount — prevents hydration mismatch from Math.random()
+  const [frameCode, setFrameCode] = useState("42");
   const videoRef = useRef<HTMLVideoElement>(null);
   const { setCursor, resetCursor } = useCursorContext();
+
+  useEffect(() => {
+    setFrameCode(String(Math.floor(Math.random() * 90) + 10));
+  }, []);
 
   const handleEnter = () => {
     setHovered(true);
@@ -97,7 +103,7 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
         style={{
           position: "absolute",
           inset: 0,
-          background: hovered ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.7)",
+          background: hovered ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.12)",
           transition: "background 0.5s ease",
         }}
       />
@@ -115,7 +121,7 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
           lineHeight: 1,
         }}
       >
-        {String(Math.floor(Math.random() * 90) + 10)}A
+        {frameCode}A
       </div>
 
       {/* Label */}

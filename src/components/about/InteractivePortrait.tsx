@@ -58,7 +58,7 @@ export default function InteractivePortrait() {
         }}
       >
         <Image
-          src="/images/image_tester_1.png"
+          src="/images/HeadShot_Pratham.jpeg"
           alt="Pratham Raje Urs"
           fill
           style={{ objectFit: "cover", filter: "brightness(0.85) contrast(1.1)" }}

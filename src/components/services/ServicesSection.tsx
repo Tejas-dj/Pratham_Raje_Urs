@@ -31,7 +31,7 @@ export default function ServicesSection() {
         padding: "120px 0 100px",
         overflow: "hidden",
       }}
-      aria-label="Director's Lenses — Domains"
+      aria-label="Creative Director: Domains"
     >
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 24px" }}>
         {/* Header */}
@@ -65,7 +65,7 @@ export default function ServicesSection() {
               marginBottom: 16,
             }}
           >
-            Director&apos;s Lenses
+            Creative Director
           </h2>
           <p
             style={{

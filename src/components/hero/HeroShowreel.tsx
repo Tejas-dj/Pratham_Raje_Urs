@@ -49,7 +49,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
       {/* ── Video layer ── */}
       <video
         ref={videoRef}
-        src="/videos/sample_video.mp4"
+        src="/videos/website showreel_compressed.webm"
         autoPlay
         muted
         loop
@@ -65,7 +65,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           opacity: visible ? 1 : 0,
           transition: "opacity 1.6s ease",
           // Subtle photo-chemical desaturation — keeps the dark cinematic feel
-          filter: "brightness(0.55) saturate(0.9) contrast(1.05)",
+          filter: "brightness(0.88) saturate(1.0) contrast(1.02)",
           willChange: "opacity",
         }}
       />
@@ -78,15 +78,15 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           background: `
             linear-gradient(
               to bottom,
-              rgba(10,10,10,0.30) 0%,
-              rgba(10,10,10,0.10) 35%,
-              rgba(10,10,10,0.10) 60%,
-              rgba(10,10,10,0.65) 100%
+              rgba(10,10,10,0.15) 0%,
+              rgba(10,10,10,0.04) 30%,
+              rgba(10,10,10,0.04) 65%,
+              rgba(10,10,10,0.40) 100%
             ),
             radial-gradient(
               ellipse at 50% 50%,
-              transparent 20%,
-              rgba(0,0,0,0.50) 100%
+              transparent 30%,
+              rgba(0,0,0,0.22) 100%
             )
           `,
           zIndex: 2,
@@ -100,7 +100,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           position: "absolute",
           inset: 0,
           zIndex: 3,
-          opacity: 0.35,
+          opacity: 0.10,
           mixBlendMode: "overlay",
         }}
       />
@@ -112,7 +112,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           position: "absolute",
           inset: 0,
           zIndex: 4,
-          opacity: 0.75,
+          opacity: 0.30,
         }}
       />
 

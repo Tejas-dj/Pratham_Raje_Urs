@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import FilmRoll from "./FilmRoll";
 import InteractivePortrait from "./InteractivePortrait";
@@ -8,6 +8,12 @@ import InteractivePortrait from "./InteractivePortrait";
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  // Client-only rain streaks — server renders nothing to avoid hydration mismatch
+  const [rainHeights, setRainHeights] = useState<number[]>([]);
+  useEffect(() => {
+    setRainHeights(Array.from({ length: 30 }, () => 60 + Math.random() * 40));
+  }, []);
 
   return (
     <section
@@ -33,17 +39,21 @@ export default function AboutSection() {
         }}
         aria-hidden
       >
-        {Array.from({ length: 30 }).map((_, i) => (
+        {rainHeights.map((h, i) => (
           <div
             key={i}
             style={{
               position: "absolute",
               top: "-10%",
               left: `${(i * 3.4) % 100}%`,
-              width: 1,
-              height: `${60 + Math.random() * 40}px`,
-              background: "linear-gradient(to bottom, transparent, rgba(212,175,119,0.4), transparent)",
-              animation: `fall ${1.8 + (i % 5) * 0.4}s linear ${(i * 0.18) % 2}s infinite`,
+              width: "1px",
+              height: `${h}px`,
+              backgroundImage: "linear-gradient(to bottom, transparent, rgba(212,175,119,0.4), transparent)",
+              animationName: "fall",
+              animationDuration: `${1.8 + (i % 5) * 0.4}s`,
+              animationTimingFunction: "linear",
+              animationDelay: `${(i * 0.18) % 2}s`,
+              animationIterationCount: "infinite",
             }}
           />
         ))}
@@ -103,7 +113,7 @@ export default function AboutSection() {
               textTransform: "uppercase",
             }}
           >
-            — Pratham Raje Urs
+            Pratham Raje Urs
           </footer>
         </motion.blockquote>
 
@@ -193,9 +203,10 @@ export default function AboutSection() {
                 marginBottom: 20,
               }}
             >
-              Pratham Raje Urs started making films at 10 years old with nothing but a smartphone and a feeling
-              too heavy to keep inside. Born into Mysuru&apos;s royal Urs heritage, raised on Karnataka&apos;s golden-hour
-              light, he found that cinema was the only language big enough for what he wanted to say.
+              With 6 years of filmmaking experience, Pratham Raje Urs has been crafting stories with nothing but
+              raw vision and a feeling too heavy to keep inside. Born into Mysuru&apos;s royal Urs heritage, raised on
+              Karnataka&apos;s golden-hour light, he found that cinema was the only language big enough for what he
+              wanted to say.
             </p>
             <p
               style={{
@@ -206,9 +217,8 @@ export default function AboutSection() {
                 marginBottom: 20,
               }}
             >
-              Trained at the legendary LV Prasad College of Cinematography in Chennai, he returned to Bengaluru
-              and founded{" "}
-              <span style={{ color: "#d4af77", fontWeight: 600 }}>Talon Production House</span> — a home for
+              He founded{" "}
+              <span style={{ color: "#d4af77", fontWeight: 600 }}>Talon Production House</span>, a home for
               Kannada stories that dare to feel something. His short films have earned a Dada Saheb Phalke
               Festival selection, and he&apos;s even stepped in front of the lens as an actor in{" "}
               <span style={{ color: "#7ed4d4", fontStyle: "italic" }}>Sees Kaddi</span>.
@@ -234,7 +244,7 @@ export default function AboutSection() {
               }}
             >
               {[
-                { num: "10", label: "Age when he started" },
+                { num: "6+", label: "Years of work experience" },
                 { num: "4+", label: "Short films directed" },
                 { num: "1", label: "Phalke selection" },
                 { num: "∞", label: "Feelings chased" },

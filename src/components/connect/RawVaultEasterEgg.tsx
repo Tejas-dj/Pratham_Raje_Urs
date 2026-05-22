@@ -15,7 +15,7 @@ export default function RawVaultEasterEgg() {
   }, [clickCount]);
 
   const CLIPS = [
-    { title: "Age 10 — First Film", year: "2016", desc: "Shot on a Nokia smartphone. Raw. Real. Already cinematic." },
+    { title: "First Film", year: "2016", desc: "Shot on a Nokia smartphone. Raw. Real. Already cinematic." },
     { title: "School Corridor Short", year: "2017", desc: "No crew. No budget. Just a feeling that had to get out." },
     { title: "Mysuru Rain Test", year: "2018", desc: "Testing slow-mo in the monsoon. The mud. The puddles. The light." },
   ];
@@ -194,7 +194,7 @@ export default function RawVaultEasterEgg() {
                         letterSpacing: "0.2em",
                       }}
                     >
-                      [ CLIP FILE UNAVAILABLE — LOCKED IN MYSURU HARD DRIVE ]
+                      [ CLIP FILE UNAVAILABLE: LOCKED IN MYSURU HARD DRIVE ]
                     </div>
                   </motion.div>
                 ))}

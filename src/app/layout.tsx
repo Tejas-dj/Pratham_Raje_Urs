@@ -11,9 +11,9 @@ import SoundToggle from "@/components/shared/SoundToggle";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://prathamrajeurs.com"),
-  title: "Pratham Raje Urs — Infinite Frames",
+  title: "Pratham Raje Urs | Infinite Frames",
   description:
-    "Pratham Raje Urs is a 19-year-old filmmaker, cinematographer, and founder of Talon Production House, Bengaluru. Chasing feelings. Framing Kannada stories. LV Prasad alumnus. Dada Saheb Phalke Festival selected.",
+    "Pratham Raje Urs is a filmmaker, cinematographer, and founder of Talon Production House, Bengaluru. Chasing feelings. Framing Kannada stories. Dada Saheb Phalke Festival selected.",
   keywords: [
     "Pratham Raje Urs",
     "filmmaker",
@@ -22,11 +22,9 @@ export const metadata: Metadata = {
     "Mysuru",
     "Bengaluru",
     "Talon Production House",
-    "wedding cinematography",
     "She Asked for Sunflowers",
     "The Christmas Guest",
     "Dada Saheb Phalke",
-    "LV Prasad",
     "portfolio",
   ],
   authors: [{ name: "Pratham Raje Urs" }],
@@ -35,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://prathamrajeurs.com",
-    title: "Pratham Raje Urs — Infinite Frames",
+    title: "Pratham Raje Urs | Infinite Frames",
     description: "Chasing Feelings. Framing Kannada Stories. From Mysuru Sunflowers to Bengaluru Golden Hours.",
     siteName: "Infinite Frames",
     images: [
@@ -43,13 +41,13 @@ export const metadata: Metadata = {
         url: "/images/image_tester_1.png",
         width: 1200,
         height: 630,
-        alt: "Pratham Raje Urs — Infinite Frames",
+        alt: "Pratham Raje Urs | Infinite Frames",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pratham Raje Urs — Infinite Frames",
+    title: "Pratham Raje Urs | Infinite Frames",
     description: "Chasing Feelings. Framing Kannada Stories.",
   },
   robots: {
@@ -78,6 +76,13 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* Preload the hero showreel so the browser fetches it before React boots */}
+        <link
+          rel="preload"
+          href="/videos/website showreel_compressed.webm"
+          as="video"
+          type="video/webm"
+        />
       </head>
       <body>
         <CursorProvider>

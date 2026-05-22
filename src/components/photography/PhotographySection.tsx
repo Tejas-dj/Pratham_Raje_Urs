@@ -9,7 +9,7 @@ import PhotoLightbox, { type LightboxPhoto } from "./PhotoLightbox";
 const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   {
     id: 1,
-    src: "/images/still_sunflowers.png",
+    src: "/images/V_motionblur.jpg",
     alt: "Golden-hour sunflower field",
     project: "She Asked for Sunflowers",
     year: "2024",
@@ -20,7 +20,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 2,
-    src: "/images/still_coffee_cold.png",
+    src: "/images/Model_Team.jpg",
     alt: "Rain-streaked café window portrait",
     project: "Before The Coffee Gets Cold",
     year: "2024",
@@ -42,7 +42,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 4,
-    src: "/images/still_monsoon.png",
+    src: "/images/Two_women.jpg",
     alt: "Red umbrella in monsoon cobblestones",
     project: "Mysuru Streets",
     year: "2024",
@@ -52,9 +52,9 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 5,
-    src: "/images/still_wedding.png",
+    src: "/images/Beach_Couple.jpg",
     alt: "Golden-hour garden ceremony",
-    project: "Wedding Cinema — Talon",
+    project: "Wedding Cinema: Talon",
     year: "2025",
     category: "Wedding Film",
     role: "Director | Editor",
@@ -74,7 +74,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 7,
-    src: "/images/still_bts.png",
+    src: "/images/still_bts.jpeg",
     alt: "Blue-hour rooftop shoot",
     project: "Behind The Frame",
     year: "2025",
@@ -84,7 +84,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 8,
-    src: "/images/still_rice_fields.png",
+    src: "/images/Beach_Scenic.jpg",
     alt: "Karnataka sunrise paddy fields",
     project: "Karnataka Diaries",
     year: "2023",
@@ -151,7 +151,7 @@ function PhotoCard({
       <div
         role="button"
         tabIndex={0}
-        aria-label={`Open ${photo.project} — ${photo.alt}`}
+        aria-label={`Open ${photo.project}: ${photo.alt}`}
         onClick={() => onOpen(index)}
         onKeyDown={(e) => e.key === "Enter" && onOpen(index)}
         onMouseEnter={() => {
@@ -396,7 +396,7 @@ export default function PhotographySection() {
               lineHeight: 1.8,
             }}
           >
-            Between frames, Pratham photographs the quiet in-between — still
+            Between frames, Pratham photographs the quiet in-between, still
             moments that cinema never gets to hold long enough.
           </p>
         </motion.div>

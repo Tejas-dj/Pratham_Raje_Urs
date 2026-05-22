@@ -32,7 +32,7 @@ export default function TheVault() {
         background: "#080808",
         padding: "120px 0 100px",
       }}
-      aria-label="The Vault — Works"
+      aria-label="The Vault: Works"
     >
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 24px" }}>
         {/* Header */}
