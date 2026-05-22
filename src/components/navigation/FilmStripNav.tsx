@@ -47,9 +47,9 @@ export default function FilmStripNav() {
         right: 0,
         zIndex: 9990,
         height: 80,
-        background: "rgba(5,5,5,0.35)",
+        background: "rgba(17,24,35,0.35)",
         backdropFilter: "blur(18px)",
-        borderBottom: "1px solid rgba(212,175,119,0.08)",
+        borderBottom: "1px solid rgba(170,146,115,0.08)",
         boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.5)" : "none",
         transition: "box-shadow 0.3s ease",
         display: "flex",
@@ -75,7 +75,7 @@ export default function FilmStripNav() {
             style={{
               width: 6,
               height: 8,
-              border: "1px solid rgba(212,175,119,0.25)",
+              border: "1px solid rgba(170,146,115,0.25)",
               borderRadius: 1,
               background: "transparent",
             }}
@@ -92,7 +92,7 @@ export default function FilmStripNav() {
             height: 60,
             width: "auto",
             display: "block",
-            filter: "drop-shadow(0 0 8px rgba(212,175,119,0.35))",
+            filter: "drop-shadow(0 0 8px rgba(170,146,115,0.35))",
           }}
         />
       </div>
@@ -114,9 +114,9 @@ export default function FilmStripNav() {
               style={{
                 width: 12,
                 height: 18,
-                border: "1px solid rgba(212,175,119,0.15)",
+                border: "1px solid rgba(170,146,115,0.15)",
                 borderRadius: 1,
-                background: "#0a0a0a",
+                background: "#111823",
                 flexShrink: 0,
                 margin: "0 3px",
               }}
@@ -143,7 +143,7 @@ export default function FilmStripNav() {
             style={{
               width: 12,
               height: 18,
-              border: "1px solid rgba(212,175,119,0.15)",
+              border: "1px solid rgba(170,146,115,0.15)",
               borderRadius: 1,
               background: "transparent",
               flexShrink: 0,
@@ -170,9 +170,9 @@ export default function FilmStripNav() {
             style={{
               width: 6,
               height: 8,
-              border: "1px solid rgba(212,175,119,0.25)",
+              border: "1px solid rgba(170,146,115,0.25)",
               borderRadius: 1,
-              background: "#0a0a0a",
+              background: "#111823",
             }}
           />
         ))}

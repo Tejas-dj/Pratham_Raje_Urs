@@ -42,7 +42,7 @@ export default function Hero({ preloaderDone }: HeroProps) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0a0a0a",
+        background: "#111823",
       }}
       aria-label="Hero: Pratham Raje Urs"
     >
@@ -51,27 +51,14 @@ export default function Hero({ preloaderDone }: HeroProps) {
 
 
 
-      {/* Scan line overlay */}
-      <div
-        className="film-scan-line"
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: 5,
-          opacity: 0.06,
-        }}
-        aria-hidden
-      />
-
-      {/* Film grain overlay */}
+      {/* Film grain overlay — kept at very low opacity for hero video only */}
       <div
         style={{
           position: "absolute",
           inset: "-100%",
           pointerEvents: "none",
           zIndex: 6,
-          opacity: 0.05,
+          opacity: 0.02,
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
           animation: "grain-shift 8s steps(10) infinite",
         }}

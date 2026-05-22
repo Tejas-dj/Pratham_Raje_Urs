@@ -55,9 +55,9 @@ export default function FilmRoll() {
       <div
         style={{
           height: 24,
-          background: "#111",
-          borderTop: "1px solid rgba(212,175,119,0.1)",
-          borderBottom: "1px solid rgba(212,175,119,0.1)",
+          background: "#45302A",
+          borderTop: "1px solid rgba(170,146,115,0.1)",
+          borderBottom: "1px solid rgba(170,146,115,0.1)",
           display: "flex",
           alignItems: "center",
           gap: 8,
@@ -73,9 +73,9 @@ export default function FilmRoll() {
             style={{
               width: 16,
               height: 12,
-              border: "1px solid rgba(212,175,119,0.2)",
+              border: "1px solid rgba(170,146,115,0.2)",
               borderRadius: 1,
-              background: "#0a0a0a",
+              background: "#111823",
               flexShrink: 0,
             }}
           />
@@ -111,9 +111,9 @@ export default function FilmRoll() {
       <div
         style={{
           height: 24,
-          background: "#111",
-          borderTop: "1px solid rgba(212,175,119,0.1)",
-          borderBottom: "1px solid rgba(212,175,119,0.1)",
+          background: "#45302A",
+          borderTop: "1px solid rgba(170,146,115,0.1)",
+          borderBottom: "1px solid rgba(170,146,115,0.1)",
           display: "flex",
           alignItems: "center",
           gap: 8,
@@ -129,9 +129,9 @@ export default function FilmRoll() {
             style={{
               width: 16,
               height: 12,
-              border: "1px solid rgba(212,175,119,0.2)",
+              border: "1px solid rgba(170,146,115,0.2)",
               borderRadius: 1,
-              background: "#0a0a0a",
+              background: "#111823",
               flexShrink: 0,
             }}
           />
@@ -146,7 +146,7 @@ export default function FilmRoll() {
           top: 0,
           bottom: 0,
           width: 60,
-          background: "linear-gradient(90deg, #0a0a0a, transparent)",
+          background: "linear-gradient(90deg, #111823, transparent)",
           pointerEvents: "none",
           zIndex: 2,
         }}
@@ -159,7 +159,7 @@ export default function FilmRoll() {
           top: 0,
           bottom: 0,
           width: 60,
-          background: "linear-gradient(-90deg, #0a0a0a, transparent)",
+          background: "linear-gradient(-90deg, #111823, transparent)",
           pointerEvents: "none",
           zIndex: 2,
         }}

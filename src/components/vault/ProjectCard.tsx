@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { Project } from "@/types";
 import { useCursorContext } from "@/providers/CursorProvider";
+import { getBlurDataUrl } from "@/lib/blur-placeholders";
 
 interface ProjectCardProps {
   project: Project;
@@ -12,10 +13,10 @@ interface ProjectCardProps {
 }
 
 const BADGE_COLORS: Record<string, string> = {
-  "He Stars In This": "#d4af77",
-  "Dada Saheb Phalke Selected": "#7ed4d4",
-  "Wedding Cinema": "#ff5e5e",
-  "Acting Reel": "#a08040",
+  "He Stars In This": "#AA9273",
+  "Dada Saheb Phalke Selected": "#7EADA9",
+  "Wedding Cinema": "#1F5560",
+  "Acting Reel": "#7EADA9",
 };
 
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
@@ -80,12 +81,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         borderRadius: 2,
         overflow: "hidden",
         cursor: "none",
-        background: "#0d0d0d",
-        border: `1px solid ${hovered ? "rgba(212,175,119,0.3)" : "rgba(212,175,119,0.08)"}`,
+        background: "#45302A",
+        border: `1px solid ${hovered ? "rgba(170,146,115,0.3)" : "rgba(170,146,115,0.08)"}`,
         transformStyle: "preserve-3d",
         transform: `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${hovered ? 1.03 : 1})`,
         transition: "transform 0.15s ease, border-color 0.3s ease",
-        boxShadow: hovered ? "0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,119,0.1)" : "none",
+        boxShadow: hovered ? "0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(170,146,115,0.1)" : "none",
       }}
       role="button"
       aria-label={`View ${project.title}`}
@@ -97,6 +98,8 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         src={project.poster}
         alt={project.title}
         fill
+        placeholder="blur"
+        blurDataURL={getBlurDataUrl(project.poster)}
         style={{
           objectFit: "cover",
           filter: hovered ? "brightness(0.7) contrast(1.1)" : "brightness(0.55) grayscale(0.3) sepia(0.15)",
@@ -131,7 +134,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         style={{
           position: "absolute",
           inset: 8,
-          border: "1px solid rgba(212,175,119,0.12)",
+          border: "1px solid rgba(170,146,115,0.12)",
           borderRadius: 1,
           pointerEvents: "none",
           opacity: hovered ? 1 : 0.4,
@@ -169,13 +172,13 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
               style={{
                 padding: "3px 8px",
                 background: "rgba(0,0,0,0.7)",
-                border: `1px solid ${BADGE_COLORS[badge] || "#d4af77"}`,
+                border: `1px solid ${BADGE_COLORS[badge] || "#AA9273"}`,
                 borderRadius: 1,
                 fontSize: 8,
                 fontFamily: "var(--font-inter), sans-serif",
                 fontWeight: 700,
                 letterSpacing: "0.2em",
-                color: BADGE_COLORS[badge] || "#d4af77",
+                color: BADGE_COLORS[badge] || "#AA9273",
                 textTransform: "uppercase",
               }}
             >
@@ -193,7 +196,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
           right: 14,
           fontFamily: "Courier New, monospace",
           fontSize: 9,
-          color: "rgba(212,175,119,0.4)",
+          color: "rgba(170,146,115,0.4)",
           letterSpacing: "0.1em",
         }}
       >
@@ -215,7 +218,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
             fontFamily: "var(--font-cinzel), serif",
             fontSize: "clamp(0.8rem, 1.4vw, 1rem)",
             fontWeight: 700,
-            color: "#f5f0e8",
+            color: "#F8F4ED",
             letterSpacing: "0.06em",
             marginBottom: 4,
           }}
@@ -226,7 +229,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
           style={{
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 10,
-            color: "rgba(245,240,232,0.4)",
+            color: "rgba(248,244,237,0.4)",
             letterSpacing: "0.1em",
             opacity: hovered ? 1 : 0.6,
             transition: "opacity 0.3s ease",
@@ -248,12 +251,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 9,
             letterSpacing: "0.25em",
-            color: "#d4af77",
+            color: "#AA9273",
             textTransform: "uppercase",
           }}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4af77">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="#d4af77" strokeWidth="1.5" />
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#AA9273">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="#AA9273" strokeWidth="1.5" />
             <path d="M10 8l6 4-6 4V8z" />
           </svg>
           Click to Screen

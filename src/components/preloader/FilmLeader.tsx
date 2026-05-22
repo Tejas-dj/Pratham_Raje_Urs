@@ -157,7 +157,7 @@ export default function FilmLeader({ onComplete }: FilmLeaderProps) {
                 position: "absolute",
                 width: 12,
                 height: 12,
-                borderColor: "rgba(212,175,119,0.5)",
+                borderColor: "rgba(170,146,115,0.5)",
                 borderStyle: "solid",
                 borderWidth:
                   i === 0 ? "1px 0 0 1px"
@@ -180,7 +180,7 @@ export default function FilmLeader({ onComplete }: FilmLeaderProps) {
               display: "inline-block",
               width: 2,
               height: "1em",
-              background: "#d4af77",
+              background: "#AA9273",
               marginLeft: 2,
               verticalAlign: "middle",
               animation: "countFlicker 0.5s steps(1) infinite",
@@ -199,7 +199,7 @@ export default function FilmLeader({ onComplete }: FilmLeaderProps) {
           fontFamily: "var(--font-cinzel), serif",
           fontSize: 11,
           letterSpacing: "0.6em",
-          color: "rgba(212,175,119,0.3)",
+          color: "rgba(170,146,115,0.3)",
           textTransform: "uppercase",
           fontWeight: 700,
         }}

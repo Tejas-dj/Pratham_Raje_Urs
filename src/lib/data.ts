@@ -69,7 +69,7 @@ export const SERVICES: Service[] = [
     title: "Narrative Shorts & Indie Kannada Films",
     description:
       "Emotionally raw stories that chase feelings, not formulas. From concept to final grade, Pratham brings the full weight of a festival-selected filmmaker to every project.",
-    color: "#7ED4D4",
+    color: "#7EADA9",
     icon: "film",
     videoLoop: "/videos/sample_video.mp4",
   },
@@ -78,7 +78,7 @@ export const SERVICES: Service[] = [
     title: "Commercial & Brand Films",
     description:
       "Visual stories that make brands unforgettable. Cinematic storytelling applied to your product, because great brands deserve more than ads. They deserve films.",
-    color: "#FF5E5E",
+    color: "#1F5560",
     icon: "star",
     videoLoop: "/videos/sample_video.mp4",
   },
@@ -87,7 +87,7 @@ export const SERVICES: Service[] = [
     title: "DOP · Editing · Color Grading",
     description:
       "Hire the eye. Phalke-selected. Full post-production pipeline, from set to screen, with obsessive cinematic precision and that signature Kannada golden-hour warmth.",
-    color: "#F5F0E8",
+    color: "#F8F4ED",
     icon: "aperture",
     videoLoop: "/videos/sample_video.mp4",
   },

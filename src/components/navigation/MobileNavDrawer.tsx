@@ -30,8 +30,8 @@ export default function MobileNavDrawer() {
           top: 14,
           right: 16,
           zIndex: 9995,
-          background: "rgba(10,10,10,0.9)",
-          border: "1px solid rgba(212,175,119,0.3)",
+          background: "rgba(17,24,35,0.9)",
+          border: "1px solid rgba(170,146,115,0.3)",
           borderRadius: 4,
           width: 36,
           height: 36,
@@ -51,7 +51,7 @@ export default function MobileNavDrawer() {
             style={{
               width: 18,
               height: 1.5,
-              background: "#d4af77",
+              background: "#AA9273",
               borderRadius: 1,
               transformOrigin: "center",
             }}
@@ -106,8 +106,8 @@ export default function MobileNavDrawer() {
                 left: 0,
                 right: 0,
                 zIndex: 9994,
-                background: "#0d0d0d",
-                borderTop: "2px solid rgba(212,175,119,0.2)",
+                background: "#45302A",
+                borderTop: "2px solid rgba(170,146,115,0.2)",
                 borderRadius: "16px 16px 0 0",
                 padding: "12px 0 40px",
               }}
@@ -117,7 +117,7 @@ export default function MobileNavDrawer() {
                 style={{
                   width: 36,
                   height: 4,
-                  background: "rgba(212,175,119,0.3)",
+                  background: "rgba(170,146,115,0.3)",
                   borderRadius: 2,
                   margin: "0 auto 16px",
                 }}
@@ -130,7 +130,7 @@ export default function MobileNavDrawer() {
                   fontFamily: "var(--font-cinzel), serif",
                   fontSize: 12,
                   letterSpacing: "0.6em",
-                  color: "rgba(212,175,119,0.5)",
+                  color: "rgba(170,146,115,0.5)",
                   marginBottom: 20,
                   textTransform: "uppercase",
                 }}
@@ -161,7 +161,7 @@ export default function MobileNavDrawer() {
                       padding: "14px 0",
                       background: "none",
                       border: "none",
-                      borderBottom: "1px solid rgba(212,175,119,0.08)",
+                      borderBottom: "1px solid rgba(170,146,115,0.08)",
                       cursor: "none",
                       textAlign: "left",
                     }}
@@ -170,7 +170,7 @@ export default function MobileNavDrawer() {
                       style={{
                         width: 8,
                         height: 12,
-                        border: "1px solid rgba(212,175,119,0.3)",
+                        border: "1px solid rgba(170,146,115,0.3)",
                         borderRadius: 1,
                         flexShrink: 0,
                       }}
@@ -181,7 +181,7 @@ export default function MobileNavDrawer() {
                         fontSize: 14,
                         fontWeight: 600,
                         letterSpacing: "0.25em",
-                        color: "#f5f0e8",
+                        color: "#F8F4ED",
                         textTransform: "uppercase",
                       }}
                     >
@@ -192,7 +192,7 @@ export default function MobileNavDrawer() {
                       style={{
                         fontFamily: "Courier New, monospace",
                         fontSize: 9,
-                        color: "rgba(212,175,119,0.3)",
+                        color: "rgba(170,146,115,0.3)",
                       }}
                     >
                       {String(i + 1).padStart(2, "0")}

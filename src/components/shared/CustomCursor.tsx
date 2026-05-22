@@ -74,18 +74,18 @@ export default function CustomCursor() {
                 <path
                   key={i}
                   d={`M 32 32 L ${32 + 18 * Math.cos((angle * Math.PI) / 180)} ${32 + 18 * Math.sin((angle * Math.PI) / 180)} A 18 18 0 0 1 ${32 + 18 * Math.cos(((angle + 26) * Math.PI) / 180)} ${32 + 18 * Math.sin(((angle + 26) * Math.PI) / 180)} Z`}
-                  fill="rgba(212,175,119,0.1)"
-                  stroke="rgba(212,175,119,0.75)"
+                  fill="rgba(170,146,115,0.1)"
+                  stroke="rgba(170,146,115,0.75)"
                   strokeWidth="0.8"
                 />
               ))}
-              <circle cx="32" cy="32" r="21" fill="none" stroke="rgba(212,175,119,0.85)" strokeWidth="1.2" />
-              <circle cx="32" cy="32" r="9" fill="none" stroke="rgba(212,175,119,0.25)" strokeWidth="0.6" strokeDasharray="2 3" />
+              <circle cx="32" cy="32" r="21" fill="none" stroke="rgba(170,146,115,0.85)" strokeWidth="1.2" />
+              <circle cx="32" cy="32" r="9" fill="none" stroke="rgba(170,146,115,0.25)" strokeWidth="0.6" strokeDasharray="2 3" />
             </>
           ) : isDrag ? (
             <>
-              <circle cx="32" cy="32" r="20" fill="none" stroke="rgba(212,175,119,0.4)" strokeWidth="1.5" strokeDasharray="6 3" />
-              <text x="32" y="36" textAnchor="middle" fill="#d4af77" fontSize="8" fontFamily="Inter, sans-serif" letterSpacing="1">DRAG</text>
+              <circle cx="32" cy="32" r="20" fill="none" stroke="rgba(170,146,115,0.4)" strokeWidth="1.5" strokeDasharray="6 3" />
+              <text x="32" y="36" textAnchor="middle" fill="#AA9273" fontSize="8" fontFamily="Inter, sans-serif" letterSpacing="1">DRAG</text>
             </>
           ) : (
             <>
@@ -94,13 +94,13 @@ export default function CustomCursor() {
                 <path
                   key={i}
                   d={`M 32 32 L ${32 + 14 * Math.cos((angle * Math.PI) / 180)} ${32 + 14 * Math.sin((angle * Math.PI) / 180)} A 14 14 0 0 1 ${32 + 14 * Math.cos(((angle + 50) * Math.PI) / 180)} ${32 + 14 * Math.sin(((angle + 50) * Math.PI) / 180)} Z`}
-                  fill="rgba(212,175,119,0.15)"
-                  stroke="rgba(212,175,119,0.5)"
+                  fill="rgba(170,146,115,0.15)"
+                  stroke="rgba(170,146,115,0.5)"
                   strokeWidth="0.5"
                 />
               ))}
-              <circle cx="32" cy="32" r="16" fill="none" stroke="rgba(212,175,119,0.6)" strokeWidth="1" />
-              <circle cx="32" cy="32" r="4" fill="rgba(212,175,119,0.8)" />
+              <circle cx="32" cy="32" r="16" fill="none" stroke="rgba(170,146,115,0.6)" strokeWidth="1" />
+              <circle cx="32" cy="32" r="4" fill="rgba(170,146,115,0.8)" />
             </>
           )}
         </svg>
@@ -115,14 +115,14 @@ export default function CustomCursor() {
           left: 0,
           width: 4,
           height: 4,
-          background: "#d4af77",
+          background: "#AA9273",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 100000,
           willChange: "transform",
           opacity: isHidden ? 0 : 1,
           transition: "opacity 0.2s ease",
-          boxShadow: "0 0 6px rgba(212,175,119,0.8)",
+          boxShadow: "0 0 6px rgba(170,146,115,0.8)",
         }}
       />
     </>

@@ -92,7 +92,7 @@ export default function PhotoLightbox({
           position: "fixed",
           inset: 0,
           zIndex: 9999,
-          background: "rgba(4,4,4,0.97)",
+          background: "rgba(17,24,35,0.97)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -115,7 +115,7 @@ export default function PhotoLightbox({
             alignItems: "center",
             justifyContent: "space-between",
             zIndex: 2,
-            background: "linear-gradient(to bottom, rgba(4,4,4,0.8) 0%, transparent 100%)",
+            background: "linear-gradient(to bottom, rgba(17,24,35,0.8) 0%, transparent 100%)",
           }}
         >
           {/* Counter */}
@@ -124,7 +124,7 @@ export default function PhotoLightbox({
               fontFamily: "'Courier New', monospace",
               fontSize: 11,
               letterSpacing: "0.25em",
-              color: "rgba(212,175,119,0.55)",
+              color: "rgba(170,146,115,0.55)",
             }}
           >
             {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;{String(photos.length).padStart(2, "0")}
@@ -136,7 +136,7 @@ export default function PhotoLightbox({
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 10,
               letterSpacing: "0.35em",
-              color: "rgba(212,175,119,0.45)",
+              color: "rgba(170,146,115,0.45)",
               textTransform: "uppercase",
             }}
           >
@@ -149,8 +149,8 @@ export default function PhotoLightbox({
             aria-label="Close lightbox"
             style={{
               background: "none",
-              border: "1px solid rgba(212,175,119,0.25)",
-              color: "rgba(212,175,119,0.7)",
+              border: "1px solid rgba(170,146,115,0.25)",
+              color: "rgba(170,146,115,0.7)",
               width: 36,
               height: 36,
               borderRadius: 2,
@@ -161,12 +161,12 @@ export default function PhotoLightbox({
               transition: "border-color 0.2s, color 0.2s",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(212,175,119,0.7)";
-              (e.currentTarget as HTMLButtonElement).style.color = "#d4af77";
+              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(170,146,115,0.7)";
+              (e.currentTarget as HTMLButtonElement).style.color = "#AA9273";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(212,175,119,0.25)";
-              (e.currentTarget as HTMLButtonElement).style.color = "rgba(212,175,119,0.7)";
+              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(170,146,115,0.25)";
+              (e.currentTarget as HTMLButtonElement).style.color = "rgba(170,146,115,0.7)";
             }}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -192,10 +192,10 @@ export default function PhotoLightbox({
         >
           {/* Film-frame corner brackets */}
           {[
-            { top: 80, left: 80, borderTop: "1px solid rgba(212,175,119,0.2)", borderLeft: "1px solid rgba(212,175,119,0.2)" },
-            { top: 80, right: 80, borderTop: "1px solid rgba(212,175,119,0.2)", borderRight: "1px solid rgba(212,175,119,0.2)" },
-            { bottom: 100, left: 80, borderBottom: "1px solid rgba(212,175,119,0.2)", borderLeft: "1px solid rgba(212,175,119,0.2)" },
-            { bottom: 100, right: 80, borderBottom: "1px solid rgba(212,175,119,0.2)", borderRight: "1px solid rgba(212,175,119,0.2)" },
+            { top: 80, left: 80, borderTop: "1px solid rgba(170,146,115,0.2)", borderLeft: "1px solid rgba(170,146,115,0.2)" },
+            { top: 80, right: 80, borderTop: "1px solid rgba(170,146,115,0.2)", borderRight: "1px solid rgba(170,146,115,0.2)" },
+            { bottom: 100, left: 80, borderBottom: "1px solid rgba(170,146,115,0.2)", borderLeft: "1px solid rgba(170,146,115,0.2)" },
+            { bottom: 100, right: 80, borderBottom: "1px solid rgba(170,146,115,0.2)", borderRight: "1px solid rgba(170,146,115,0.2)" },
           ].map((cs, i) => (
             <div
               key={i}
@@ -220,7 +220,7 @@ export default function PhotoLightbox({
                 objectFit: "contain",
                 display: "block",
                 filter: "brightness(0.92) contrast(1.05)",
-                boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(212,175,119,0.08)",
+                boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(170,146,115,0.08)",
               }}
               draggable={false}
             />
@@ -238,7 +238,7 @@ export default function PhotoLightbox({
             display: "flex",
             alignItems: "flex-end",
             justifyContent: "space-between",
-            background: "linear-gradient(to top, rgba(4,4,4,0.9) 0%, transparent 100%)",
+            background: "linear-gradient(to top, rgba(17,24,35,0.9) 0%, transparent 100%)",
           }}
         >
           <div>
@@ -253,7 +253,7 @@ export default function PhotoLightbox({
                   fontFamily: "var(--font-cinzel), serif",
                   fontSize: "clamp(0.85rem, 1.6vw, 1.15rem)",
                   fontWeight: 700,
-                  color: "#d4af77",
+                  color: "#AA9273",
                   letterSpacing: "0.12em",
                   marginBottom: 4,
                 }}
@@ -271,7 +271,7 @@ export default function PhotoLightbox({
                 style={{
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: 11,
-                  color: "rgba(245,240,232,0.4)",
+                  color: "rgba(248,244,237,0.4)",
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
                 }}
@@ -290,7 +290,7 @@ export default function PhotoLightbox({
                   style={{
                     fontFamily: "var(--font-inter), sans-serif",
                     fontSize: 11,
-                    color: "rgba(212,175,119,0.8)",
+                    color: "rgba(170,146,115,0.8)",
                     marginTop: 8,
                     maxWidth: 500,
                     lineHeight: 1.4,
@@ -308,7 +308,7 @@ export default function PhotoLightbox({
               style={{
                 fontFamily: "'Courier New', monospace",
                 fontSize: 11,
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 letterSpacing: "0.15em",
                 display: "block",
                 marginBottom: 4,
@@ -321,7 +321,7 @@ export default function PhotoLightbox({
               style={{
                 fontFamily: "'Courier New', monospace",
                 fontSize: 12,
-                color: "rgba(212,175,119,0.35)",
+                color: "rgba(170,146,115,0.35)",
                 letterSpacing: "0.15em",
               }}
             >
@@ -344,9 +344,9 @@ export default function PhotoLightbox({
               top: "50%",
               [side]: 20,
               transform: "translateY(-50%)",
-              background: "rgba(10,10,10,0.6)",
-              border: "1px solid rgba(212,175,119,0.2)",
-              color: "rgba(212,175,119,0.65)",
+              background: "rgba(17,24,35,0.6)",
+              border: "1px solid rgba(170,146,115,0.2)",
+              color: "rgba(170,146,115,0.65)",
               width: 44,
               height: 44,
               borderRadius: 2,
@@ -361,15 +361,15 @@ export default function PhotoLightbox({
             }}
             onMouseEnter={(e) => {
               const btn = e.currentTarget as HTMLButtonElement;
-              btn.style.borderColor = "rgba(212,175,119,0.6)";
-              btn.style.color = "#d4af77";
-              btn.style.background = "rgba(30,20,10,0.8)";
+              btn.style.borderColor = "rgba(170,146,115,0.6)";
+              btn.style.color = "#AA9273";
+              btn.style.background = "rgba(17,24,35,0.8)";
             }}
             onMouseLeave={(e) => {
               const btn = e.currentTarget as HTMLButtonElement;
-              btn.style.borderColor = "rgba(212,175,119,0.2)";
-              btn.style.color = "rgba(212,175,119,0.65)";
-              btn.style.background = "rgba(10,10,10,0.6)";
+              btn.style.borderColor = "rgba(170,146,115,0.2)";
+              btn.style.color = "rgba(170,146,115,0.65)";
+              btn.style.background = "rgba(17,24,35,0.6)";
             }}
           >
             {icon}
@@ -398,7 +398,7 @@ export default function PhotoLightbox({
                 height: 5,
                 borderRadius: 3,
                 border: "none",
-                background: i === current ? "#d4af77" : "rgba(212,175,119,0.25)",
+                background: i === current ? "#AA9273" : "rgba(170,146,115,0.25)",
                 transition: "width 0.3s ease, background 0.3s ease",
                 cursor: "none",
                 padding: 0,

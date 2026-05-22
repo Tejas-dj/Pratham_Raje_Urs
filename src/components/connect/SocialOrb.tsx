@@ -39,7 +39,7 @@ export default function SocialOrb({ platform, href, icon, color, label }: Social
           scale: hovered ? 1.15 : 1,
           boxShadow: hovered
             ? `0 0 0 1px ${color}40, 0 0 24px ${color}30`
-            : "0 0 0 1px rgba(212,175,119,0.1)",
+            : "0 0 0 1px rgba(170,146,115,0.1)",
         }}
         transition={
           hovered
@@ -79,7 +79,7 @@ export default function SocialOrb({ platform, href, icon, color, label }: Social
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: 9,
           letterSpacing: "0.2em",
-          color: hovered ? color : "rgba(245,240,232,0.3)",
+          color: hovered ? color : "rgba(248,244,237,0.3)",
           textTransform: "uppercase",
           transition: "color 0.25s ease",
         }}
@@ -92,6 +92,6 @@ export default function SocialOrb({ platform, href, icon, color, label }: Social
 
 function hexToRgb(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return "212, 175, 119";
+  if (!result) return "170, 146, 115";
   return `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`;
 }

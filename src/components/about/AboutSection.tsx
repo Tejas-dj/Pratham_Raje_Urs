@@ -22,7 +22,7 @@ export default function AboutSection() {
       style={{
         position: "relative",
         minHeight: "100vh",
-        background: "#0a0a0a",
+        background: "#111823",
         padding: "100px 0 80px",
         overflow: "hidden",
       }}
@@ -48,7 +48,7 @@ export default function AboutSection() {
               left: `${(i * 3.4) % 100}%`,
               width: "1px",
               height: `${h}px`,
-              backgroundImage: "linear-gradient(to bottom, transparent, rgba(212,175,119,0.4), transparent)",
+              backgroundImage: "linear-gradient(to bottom, transparent, rgba(170,146,115,0.4), transparent)",
               animationName: "fall",
               animationDuration: `${1.8 + (i % 5) * 0.4}s`,
               animationTimingFunction: "linear",
@@ -93,10 +93,10 @@ export default function AboutSection() {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.1rem, 3vw, 2rem)",
               fontWeight: 400,
-              color: "#d4af77",
+              color: "#AA9273",
               fontStyle: "italic",
               lineHeight: 1.5,
-              textShadow: "0 0 40px rgba(212,175,119,0.2)",
+              textShadow: "0 0 40px rgba(170,146,115,0.2)",
               marginBottom: 16,
             }}
           >
@@ -109,7 +109,7 @@ export default function AboutSection() {
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 11,
               letterSpacing: "0.3em",
-              color: "rgba(212,175,119,0.4)",
+              color: "rgba(170,146,115,0.4)",
               textTransform: "uppercase",
             }}
           >
@@ -132,13 +132,13 @@ export default function AboutSection() {
               marginBottom: 8,
             }}
           >
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 10,
                 letterSpacing: "0.4em",
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 textTransform: "uppercase",
               }}
             >
@@ -150,7 +150,7 @@ export default function AboutSection() {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.4rem, 3.5vw, 2.4rem)",
               fontWeight: 800,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.08em",
             }}
           >
@@ -199,7 +199,7 @@ export default function AboutSection() {
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 15,
                 lineHeight: 1.9,
-                color: "rgba(245,240,232,0.7)",
+                color: "rgba(248,244,237,0.7)",
                 marginBottom: 20,
               }}
             >
@@ -213,22 +213,22 @@ export default function AboutSection() {
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 15,
                 lineHeight: 1.9,
-                color: "rgba(245,240,232,0.7)",
+                color: "rgba(248,244,237,0.7)",
                 marginBottom: 20,
               }}
             >
               He founded{" "}
-              <span style={{ color: "#d4af77", fontWeight: 600 }}>Talon Production House</span>, a home for
+              <span style={{ color: "#AA9273", fontWeight: 600 }}>Talon Production House</span>, a home for
               Kannada stories that dare to feel something. His short films have earned a Dada Saheb Phalke
               Festival selection, and he&apos;s even stepped in front of the lens as an actor in{" "}
-              <span style={{ color: "#7ed4d4", fontStyle: "italic" }}>Sees Kaddi</span>.
+              <span style={{ color: "#7EADA9", fontStyle: "italic" }}>Sees Kaddi</span>.
             </p>
             <p
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 15,
                 lineHeight: 1.9,
-                color: "rgba(245,240,232,0.7)",
+                color: "rgba(248,244,237,0.7)",
               }}
             >
               At 19, Pratham is just getting started. Every frame is still a chase. Every film is still a feeling.
@@ -261,8 +261,8 @@ export default function AboutSection() {
                       fontFamily: "var(--font-cinzel), serif",
                       fontSize: 28,
                       fontWeight: 900,
-                      color: "#d4af77",
-                      textShadow: "0 0 20px rgba(212,175,119,0.3)",
+                      color: "#AA9273",
+                      textShadow: "0 0 20px rgba(170,146,115,0.3)",
                     }}
                   >
                     {stat.num}
@@ -272,7 +272,7 @@ export default function AboutSection() {
                       fontFamily: "var(--font-inter), sans-serif",
                       fontSize: 10,
                       letterSpacing: "0.2em",
-                      color: "rgba(245,240,232,0.4)",
+                      color: "rgba(248,244,237,0.4)",
                       textTransform: "uppercase",
                       marginTop: 2,
                     }}

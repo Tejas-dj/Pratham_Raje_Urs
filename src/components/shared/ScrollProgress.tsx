@@ -44,11 +44,11 @@ export default function ScrollProgress() {
           style={{
             width: 8,
             height: 12,
-            border: "1px solid rgba(212,175,119,0.25)",
+            border: "1px solid rgba(31,85,96,0.25)",
             borderRadius: 1,
-            background: i < filledCount ? "rgba(212,175,119,0.7)" : "transparent",
+            background: i < filledCount ? "rgba(31,85,96,0.7)" : "transparent",
             transition: "background 0.3s ease",
-            boxShadow: i < filledCount ? "0 0 4px rgba(212,175,119,0.4)" : "none",
+            boxShadow: i < filledCount ? "0 0 4px rgba(31,85,96,0.4)" : "none",
           }}
         />
       ))}

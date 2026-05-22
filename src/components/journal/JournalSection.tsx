@@ -16,7 +16,7 @@ export default function JournalSection() {
       style={{
         position: "relative",
         minHeight: "80vh",
-        background: "#0a0a0a",
+        background: "#111823",
         padding: "100px 0 80px",
       }}
       aria-label="Journal: Director's Sketchbook"
@@ -30,13 +30,13 @@ export default function JournalSection() {
           style={{ marginBottom: 48 }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 10,
                 letterSpacing: "0.4em",
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 textTransform: "uppercase",
               }}
             >
@@ -48,7 +48,7 @@ export default function JournalSection() {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.4rem, 3.5vw, 2.4rem)",
               fontWeight: 800,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.08em",
             }}
           >
@@ -87,7 +87,7 @@ export default function JournalSection() {
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 10,
             letterSpacing: "0.3em",
-            color: "rgba(212,175,119,0.3)",
+            color: "rgba(170,146,115,0.3)",
             textTransform: "uppercase",
           }}
         >

@@ -55,7 +55,7 @@ export default function FilmStrip3D({ videoSrc, position, rotation, index }: Fil
       {/* Strip background */}
       <mesh>
         <planeGeometry args={[2.2, 1.6]} />
-        <meshBasicMaterial color="#0d0d0d" transparent opacity={0.9} />
+        <meshBasicMaterial color="#111823" transparent opacity={0.9} />
       </mesh>
 
       {/* Video frame — useVideoTexture handles autoplay + browser policy */}
@@ -70,7 +70,7 @@ export default function FilmStrip3D({ videoSrc, position, rotation, index }: Fil
       {Array.from({ length: 6 }).map((_, i) => (
         <mesh key={`top-${i}`} position={[-1.1 + i * 0.44, 0.7, 0.002]}>
           <planeGeometry args={[0.14, 0.18]} />
-          <meshBasicMaterial color="#0a0a0a" transparent opacity={0.8} />
+          <meshBasicMaterial color="#111823" transparent opacity={0.8} />
         </mesh>
       ))}
 
@@ -78,14 +78,14 @@ export default function FilmStrip3D({ videoSrc, position, rotation, index }: Fil
       {Array.from({ length: 6 }).map((_, i) => (
         <mesh key={`bot-${i}`} position={[-1.1 + i * 0.44, -0.7, 0.002]}>
           <planeGeometry args={[0.14, 0.18]} />
-          <meshBasicMaterial color="#0a0a0a" transparent opacity={0.8} />
+          <meshBasicMaterial color="#111823" transparent opacity={0.8} />
         </mesh>
       ))}
 
       {/* Frame border */}
       <mesh position={[0, 0, 0.003]}>
         <planeGeometry args={[1.82, 1.22]} />
-        <meshBasicMaterial color="#d4af77" transparent opacity={0.15} wireframe />
+        <meshBasicMaterial color="#AA9273" transparent opacity={0.15} wireframe />
       </mesh>
     </group>
   );

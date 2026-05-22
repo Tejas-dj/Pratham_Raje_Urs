@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import type { JournalPost } from "@/types";
 import { useCursorContext } from "@/providers/CursorProvider";
+import { getBlurDataUrl } from "@/lib/blur-placeholders";
 
 interface JournalCardProps {
   post: JournalPost;
@@ -39,8 +40,8 @@ export default function JournalCard({ post }: JournalCardProps) {
       }}
       style={{
         position: "relative",
-        background: "#0d0d0d",
-        border: `1px solid ${hovered ? "rgba(212,175,119,0.25)" : "rgba(212,175,119,0.08)"}`,
+        background: "#45302A",
+        border: `1px solid ${hovered ? "rgba(170,146,115,0.25)" : "rgba(170,146,115,0.08)"}`,
         borderRadius: 2,
         overflow: "hidden",
         cursor: "none",
@@ -56,6 +57,8 @@ export default function JournalCard({ post }: JournalCardProps) {
             src={post.image}
             alt={post.title}
             fill
+            placeholder="blur"
+            blurDataURL={getBlurDataUrl(post.image)}
             style={{
               objectFit: "cover",
               filter: hovered ? "brightness(0.8) contrast(1.05)" : "brightness(0.6) grayscale(0.2) sepia(0.15)",
@@ -93,13 +96,13 @@ export default function JournalCard({ post }: JournalCardProps) {
             left: 12,
             padding: "3px 10px",
             background: "rgba(0,0,0,0.7)",
-            border: "1px solid rgba(212,175,119,0.3)",
+            border: "1px solid rgba(170,146,115,0.3)",
             borderRadius: 1,
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 8,
             fontWeight: 700,
             letterSpacing: "0.25em",
-            color: "#d4af77",
+            color: "#AA9273",
             textTransform: "uppercase",
           }}
         >
@@ -122,18 +125,18 @@ export default function JournalCard({ post }: JournalCardProps) {
               style={{
                 fontFamily: "Courier New, monospace",
                 fontSize: 9,
-                color: "rgba(212,175,119,0.4)",
+                color: "rgba(170,146,115,0.4)",
                 letterSpacing: "0.1em",
               }}
             >
               {new Date(post.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
             </span>
-            <span style={{ color: "rgba(212,175,119,0.2)" }}>·</span>
+            <span style={{ color: "rgba(170,146,115,0.2)" }}>·</span>
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 9,
-                color: "rgba(245,240,232,0.3)",
+                color: "rgba(248,244,237,0.3)",
                 letterSpacing: "0.1em",
               }}
             >
@@ -146,7 +149,7 @@ export default function JournalCard({ post }: JournalCardProps) {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(0.85rem, 1.5vw, 1rem)",
               fontWeight: 700,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.05em",
               marginBottom: 8,
               lineHeight: 1.4,
@@ -159,7 +162,7 @@ export default function JournalCard({ post }: JournalCardProps) {
             style={{
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 12,
-              color: "rgba(245,240,232,0.5)",
+              color: "rgba(248,244,237,0.5)",
               lineHeight: 1.6,
               marginBottom: 14,
             }}
@@ -175,7 +178,7 @@ export default function JournalCard({ post }: JournalCardProps) {
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 9,
               letterSpacing: "0.2em",
-              color: hovered ? "#d4af77" : "rgba(212,175,119,0.3)",
+              color: hovered ? "#AA9273" : "rgba(170,146,115,0.3)",
               textTransform: "uppercase",
               transition: "color 0.3s ease",
             }}

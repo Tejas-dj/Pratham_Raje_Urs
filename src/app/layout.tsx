@@ -5,7 +5,6 @@ import { LenisProvider } from "@/providers/LenisProvider";
 import { SoundProvider } from "@/providers/SoundProvider";
 import { CursorProvider } from "@/providers/CursorProvider";
 import CustomCursor from "@/components/shared/CustomCursor";
-import FilmGrainOverlay from "@/components/shared/FilmGrainOverlay";
 import ScrollProgress from "@/components/shared/ScrollProgress";
 import SoundToggle from "@/components/shared/SoundToggle";
 
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0a0a0a",
+  themeColor: "#111823",
 };
 
 export default function RootLayout({
@@ -71,7 +70,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cinzel.variable} ${inter.variable}`}
-      style={{ background: "#0a0a0a" }}
+      style={{ background: "#111823" }}
     >
       <head>
         <link rel="manifest" href="/manifest.json" />
@@ -89,7 +88,6 @@ export default function RootLayout({
           <SoundProvider>
             <LenisProvider>
               {/* Global overlays */}
-              <FilmGrainOverlay />
               <CustomCursor />
               <ScrollProgress />
               <SoundToggle />

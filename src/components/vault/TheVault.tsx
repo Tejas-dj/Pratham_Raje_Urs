@@ -29,7 +29,7 @@ export default function TheVault() {
       style={{
         position: "relative",
         minHeight: "100vh",
-        background: "#080808",
+        background: "#111823",
         padding: "120px 0 100px",
       }}
       aria-label="The Vault: Works"
@@ -50,13 +50,13 @@ export default function TheVault() {
               marginBottom: 12,
             }}
           >
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 10,
                 letterSpacing: "0.4em",
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 textTransform: "uppercase",
               }}
             >
@@ -69,7 +69,7 @@ export default function TheVault() {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
               fontWeight: 800,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.08em",
               marginBottom: 24,
             }}
@@ -94,10 +94,10 @@ export default function TheVault() {
                 whileTap={{ scale: 0.97 }}
                 style={{
                   padding: "8px 20px",
-                  background: activeFilter === f ? "rgba(212,175,119,0.12)" : "transparent",
-                  border: `1px solid ${activeFilter === f ? "rgba(212,175,119,0.4)" : "rgba(212,175,119,0.1)"}`,
+                  background: activeFilter === f ? "rgba(170,146,115,0.12)" : "transparent",
+                  border: `1px solid ${activeFilter === f ? "rgba(170,146,115,0.4)" : "rgba(170,146,115,0.1)"}`,
                   borderRadius: 2,
-                  color: activeFilter === f ? "#d4af77" : "rgba(245,240,232,0.4)",
+                  color: activeFilter === f ? "#AA9273" : "rgba(248,244,237,0.4)",
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: 11,
                   fontWeight: 600,

@@ -20,7 +20,7 @@ const TheVault = dynamic(() => import("@/components/vault/TheVault"), {
       id="vault"
       style={{
         minHeight: "100vh",
-        background: "#080808",
+        background: "#111823",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -31,7 +31,7 @@ const TheVault = dynamic(() => import("@/components/vault/TheVault"), {
           fontFamily: "var(--font-cinzel), serif",
           fontSize: 12,
           letterSpacing: "0.4em",
-          color: "rgba(212,175,119,0.3)",
+          color: "rgba(170,146,115,0.3)",
           textTransform: "uppercase",
           animation: "film-flicker 2s infinite alternate",
         }}
@@ -47,7 +47,7 @@ const ServicesSection = dynamic(() => import("@/components/services/ServicesSect
   loading: () => (
     <section
       id="services"
-      style={{ minHeight: "100vh", background: "#060608" }}
+      style={{ minHeight: "100vh", background: "#111823" }}
     />
   ),
 });

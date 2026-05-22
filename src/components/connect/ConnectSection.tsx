@@ -10,7 +10,7 @@ const CONTACT_ITEMS = [
     value: "hello@prathamrajeurs.com",
     href: "mailto:hello@prathamrajeurs.com",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4af77" strokeWidth="1.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AA9273" strokeWidth="1.5">
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
         <polyline points="22,6 12,13 2,6" />
       </svg>
@@ -21,7 +21,7 @@ const CONTACT_ITEMS = [
     value: "+91 XXXXX XXXXX",
     href: "tel:+91XXXXXXXXXX",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4af77" strokeWidth="1.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AA9273" strokeWidth="1.5">
         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
       </svg>
     ),
@@ -31,10 +31,10 @@ const CONTACT_ITEMS = [
     value: "@prathamrajeurs",
     href: "https://instagram.com/prathamrajeurs",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4af77" strokeWidth="1.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AA9273" strokeWidth="1.5">
         <rect x="2" y="2" width="20" height="20" rx="5" />
         <circle cx="12" cy="12" r="4" />
-        <circle cx="17.5" cy="6.5" r="1" fill="#d4af77" stroke="none" />
+        <circle cx="17.5" cy="6.5" r="1" fill="#AA9273" stroke="none" />
       </svg>
     ),
   },
@@ -62,7 +62,7 @@ export default function ConnectSection() {
       ref={sectionRef}
       style={{
         position: "relative",
-        background: "#080808",
+        background: "#111823",
         padding: "100px 0 0",
         overflow: "hidden",
       }}
@@ -85,26 +85,26 @@ export default function ConnectSection() {
               marginBottom: 8,
             }}
           >
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 10,
                 letterSpacing: "0.4em",
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 textTransform: "uppercase",
               }}
             >
               Get In Touch
             </span>
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
           </div>
           <h2
             style={{
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.4rem, 4vw, 2.8rem)",
               fontWeight: 800,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.08em",
               marginBottom: 12,
             }}
@@ -115,7 +115,7 @@ export default function ConnectSection() {
             style={{
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 14,
-              color: "rgba(245,240,232,0.4)",
+              color: "rgba(248,244,237,0.4)",
               lineHeight: 1.8,
               maxWidth: 480,
               margin: "0 auto",
@@ -156,8 +156,8 @@ export default function ConnectSection() {
                 alignItems: "center",
                 gap: 14,
                 padding: "32px 36px",
-                background: "rgba(212,175,119,0.03)",
-                border: "1px solid rgba(212,175,119,0.12)",
+                background: "rgba(170,146,115,0.03)",
+                border: "1px solid rgba(170,146,115,0.12)",
                 borderRadius: 4,
                 textDecoration: "none",
                 cursor: "none",
@@ -171,12 +171,12 @@ export default function ConnectSection() {
                 style={{
                   width: 52,
                   height: 52,
-                  border: "1px solid rgba(212,175,119,0.2)",
+                  border: "1px solid rgba(170,146,115,0.2)",
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "rgba(212,175,119,0.05)",
+                  background: "rgba(170,146,115,0.05)",
                 }}
               >
                 {item.icon}
@@ -187,7 +187,7 @@ export default function ConnectSection() {
                     fontFamily: "var(--font-inter), sans-serif",
                     fontSize: 9,
                     letterSpacing: "0.35em",
-                    color: "rgba(212,175,119,0.45)",
+                    color: "rgba(170,146,115,0.45)",
                     textTransform: "uppercase",
                     marginBottom: 6,
                   }}
@@ -198,7 +198,7 @@ export default function ConnectSection() {
                   style={{
                     fontFamily: "var(--font-cinzel), serif",
                     fontSize: 13,
-                    color: "#f5f0e8",
+                    color: "#F8F4ED",
                     letterSpacing: "0.04em",
                     fontWeight: 500,
                   }}
@@ -214,14 +214,14 @@ export default function ConnectSection() {
       {/* Footer */}
       <footer
         style={{
-          borderTop: "1px solid rgba(212,175,119,0.1)",
+          borderTop: "1px solid rgba(170,146,115,0.1)",
           padding: "32px 24px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           flexWrap: "wrap",
           gap: 16,
-          background: "#050505",
+          background: "#111823",
         }}
       >
         {/* Easter egg name */}
@@ -237,7 +237,7 @@ export default function ConnectSection() {
             fontSize: 13,
             fontWeight: 700,
             letterSpacing: "0.4em",
-            color: "rgba(212,175,119,0.4)",
+            color: "rgba(170,146,115,0.4)",
             textTransform: "uppercase",
           }}
           aria-label="Pratham Raje Urs"
@@ -249,7 +249,7 @@ export default function ConnectSection() {
                 marginLeft: 8,
                 fontFamily: "Courier New, monospace",
                 fontSize: 8,
-                color: "rgba(212,175,119,0.2)",
+                color: "rgba(170,146,115,0.2)",
               }}
             >
               ({7 - eggClicks})
@@ -269,7 +269,7 @@ export default function ConnectSection() {
           style={{
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 10,
-            color: "rgba(245,240,232,0.2)",
+            color: "rgba(248,244,237,0.2)",
             letterSpacing: "0.1em",
           }}
         >
@@ -295,8 +295,8 @@ export default function ConnectSection() {
             onClick={(e) => e.stopPropagation()}
             style={{
               width: "min(90vw, 500px)",
-              background: "#0d0d0d",
-              border: "1px solid rgba(212,175,119,0.2)",
+              background: "#45302A",
+              border: "1px solid rgba(170,146,115,0.2)",
               borderRadius: 4,
               padding: "36px 32px",
             }}
@@ -305,7 +305,7 @@ export default function ConnectSection() {
               style={{
                 fontFamily: "Courier New, monospace",
                 fontSize: 9,
-                color: "#ff5e5e",
+                color: "#7EADA9",
                 letterSpacing: "0.3em",
                 marginBottom: 16,
               }}
@@ -316,7 +316,7 @@ export default function ConnectSection() {
               style={{
                 fontFamily: "var(--font-cinzel), serif",
                 fontSize: 18,
-                color: "#d4af77",
+                color: "#AA9273",
                 marginBottom: 16,
               }}
             >
@@ -326,7 +326,7 @@ export default function ConnectSection() {
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 12,
-                color: "rgba(245,240,232,0.5)",
+                color: "rgba(248,244,237,0.5)",
                 lineHeight: 1.7,
                 marginBottom: 20,
               }}
@@ -338,12 +338,12 @@ export default function ConnectSection() {
             <div
               style={{
                 padding: "16px",
-                background: "#111",
-                border: "1px solid rgba(212,175,119,0.08)",
+                background: "#45302A",
+                border: "1px solid rgba(170,146,115,0.08)",
                 borderRadius: 2,
                 fontFamily: "Courier New, monospace",
                 fontSize: 9,
-                color: "rgba(212,175,119,0.25)",
+                color: "rgba(170,146,115,0.25)",
                 letterSpacing: "0.15em",
                 textAlign: "center",
               }}
@@ -356,10 +356,10 @@ export default function ConnectSection() {
                 marginTop: 20,
                 width: "100%",
                 padding: "10px",
-                background: "rgba(212,175,119,0.08)",
-                border: "1px solid rgba(212,175,119,0.2)",
+                background: "rgba(170,146,115,0.08)",
+                border: "1px solid rgba(170,146,115,0.2)",
                 borderRadius: 2,
-                color: "#d4af77",
+                color: "#AA9273",
                 fontFamily: "var(--font-cinzel), serif",
                 fontSize: 10,
                 letterSpacing: "0.3em",

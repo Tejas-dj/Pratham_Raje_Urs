@@ -27,7 +27,7 @@ export default function ServicesSection() {
       style={{
         position: "relative",
         minHeight: "100vh",
-        background: "#060608",
+        background: "#111823",
         padding: "120px 0 100px",
         overflow: "hidden",
       }}
@@ -42,13 +42,13 @@ export default function ServicesSection() {
           style={{ marginBottom: 60 }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 10,
                 letterSpacing: "0.4em",
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 textTransform: "uppercase",
               }}
             >
@@ -60,7 +60,7 @@ export default function ServicesSection() {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
               fontWeight: 800,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.08em",
               marginBottom: 16,
             }}
@@ -71,7 +71,7 @@ export default function ServicesSection() {
             style={{
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 14,
-              color: "rgba(245,240,232,0.4)",
+              color: "rgba(248,244,237,0.4)",
               letterSpacing: "0.05em",
               maxWidth: 500,
               lineHeight: 1.8,
@@ -93,7 +93,7 @@ export default function ServicesSection() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 style={{
-                  borderBottom: `1px solid ${isActive ? "rgba(212,175,119,0.3)" : "rgba(212,175,119,0.08)"}`,
+                  borderBottom: `1px solid ${isActive ? "rgba(170,146,115,0.3)" : "rgba(170,146,115,0.08)"}`,
                   overflow: "hidden",
                 }}
               >
@@ -122,7 +122,7 @@ export default function ServicesSection() {
                         fontFamily: "var(--font-cinzel), serif",
                         fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
                         fontWeight: 600,
-                        color: isActive ? service.color : "rgba(245,240,232,0.6)",
+                        color: isActive ? service.color : "rgba(248,244,237,0.6)",
                         letterSpacing: "0.08em",
                         transition: "color 0.3s ease",
                       }}
@@ -133,7 +133,7 @@ export default function ServicesSection() {
                   <motion.div
                     animate={{ rotate: isActive ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    style={{ color: "rgba(212,175,119,0.4)" }}
+                    style={{ color: "rgba(170,146,115,0.4)" }}
                   >
                     ↓
                   </motion.div>
@@ -153,7 +153,7 @@ export default function ServicesSection() {
                             fontFamily: "var(--font-inter), sans-serif",
                             fontSize: 14,
                             lineHeight: 1.8,
-                            color: "rgba(245,240,232,0.6)",
+                            color: "rgba(248,244,237,0.6)",
                             maxWidth: 600,
                           }}
                         >

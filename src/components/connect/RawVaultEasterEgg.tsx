@@ -47,12 +47,12 @@ export default function RawVaultEasterEgg() {
               zIndex: 9999,
               fontFamily: "Courier New, monospace",
               fontSize: 10,
-              color: "rgba(212,175,119,0.5)",
+              color: "rgba(170,146,115,0.5)",
               letterSpacing: "0.2em",
               background: "rgba(0,0,0,0.8)",
               padding: "6px 14px",
               borderRadius: 2,
-              border: "1px solid rgba(212,175,119,0.15)",
+              border: "1px solid rgba(170,146,115,0.15)",
               pointerEvents: "none",
             }}
           >
@@ -87,8 +87,8 @@ export default function RawVaultEasterEgg() {
               onClick={(e) => e.stopPropagation()}
               style={{
                 width: "min(90vw, 600px)",
-                background: "#0d0d0d",
-                border: "1px solid rgba(212,175,119,0.2)",
+                background: "#45302A",
+                border: "1px solid rgba(170,146,115,0.2)",
                 borderRadius: 4,
                 padding: "36px 32px",
                 position: "relative",
@@ -99,7 +99,7 @@ export default function RawVaultEasterEgg() {
                 style={{
                   fontFamily: "Courier New, monospace",
                   fontSize: 9,
-                  color: "#ff5e5e",
+                  color: "#7EADA9",
                   letterSpacing: "0.3em",
                   marginBottom: 6,
                   animation: "film-flicker 0.3s steps(1) infinite",
@@ -113,7 +113,7 @@ export default function RawVaultEasterEgg() {
                   fontFamily: "var(--font-cinzel), serif",
                   fontSize: 20,
                   fontWeight: 700,
-                  color: "#d4af77",
+                  color: "#AA9273",
                   letterSpacing: "0.1em",
                   marginBottom: 4,
                 }}
@@ -124,7 +124,7 @@ export default function RawVaultEasterEgg() {
                 style={{
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: 12,
-                  color: "rgba(245,240,232,0.4)",
+                  color: "rgba(248,244,237,0.4)",
                   marginBottom: 28,
                   lineHeight: 1.6,
                 }}
@@ -143,8 +143,8 @@ export default function RawVaultEasterEgg() {
                     transition={{ delay: i * 0.15 }}
                     style={{
                       padding: "14px 16px",
-                      background: "rgba(212,175,119,0.04)",
-                      border: "1px solid rgba(212,175,119,0.1)",
+                      background: "rgba(170,146,115,0.04)",
+                      border: "1px solid rgba(170,146,115,0.1)",
                       borderRadius: 2,
                     }}
                   >
@@ -154,7 +154,7 @@ export default function RawVaultEasterEgg() {
                           fontFamily: "var(--font-cinzel), serif",
                           fontSize: 12,
                           fontWeight: 700,
-                          color: "#f5f0e8",
+                          color: "#F8F4ED",
                           letterSpacing: "0.06em",
                         }}
                       >
@@ -164,7 +164,7 @@ export default function RawVaultEasterEgg() {
                         style={{
                           fontFamily: "Courier New, monospace",
                           fontSize: 9,
-                          color: "rgba(212,175,119,0.4)",
+                          color: "rgba(170,146,115,0.4)",
                         }}
                       >
                         {clip.year}
@@ -174,7 +174,7 @@ export default function RawVaultEasterEgg() {
                       style={{
                         fontFamily: "var(--font-inter), sans-serif",
                         fontSize: 11,
-                        color: "rgba(245,240,232,0.4)",
+                        color: "rgba(248,244,237,0.4)",
                         lineHeight: 1.5,
                         marginBottom: 8,
                       }}
@@ -184,12 +184,12 @@ export default function RawVaultEasterEgg() {
                     <div
                       style={{
                         padding: "10px",
-                        background: "#111",
-                        border: "1px solid rgba(212,175,119,0.08)",
+                        background: "#45302A",
+                        border: "1px solid rgba(170,146,115,0.08)",
                         borderRadius: 1,
                         fontFamily: "Courier New, monospace",
                         fontSize: 9,
-                        color: "rgba(212,175,119,0.3)",
+                        color: "rgba(170,146,115,0.3)",
                         textAlign: "center",
                         letterSpacing: "0.2em",
                       }}
@@ -205,7 +205,7 @@ export default function RawVaultEasterEgg() {
                   marginTop: 24,
                   fontFamily: "Courier New, monospace",
                   fontSize: 9,
-                  color: "rgba(212,175,119,0.2)",
+                  color: "rgba(170,146,115,0.2)",
                   textAlign: "center",
                   letterSpacing: "0.2em",
                 }}

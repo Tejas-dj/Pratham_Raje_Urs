@@ -73,7 +73,7 @@ export default function VideoModal({ src, isOpen, onClose, title }: VideoModalPr
               style={{
                 position: "absolute",
                 inset: -20,
-                border: "2px solid rgba(212,175,119,0.2)",
+                border: "2px solid rgba(170,146,115,0.2)",
                 borderRadius: 2,
                 pointerEvents: "none",
               }}
@@ -88,7 +88,7 @@ export default function VideoModal({ src, isOpen, onClose, title }: VideoModalPr
                   top: `${(i + 0.5) * 12.5}%`,
                   width: 6,
                   height: 10,
-                  border: "1px solid rgba(212,175,119,0.3)",
+                  border: "1px solid rgba(170,146,115,0.3)",
                   borderRadius: 1,
                   background: "rgba(0,0,0,0.8)",
                 }}
@@ -103,7 +103,7 @@ export default function VideoModal({ src, isOpen, onClose, title }: VideoModalPr
                   top: `${(i + 0.5) * 12.5}%`,
                   width: 6,
                   height: 10,
-                  border: "1px solid rgba(212,175,119,0.3)",
+                  border: "1px solid rgba(170,146,115,0.3)",
                   borderRadius: 1,
                   background: "rgba(0,0,0,0.8)",
                 }}
@@ -129,7 +129,7 @@ export default function VideoModal({ src, isOpen, onClose, title }: VideoModalPr
                   fontFamily: "var(--font-cinzel), serif",
                   fontSize: 12,
                   letterSpacing: "0.3em",
-                  color: "rgba(212,175,119,0.6)",
+                  color: "rgba(170,146,115,0.6)",
                   textTransform: "uppercase",
                 }}
               >
@@ -147,8 +147,8 @@ export default function VideoModal({ src, isOpen, onClose, title }: VideoModalPr
               top: 24,
               right: 24,
               background: "none",
-              border: "1px solid rgba(212,175,119,0.4)",
-              color: "#d4af77",
+              border: "1px solid rgba(170,146,115,0.4)",
+              color: "#AA9273",
               width: 36,
               height: 36,
               borderRadius: "50%",

@@ -107,13 +107,13 @@ export default function HeroText({ ready }: HeroTextProps) {
           fontSize: "clamp(2.5rem, 9vw, 8rem)",
           fontWeight: 900,
           letterSpacing: "0.15em",
-          color: "#d4af77",
+          color: "#AA9273",
           lineHeight: 1.0,
           margin: "0 -0.15em 24px 0",
           textShadow: `
-            0 0 20px rgba(212,175,119,0.5),
-            0 0 40px rgba(212,175,119,0.25),
-            0 0 80px rgba(212,175,119,0.12)
+            0 0 20px rgba(170,146,115,0.5),
+            0 0 40px rgba(170,146,115,0.25),
+            0 0 80px rgba(170,146,115,0.12)
           `,
           overflow: "hidden",
         }}
@@ -129,7 +129,7 @@ export default function HeroText({ ready }: HeroTextProps) {
           fontSize: "clamp(0.9rem, 2vw, 1.3rem)",
           fontWeight: 400,
           letterSpacing: "0.3em",
-          color: "#f5f0e8",
+          color: "#F8F4ED",
           margin: "0 0 16px",
           opacity: 0,
         }}

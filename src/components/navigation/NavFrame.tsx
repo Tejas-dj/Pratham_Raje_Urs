@@ -68,8 +68,8 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
           position: "absolute",
           inset: 2,
           border: isActive
-            ? "1px solid rgba(212,175,119,0.7)"
-            : "1px solid rgba(212,175,119,0.2)",
+            ? "1px solid rgba(170,146,115,0.7)"
+            : "1px solid rgba(170,146,115,0.2)",
           borderRadius: 1,
           transition: "border-color 0.3s ease",
         }}
@@ -116,7 +116,7 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
           left: 6,
           fontFamily: "Courier New, monospace",
           fontSize: 7,
-          color: "rgba(212,175,119,0.3)",
+          color: "rgba(170,146,115,0.3)",
           letterSpacing: "0.05em",
           lineHeight: 1,
         }}
@@ -133,12 +133,12 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
           fontWeight: 600,
           letterSpacing: "0.25em",
           textTransform: "uppercase",
-          color: isActive ? "#d4af77" : "rgba(245,240,232,0.7)",
+          color: isActive ? "#AA9273" : "rgba(248,244,237,0.7)",
           transition: "color 0.3s ease",
           zIndex: 1,
           textAlign: "center",
         }}
-        animate={{ color: hovered ? "#d4af77" : isActive ? "#d4af77" : "rgba(245,240,232,0.7)" }}
+        animate={{ color: hovered ? "#AA9273" : isActive ? "#AA9273" : "rgba(248,244,237,0.7)" }}
       >
         {label}
       </motion.span>
@@ -154,9 +154,9 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
           left: "20%",
           right: "20%",
           height: 1,
-          background: "#d4af77",
+          background: "#AA9273",
           transformOrigin: "left",
-          boxShadow: "0 0 4px rgba(212,175,119,0.6)",
+          boxShadow: "0 0 4px rgba(170,146,115,0.6)",
         }}
       />
     </motion.a>

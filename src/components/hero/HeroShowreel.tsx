@@ -20,20 +20,26 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleCanPlay = () => {
+    const reveal = () => {
       setVisible(true);
       onReady?.();
     };
 
-    // Attempt silent autoplay – browsers require muted for autoplay
     video.muted = true;
+
+    // If already buffered enough (cached second visit), reveal immediately
+    if (video.readyState >= 2) {
+      reveal();
+    } else {
+      video.addEventListener("canplay", reveal, { once: true });
+    }
+
     video.play().catch(() => {
-      // Autoplay blocked; still reveal the poster frame
-      setVisible(true);
+      // Autoplay blocked — still show poster frame
+      reveal();
     });
 
-    video.addEventListener("canplaythrough", handleCanPlay);
-    return () => video.removeEventListener("canplaythrough", handleCanPlay);
+    return () => video.removeEventListener("canplay", reveal);
   }, [onReady]);
 
   return (
@@ -63,7 +69,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           objectFit: "cover",
           objectPosition: "center",
           opacity: visible ? 1 : 0,
-          transition: "opacity 1.6s ease",
+          transition: "opacity 0.3s ease",
           // Subtle photo-chemical desaturation — keeps the dark cinematic feel
           filter: "brightness(0.88) saturate(1.0) contrast(1.02)",
           willChange: "opacity",
@@ -78,10 +84,10 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           background: `
             linear-gradient(
               to bottom,
-              rgba(10,10,10,0.15) 0%,
-              rgba(10,10,10,0.04) 30%,
-              rgba(10,10,10,0.04) 65%,
-              rgba(10,10,10,0.40) 100%
+              rgba(17,24,35,0.15) 0%,
+              rgba(17,24,35,0.04) 30%,
+              rgba(17,24,35,0.04) 65%,
+              rgba(17,24,35,0.40) 100%
             ),
             radial-gradient(
               ellipse at 50% 50%,
@@ -90,18 +96,6 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
             )
           `,
           zIndex: 2,
-        }}
-      />
-
-      {/* ── Film grain texture overlay ── */}
-      <div
-        className="film-scan-line"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 3,
-          opacity: 0.10,
-          mixBlendMode: "overlay",
         }}
       />
 
@@ -130,7 +124,7 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           fontFamily: "'Courier New', monospace",
           fontSize: "clamp(0.5rem, 0.9vw, 0.65rem)",
           letterSpacing: "0.15em",
-          color: "rgba(212,175,119,0.9)",
+          color: "rgba(170,146,115,0.9)",
         }}
       >
         00:00:00:00

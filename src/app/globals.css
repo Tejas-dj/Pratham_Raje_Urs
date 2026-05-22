@@ -3,14 +3,14 @@
 /* ─── Design Tokens ───────────────────────────────────────────────────────── */
 @theme {
   /* Colors */
-  --color-film-black: #0a0a0a;
-  --color-film-gold: #d4af77;
-  --color-film-gold-dark: #a08040;
-  --color-film-red: #ff5e5e;
-  --color-film-teal: #7ed4d4;
-  --color-film-cream: #f5f0e8;
-  --color-film-charcoal: #1a1a1a;
-  --color-film-dust: rgba(212, 175, 119, 0.08);
+  --color-film-black: #111823;
+  --color-film-gold: #AA9273;
+  --color-film-gold-dark: #1F5560;
+  --color-film-red: #1F5560;
+  --color-film-teal: #7EADA9;
+  --color-film-cream: #F8F4ED;
+  --color-film-charcoal: #45302A;
+  --color-film-dust: rgba(170, 146, 115, 0.08);
 
   /* Typography */
   --font-family-cinzel: var(--font-cinzel), "Cinzel", Georgia, serif;
@@ -71,9 +71,9 @@
 }
 
 @keyframes burn-edge {
-  0% { box-shadow: inset 0 0 0 0 rgba(212,175,119,0); }
-  40% { box-shadow: inset 0 0 80px 20px rgba(255,200,100,0.4); }
-  100% { box-shadow: inset 0 0 0 0 rgba(212,175,119,0); }
+  0% { box-shadow: inset 0 0 0 0 rgba(170,146,115,0); }
+  40% { box-shadow: inset 0 0 80px 20px rgba(31,85,96,0.4); }
+  100% { box-shadow: inset 0 0 0 0 rgba(170,146,115,0); }
 }
 
 @keyframes type-reveal {
@@ -118,8 +118,8 @@
 
 /* ─── Base Reset ──────────────────────────────────────────────────────────── */
 :root {
-  --background: #0a0a0a;
-  --foreground: #f5f0e8;
+  --background: #111823;
+  --foreground: #F8F4ED;
   color-scheme: dark;
 }
 
@@ -132,16 +132,16 @@
 }
 
 html {
-  background: #0a0a0a;
-  color: #f5f0e8;
+  background: #111823;
+  color: #F8F4ED;
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: #0a0a0a;
-  color: #f5f0e8;
+  background: #111823;
+  color: #F8F4ED;
   font-family: var(--font-family-inter);
   line-height: 1.8;
   overflow-x: hidden;
@@ -167,25 +167,25 @@ p:last-child {
 
 /* ─── Film Utilities ──────────────────────────────────────────────────────── */
 .film-text-gold {
-  color: #d4af77;
+  color: #AA9273;
   text-shadow:
-    0 0 20px rgba(212, 175, 119, 0.4),
-    0 0 40px rgba(212, 175, 119, 0.2),
-    0 0 80px rgba(212, 175, 119, 0.1);
+    0 0 20px rgba(170, 146, 115, 0.4),
+    0 0 40px rgba(170, 146, 115, 0.2),
+    0 0 80px rgba(170, 146, 115, 0.1);
 }
 
 .film-text-glow {
   text-shadow:
-    0 0 30px rgba(212, 175, 119, 0.6),
-    0 0 60px rgba(212, 175, 119, 0.3),
-    0 0 120px rgba(212, 175, 119, 0.15);
+    0 0 30px rgba(170, 146, 115, 0.6),
+    0 0 60px rgba(170, 146, 115, 0.3),
+    0 0 120px rgba(170, 146, 115, 0.15);
 }
 
 .film-border-gold {
-  border: 1px solid rgba(212, 175, 119, 0.3);
+  border: 1px solid rgba(170, 146, 115, 0.3);
   box-shadow:
-    0 0 0 1px rgba(212, 175, 119, 0.1),
-    inset 0 0 20px rgba(212, 175, 119, 0.03);
+    0 0 0 1px rgba(170, 146, 115, 0.1),
+    inset 0 0 20px rgba(170, 146, 115, 0.03);
 }
 
 .film-vignette {
@@ -211,27 +211,27 @@ p:last-child {
 .film-perforation {
   width: 14px;
   height: 20px;
-  border: 2px solid rgba(212, 175, 119, 0.4);
+  border: 2px solid rgba(170, 146, 115, 0.4);
   border-radius: 2px;
-  background: #0a0a0a;
+  background: #111823;
 }
 
 .film-strip-bg {
   background:
     repeating-linear-gradient(
       90deg,
-      #0a0a0a 0,
-      #0a0a0a 10px,
-      #111 10px,
-      #111 100%
+      #111823 0,
+      #111823 10px,
+      #45302A 10px,
+      #45302A 100%
     );
-  border-top: 2px solid rgba(212, 175, 119, 0.2);
-  border-bottom: 2px solid rgba(212, 175, 119, 0.2);
+  border-top: 2px solid rgba(170, 146, 115, 0.2);
+  border-bottom: 2px solid rgba(170, 146, 115, 0.2);
 }
 
 .script-page {
-  background: #f5f0e8;
-  color: #0a0a0a;
+  background: #F8F4ED;
+  color: #111823;
   font-family: "Courier Prime", "Courier New", monospace;
   font-size: 12pt;
   line-height: 1.8;
@@ -254,29 +254,29 @@ p:last-child {
 .glass-orb {
   background: radial-gradient(
     circle at 35% 35%,
-    rgba(212, 175, 119, 0.25) 0%,
-    rgba(212, 175, 119, 0.05) 50%,
+    rgba(170, 146, 115, 0.25) 0%,
+    rgba(170, 146, 115, 0.05) 50%,
     rgba(0, 0, 0, 0.1) 100%
   );
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 119, 0.2);
+  border: 1px solid rgba(170, 146, 115, 0.2);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(212, 175, 119, 0.08);
+    0 0 0 1px rgba(170, 146, 115, 0.08);
 }
 
 /* ─── Scrollbar ───────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: rgba(212, 175, 119, 0.3); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 119, 0.6); }
+::-webkit-scrollbar { width: 4px; background: #111823; }
+::-webkit-scrollbar-thumb { background: rgba(170, 146, 115, 0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(170, 146, 115, 0.6); }
 
 /* ─── Selection ───────────────────────────────────────────────────────────── */
-::selection { background: rgba(212, 175, 119, 0.25); color: #f5f0e8; }
+::selection { background: rgba(31, 85, 96, 0.4); color: #F8F4ED; }
 
 /* ─── Focus ───────────────────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid rgba(212, 175, 119, 0.6);
+  outline: 2px solid rgba(31, 85, 96, 0.8);
   outline-offset: 2px;
 }
 

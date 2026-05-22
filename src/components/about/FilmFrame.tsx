@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useCursorContext } from "@/providers/CursorProvider";
+import { getBlurDataUrl } from "@/lib/blur-placeholders";
 
 interface FilmFrameProps {
   year: string;
@@ -26,8 +27,8 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
         position: "relative",
         width: 280,
         flexShrink: 0,
-        background: "#0d0d0d",
-        border: `1px solid ${hovered ? "rgba(212,175,119,0.4)" : "rgba(212,175,119,0.12)"}`,
+        background: "#45302A",
+        border: `1px solid ${hovered ? "rgba(170,146,115,0.4)" : "rgba(170,146,115,0.12)"}`,
         borderRadius: 2,
         overflow: "hidden",
         transition: "border-color 0.3s ease",
@@ -40,8 +41,8 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
       <div
         style={{
           height: 20,
-          background: "#111",
-          borderBottom: "1px solid rgba(212,175,119,0.1)",
+          background: "#45302A",
+          borderBottom: "1px solid rgba(170,146,115,0.1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-around",
@@ -52,7 +53,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            style={{ width: 12, height: 10, border: "1px solid rgba(212,175,119,0.25)", borderRadius: 1, background: "#0a0a0a" }}
+            style={{ width: 12, height: 10, border: "1px solid rgba(170,146,115,0.25)", borderRadius: 1, background: "#111823" }}
           />
         ))}
       </div>
@@ -63,6 +64,8 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
           src={image}
           alt={title}
           fill
+          placeholder="blur"
+          blurDataURL={getBlurDataUrl(image)}
           style={{
             objectFit: "cover",
             filter: hovered ? "grayscale(0) brightness(0.8)" : "grayscale(0.4) brightness(0.6) sepia(0.2)",
@@ -88,14 +91,14 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
               style={{
                 width: 40,
                 height: 40,
-                border: "2px solid rgba(212,175,119,0.7)",
+                border: "2px solid rgba(170,146,115,0.7)",
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#d4af77">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#AA9273">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>
@@ -110,7 +113,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
             left: 6,
             fontFamily: "Courier New, monospace",
             fontSize: 8,
-            color: "rgba(212,175,119,0.5)",
+            color: "rgba(170,146,115,0.5)",
             background: "rgba(0,0,0,0.5)",
             padding: "1px 4px",
           }}
@@ -123,9 +126,9 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
       <div
         style={{
           height: 20,
-          background: "#111",
-          borderTop: "1px solid rgba(212,175,119,0.1)",
-          borderBottom: "1px solid rgba(212,175,119,0.1)",
+          background: "#45302A",
+          borderTop: "1px solid rgba(170,146,115,0.1)",
+          borderBottom: "1px solid rgba(170,146,115,0.1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-around",
@@ -136,7 +139,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            style={{ width: 12, height: 10, border: "1px solid rgba(212,175,119,0.25)", borderRadius: 1, background: "#0a0a0a" }}
+            style={{ width: 12, height: 10, border: "1px solid rgba(170,146,115,0.25)", borderRadius: 1, background: "#111823" }}
           />
         ))}
       </div>
@@ -147,7 +150,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
           style={{
             fontFamily: "Courier New, monospace",
             fontSize: 9,
-            color: "#d4af77",
+            color: "#AA9273",
             letterSpacing: "0.2em",
             marginBottom: 6,
           }}
@@ -159,7 +162,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
             fontFamily: "var(--font-cinzel), serif",
             fontSize: 14,
             fontWeight: 700,
-            color: "#f5f0e8",
+            color: "#F8F4ED",
             marginBottom: 8,
             letterSpacing: "0.05em",
           }}
@@ -170,7 +173,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
           style={{
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 12,
-            color: "rgba(245,240,232,0.5)",
+            color: "rgba(248,244,237,0.5)",
             lineHeight: 1.6,
           }}
         >

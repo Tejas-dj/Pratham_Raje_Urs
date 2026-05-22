@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { useMousePosition } from "@/hooks/useMousePosition";
+import { getBlurDataUrl } from "@/lib/blur-placeholders";
 
 export default function InteractivePortrait() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,13 +55,16 @@ export default function InteractivePortrait() {
           height: 380,
           borderRadius: 2,
           overflow: "hidden",
-          border: "1px solid rgba(212,175,119,0.2)",
+          border: "1px solid rgba(170,146,115,0.2)",
         }}
       >
         <Image
           src="/images/HeadShot_Pratham.jpeg"
           alt="Pratham Raje Urs"
           fill
+          priority
+          placeholder="blur"
+          blurDataURL={getBlurDataUrl("/images/HeadShot_Pratham.jpeg")}
           style={{ objectFit: "cover", filter: "brightness(0.85) contrast(1.1)" }}
           sizes="280px"
         />
@@ -139,9 +143,9 @@ export default function InteractivePortrait() {
         style={{
           marginTop: 14,
           padding: "12px 16px",
-          border: "1px solid rgba(212,175,119,0.15)",
+          border: "1px solid rgba(170,146,115,0.15)",
           borderRadius: 2,
-          background: "rgba(212,175,119,0.04)",
+          background: "rgba(170,146,115,0.04)",
         }}
       >
         <div
@@ -149,7 +153,7 @@ export default function InteractivePortrait() {
             fontFamily: "var(--font-cinzel), serif",
             fontSize: 13,
             fontWeight: 700,
-            color: "#d4af77",
+            color: "#AA9273",
             letterSpacing: "0.15em",
             marginBottom: 4,
           }}
@@ -160,7 +164,7 @@ export default function InteractivePortrait() {
           style={{
             fontFamily: "var(--font-inter), sans-serif",
             fontSize: 11,
-            color: "rgba(245,240,232,0.4)",
+            color: "rgba(248,244,237,0.4)",
             letterSpacing: "0.1em",
           }}
         >
@@ -171,7 +175,7 @@ export default function InteractivePortrait() {
             marginTop: 8,
             fontFamily: "Courier New, monospace",
             fontSize: 9,
-            color: "rgba(212,175,119,0.3)",
+            color: "rgba(170,146,115,0.3)",
             letterSpacing: "0.15em",
           }}
         >

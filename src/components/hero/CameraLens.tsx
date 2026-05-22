@@ -56,10 +56,10 @@ export default function CameraLens({ mouseX, mouseY }: CameraLensProps) {
       <mesh>
         <torusGeometry args={[0.38, 0.02, 8, 64]} />
         <meshStandardMaterial
-          color="#d4af77"
+          color="#AA9273"
           metalness={0.9}
           roughness={0.2}
-          emissive="#d4af77"
+          emissive="#AA9273"
           emissiveIntensity={0.15}
         />
       </mesh>
@@ -68,7 +68,7 @@ export default function CameraLens({ mouseX, mouseY }: CameraLensProps) {
       <mesh>
         <torusGeometry args={[0.32, 0.01, 8, 64]} />
         <meshStandardMaterial
-          color="#a08040"
+          color="#1F5560"
           metalness={0.8}
           roughness={0.3}
         />
@@ -96,7 +96,7 @@ export default function CameraLens({ mouseX, mouseY }: CameraLensProps) {
             rotation={[0, 0, (i * Math.PI * 2) / 6]}
           >
             <meshStandardMaterial
-              color="#0d0d0d"
+              color="#111823"
               metalness={0.5}
               roughness={0.6}
               side={THREE.DoubleSide}
@@ -109,8 +109,8 @@ export default function CameraLens({ mouseX, mouseY }: CameraLensProps) {
       <mesh position={[0.04, 0.04, 0.03]}>
         <circleGeometry args={[0.025, 16]} />
         <meshStandardMaterial
-          color="#7ed4d4"
-          emissive="#7ed4d4"
+          color="#7EADA9"
+          emissive="#7EADA9"
           emissiveIntensity={0.5}
           transparent
           opacity={0.7}
@@ -120,7 +120,7 @@ export default function CameraLens({ mouseX, mouseY }: CameraLensProps) {
       {/* Gold glow point light */}
       <pointLight
         position={[0, 0, 0.5]}
-        color="#d4af77"
+        color="#AA9273"
         intensity={hovered ? 2 : 0.8}
         distance={3}
       />

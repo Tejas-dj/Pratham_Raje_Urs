@@ -95,7 +95,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "#0a0a0a",
+                  background: "#111823",
                   zIndex: 2,
                 }}
               >
@@ -110,7 +110,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                     fontFamily: "var(--font-cinzel), serif",
                     fontSize: "15vw",
                     fontWeight: 900,
-                    color: "#f5f0e8",
+                    color: "#F8F4ED",
                     textShadow: "0 0 60px rgba(255,255,255,0.2)",
                   }}
                 >
@@ -123,7 +123,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                     position: "absolute",
                     width: "20vw",
                     height: "20vw",
-                    border: "1px solid rgba(212,175,119,0.2)",
+                    border: "1px solid rgba(170,146,115,0.2)",
                     borderRadius: "50%",
                   }}
                 />
@@ -132,7 +132,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                     position: "absolute",
                     width: "22vw",
                     height: "22vw",
-                    border: "1px solid rgba(212,175,119,0.08)",
+                    border: "1px solid rgba(170,146,115,0.08)",
                     borderRadius: "50%",
                   }}
                 />
@@ -159,8 +159,8 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                 <div
                   style={{
                     height: 28,
-                    background: "#111",
-                    border: "1px solid rgba(212,175,119,0.12)",
+                    background: "#45302A",
+                    border: "1px solid rgba(170,146,115,0.12)",
                     borderBottom: "none",
                     display: "flex",
                     alignItems: "center",
@@ -176,9 +176,9 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       style={{
                         width: 14,
                         height: 12,
-                        border: "1px solid rgba(212,175,119,0.25)",
+                        border: "1px solid rgba(170,146,115,0.25)",
                         borderRadius: 1,
-                        background: "#0a0a0a",
+                        background: "#111823",
                         flexShrink: 0,
                       }}
                     />
@@ -186,7 +186,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                 </div>
 
                 {/* Video or poster */}
-                <div style={{ position: "relative", aspectRatio: "16/9", background: "#0a0a0a" }}>
+                <div style={{ position: "relative", aspectRatio: "16/9", background: "#111823" }}>
                   {project.video ? (
                     <video
                       ref={videoRef}
@@ -240,7 +240,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                             style={{
                               width: 64,
                               height: 64,
-                              border: "2px solid rgba(212,175,119,0.7)",
+                              border: "2px solid rgba(170,146,115,0.7)",
                               borderRadius: "50%",
                               display: "flex",
                               alignItems: "center",
@@ -248,7 +248,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                               background: "rgba(0,0,0,0.5)",
                             }}
                           >
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#d4af77">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#AA9273">
                               <path d="M8 5v14l11-7z" />
                             </svg>
                           </motion.div>
@@ -262,8 +262,8 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                 <div
                   style={{
                     height: 28,
-                    background: "#111",
-                    border: "1px solid rgba(212,175,119,0.12)",
+                    background: "#45302A",
+                    border: "1px solid rgba(170,146,115,0.12)",
                     borderTop: "none",
                     display: "flex",
                     alignItems: "center",
@@ -279,9 +279,9 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       style={{
                         width: 14,
                         height: 12,
-                        border: "1px solid rgba(212,175,119,0.25)",
+                        border: "1px solid rgba(170,146,115,0.25)",
                         borderRadius: 1,
-                        background: "#0a0a0a",
+                        background: "#111823",
                         flexShrink: 0,
                       }}
                     />
@@ -299,7 +299,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                     justifyContent: "space-between",
                     gap: 16,
                     flexWrap: "wrap",
-                    border: "1px solid rgba(212,175,119,0.08)",
+                    border: "1px solid rgba(170,146,115,0.08)",
                     borderTop: "none",
                   }}
                 >
@@ -309,7 +309,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                         fontFamily: "var(--font-cinzel), serif",
                         fontSize: "clamp(1rem, 2.5vw, 1.5rem)",
                         fontWeight: 700,
-                        color: "#d4af77",
+                        color: "#AA9273",
                         letterSpacing: "0.08em",
                         marginBottom: 4,
                       }}
@@ -320,7 +320,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       style={{
                         fontFamily: "var(--font-inter), sans-serif",
                         fontSize: 12,
-                        color: "rgba(245,240,232,0.5)",
+                        color: "rgba(248,244,237,0.5)",
                         letterSpacing: "0.1em",
                         marginBottom: 8,
                       }}
@@ -331,7 +331,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       style={{
                         fontFamily: "var(--font-inter), sans-serif",
                         fontSize: 13,
-                        color: "rgba(245,240,232,0.65)",
+                        color: "rgba(248,244,237,0.65)",
                         lineHeight: 1.6,
                         maxWidth: 500,
                       }}
@@ -345,13 +345,13 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                             key={badge}
                             style={{
                               padding: "3px 10px",
-                              border: "1px solid rgba(212,175,119,0.4)",
+                              border: "1px solid rgba(170,146,115,0.4)",
                               borderRadius: 1,
                               fontSize: 9,
                               fontFamily: "var(--font-inter), sans-serif",
                               fontWeight: 600,
                               letterSpacing: "0.2em",
-                              color: "#d4af77",
+                              color: "#AA9273",
                               textTransform: "uppercase",
                             }}
                           >
@@ -368,7 +368,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       style={{
                         fontFamily: "Courier New, monospace",
                         fontSize: 9,
-                        color: "rgba(212,175,119,0.3)",
+                        color: "rgba(170,146,115,0.3)",
                         letterSpacing: "0.2em",
                         marginBottom: 4,
                       }}
@@ -379,7 +379,7 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       style={{
                         fontFamily: "Courier New, monospace",
                         fontSize: 8,
-                        color: "rgba(212,175,119,0.2)",
+                        color: "rgba(170,146,115,0.2)",
                         letterSpacing: "0.15em",
                       }}
                     >
@@ -400,8 +400,8 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
               top: 20,
               right: 20,
               background: "rgba(0,0,0,0.7)",
-              border: "1px solid rgba(212,175,119,0.3)",
-              color: "#d4af77",
+              border: "1px solid rgba(170,146,115,0.3)",
+              color: "#AA9273",
               width: 36,
               height: 36,
               borderRadius: "50%",

@@ -43,7 +43,7 @@ function BackgroundPlane({ mouseX, mouseY }: { mouseX: number; mouseY: number })
 function GradientBackground() {
   return (
     <Plane args={[20, 12]} position={[0, 0, -4]}>
-      <meshBasicMaterial color="#0a0a0a" />
+      <meshBasicMaterial color="#111823" />
     </Plane>
   );
 }
@@ -107,9 +107,9 @@ export default function HeroScene({ className }: HeroSceneProps) {
 
           <CameraLens mouseX={mouse.normalizedX} mouseY={mouse.normalizedY} />
 
-          <ambientLight intensity={0.3} color="#d4af77" />
-          <pointLight position={[5, 5, 5]} intensity={1} color="#f5f0e8" />
-          <pointLight position={[-5, -3, 2]} intensity={0.5} color="#7ed4d4" />
+          <ambientLight intensity={0.3} color="#AA9273" />
+          <pointLight position={[5, 5, 5]} intensity={1} color="#F8F4ED" />
+          <pointLight position={[-5, -3, 2]} intensity={0.5} color="#7EADA9" />
         </Suspense>
       </Canvas>
     </div>

@@ -9,7 +9,7 @@ import PhotoLightbox, { type LightboxPhoto } from "./PhotoLightbox";
 const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   {
     id: 1,
-    src: "/images/V_motionblur.jpg",
+    src: "/images/V_motionblur.webp",
     alt: "Golden-hour sunflower field",
     project: "She Asked for Sunflowers",
     year: "2024",
@@ -20,7 +20,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 2,
-    src: "/images/Model_Team.jpg",
+    src: "/images/Model_Team.webp",
     alt: "Rain-streaked café window portrait",
     project: "Before The Coffee Gets Cold",
     year: "2024",
@@ -42,7 +42,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 4,
-    src: "/images/Two_women.jpg",
+    src: "/images/Two_women.webp",
     alt: "Red umbrella in monsoon cobblestones",
     project: "Mysuru Streets",
     year: "2024",
@@ -52,7 +52,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 5,
-    src: "/images/Beach_Couple.jpg",
+    src: "/images/Beach_Couple.webp",
     alt: "Golden-hour garden ceremony",
     project: "Wedding Cinema: Talon",
     year: "2025",
@@ -74,7 +74,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 7,
-    src: "/images/still_bts.jpeg",
+    src: "/images/still_bts.webp",
     alt: "Blue-hour rooftop shoot",
     project: "Behind The Frame",
     year: "2025",
@@ -84,7 +84,7 @@ const PHOTOS: (LightboxPhoto & { aspect: "tall" | "wide" | "square" })[] = [
   },
   {
     id: 8,
-    src: "/images/Beach_Scenic.jpg",
+    src: "/images/Beach_Scenic.webp",
     alt: "Karnataka sunrise paddy fields",
     project: "Karnataka Diaries",
     year: "2023",
@@ -114,10 +114,10 @@ const ASPECT_HEIGHTS: Record<string, number> = {
 
 /* ─── Film-frame corner accent ───────────────────────────────────────────── */
 const CORNERS = [
-  { top: 8, left: 8, borderTop: "1px solid rgba(212,175,119,0.35)", borderLeft: "1px solid rgba(212,175,119,0.35)" },
-  { top: 8, right: 8, borderTop: "1px solid rgba(212,175,119,0.35)", borderRight: "1px solid rgba(212,175,119,0.35)" },
-  { bottom: 8, left: 8, borderBottom: "1px solid rgba(212,175,119,0.35)", borderLeft: "1px solid rgba(212,175,119,0.35)" },
-  { bottom: 8, right: 8, borderBottom: "1px solid rgba(212,175,119,0.35)", borderRight: "1px solid rgba(212,175,119,0.35)" },
+  { top: 8, left: 8, borderTop: "1px solid rgba(170,146,115,0.35)", borderLeft: "1px solid rgba(170,146,115,0.35)" },
+  { top: 8, right: 8, borderTop: "1px solid rgba(170,146,115,0.35)", borderRight: "1px solid rgba(170,146,115,0.35)" },
+  { bottom: 8, left: 8, borderBottom: "1px solid rgba(170,146,115,0.35)", borderLeft: "1px solid rgba(170,146,115,0.35)" },
+  { bottom: 8, right: 8, borderBottom: "1px solid rgba(170,146,115,0.35)", borderRight: "1px solid rgba(170,146,115,0.35)" },
 ] as const;
 
 /* ─── PhotoCard ──────────────────────────────────────────────────────────── */
@@ -168,7 +168,7 @@ function PhotoCard({
           height,
           overflow: "hidden",
           borderRadius: 2,
-          background: "#111",
+          background: "#45302A",
           display: "block",
         }}
       >
@@ -176,6 +176,8 @@ function PhotoCard({
         <motion.img
           src={photo.src}
           alt={photo.alt}
+          loading="lazy"
+          decoding="async"
           animate={{ scale: hovered ? 1.07 : 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{
@@ -207,7 +209,7 @@ function PhotoCard({
             right: 12,
             fontFamily: "'Courier New', monospace",
             fontSize: 8,
-            color: "rgba(212,175,119,0.25)",
+            color: "rgba(170,146,115,0.25)",
             letterSpacing: "0.15em",
             pointerEvents: "none",
           }}
@@ -240,15 +242,15 @@ function PhotoCard({
               display: "inline-block",
               alignSelf: "flex-start",
               padding: "3px 8px",
-              border: "1px solid rgba(212,175,119,0.4)",
+              border: "1px solid rgba(170,146,115,0.4)",
               borderRadius: 2,
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 8,
               letterSpacing: "0.25em",
-              color: "rgba(212,175,119,0.85)",
+              color: "rgba(170,146,115,0.85)",
               textTransform: "uppercase",
               marginBottom: 8,
-              background: "rgba(212,175,119,0.06)",
+              background: "rgba(170,146,115,0.06)",
               backdropFilter: "blur(4px)",
             }}
           >
@@ -264,7 +266,7 @@ function PhotoCard({
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(0.75rem, 1.4vw, 1rem)",
               fontWeight: 700,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.08em",
               margin: "0 0 4px",
               lineHeight: 1.25,
@@ -281,7 +283,7 @@ function PhotoCard({
             style={{
               fontFamily: "'Courier New', monospace",
               fontSize: 10,
-              color: "rgba(212,175,119,0.7)",
+              color: "rgba(170,146,115,0.7)",
               letterSpacing: "0.15em",
             }}
           >
@@ -303,8 +305,8 @@ function PhotoCard({
             width: 44,
             height: 44,
             borderRadius: 2,
-            border: "1px solid rgba(212,175,119,0.55)",
-            background: "rgba(10,10,10,0.55)",
+            border: "1px solid rgba(170,146,115,0.55)",
+            background: "rgba(17,24,35,0.55)",
             backdropFilter: "blur(6px)",
             display: "flex",
             alignItems: "center",
@@ -315,7 +317,7 @@ function PhotoCard({
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
               d="M6 2H2v4M10 2h4v4M6 14H2v-4M10 14h4v-4"
-              stroke="rgba(212,175,119,0.9)"
+              stroke="rgba(170,146,115,0.9)"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -349,7 +351,7 @@ export default function PhotographySection() {
       <section
         id="photography"
         ref={sectionRef}
-        style={{ position: "relative", background: "#0a0a0a", padding: "100px 0 80px", overflow: "hidden" }}
+        style={{ position: "relative", background: "#111823", padding: "100px 0 80px", overflow: "hidden" }}
         aria-label="Photography by Pratham Raje Urs"
       >
         {/* ── Section header ── */}
@@ -360,19 +362,19 @@ export default function PhotographySection() {
           style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 52px" }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
-            <div style={{ width: 40, height: 1, background: "#d4af77", opacity: 0.4 }} />
+            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
             <span
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: 10,
                 letterSpacing: "0.4em",
-                color: "rgba(212,175,119,0.5)",
+                color: "rgba(170,146,115,0.5)",
                 textTransform: "uppercase",
               }}
             >
               Still Frames
             </span>
-            <div style={{ flex: 1, height: 1, background: "rgba(212,175,119,0.08)" }} />
+            <div style={{ flex: 1, height: 1, background: "rgba(170,146,115,0.08)" }} />
           </div>
 
           <h2
@@ -380,7 +382,7 @@ export default function PhotographySection() {
               fontFamily: "var(--font-cinzel), serif",
               fontSize: "clamp(1.4rem, 4vw, 2.8rem)",
               fontWeight: 800,
-              color: "#f5f0e8",
+              color: "#F8F4ED",
               letterSpacing: "0.06em",
               marginBottom: 12,
             }}
@@ -391,7 +393,7 @@ export default function PhotographySection() {
             style={{
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 13,
-              color: "rgba(245,240,232,0.35)",
+              color: "rgba(248,244,237,0.35)",
               maxWidth: 460,
               lineHeight: 1.8,
             }}
@@ -456,7 +458,7 @@ export default function PhotographySection() {
             style={{
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: 10,
-              color: "rgba(212,175,119,0.28)",
+              color: "rgba(170,146,115,0.28)",
               letterSpacing: "0.3em",
               textAlign: "center",
               marginTop: 32,
@@ -472,7 +474,7 @@ export default function PhotographySection() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "radial-gradient(ellipse 110% 70% at 50% 50%, transparent 45%, rgba(10,10,10,0.55) 100%)",
+            background: "radial-gradient(ellipse 110% 70% at 50% 50%, transparent 45%, rgba(17,24,35,0.55) 100%)",
             pointerEvents: "none",
           }}
         />
