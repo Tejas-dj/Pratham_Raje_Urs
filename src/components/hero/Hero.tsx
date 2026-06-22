@@ -65,17 +65,6 @@ export default function Hero({ preloaderDone }: HeroProps) {
         aria-hidden
       />
 
-      {/* Vignette */}
-      <div
-        className="film-vignette"
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: 7,
-        }}
-        aria-hidden
-      />
 
       {/* Content layer */}
       <div

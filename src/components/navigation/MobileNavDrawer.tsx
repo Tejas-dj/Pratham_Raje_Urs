@@ -1,16 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import { NAV_ITEMS } from "@/lib/data";
 import { useCursorContext } from "@/providers/CursorProvider";
 
 export default function MobileNavDrawer() {
   const [open, setOpen] = useState(false);
   const { setCursor, resetCursor } = useCursorContext();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Close drawer on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   function handleNavClick(href: string) {
+    if (href.startsWith("/")) {
+      router.push(href);
+      setOpen(false);
+      return;
+    }
     const id = href.replace("#", "");
+    if (pathname !== "/") {
+      router.push("/" + href);
+      setOpen(false);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
     setOpen(false);
@@ -18,7 +37,7 @@ export default function MobileNavDrawer() {
 
   return (
     <>
-      {/* Hamburger toggle — only on mobile */}
+      {/* Hamburger toggle */}
       <motion.button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close menu" : "Open menu"}
@@ -33,8 +52,8 @@ export default function MobileNavDrawer() {
           background: "rgba(17,24,35,0.9)",
           border: "1px solid rgba(170,146,115,0.3)",
           borderRadius: 4,
-          width: 36,
-          height: 36,
+          width: 44,
+          height: 44,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -73,7 +92,6 @@ export default function MobileNavDrawer() {
       <AnimatePresence>
         {open && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -88,7 +106,6 @@ export default function MobileNavDrawer() {
               }}
             />
 
-            {/* Film-strip bottom sheet */}
             <motion.div
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -123,7 +140,6 @@ export default function MobileNavDrawer() {
                 }}
               />
 
-              {/* Logo */}
               <div
                 style={{
                   textAlign: "center",
@@ -138,7 +154,6 @@ export default function MobileNavDrawer() {
                 INFINITE FRAMES
               </div>
 
-              {/* Nav items as horizontal film strip */}
               <div
                 style={{
                   display: "flex",
@@ -158,12 +173,13 @@ export default function MobileNavDrawer() {
                       display: "flex",
                       alignItems: "center",
                       gap: 16,
-                      padding: "14px 0",
+                      padding: "16px 0",
                       background: "none",
                       border: "none",
                       borderBottom: "1px solid rgba(170,146,115,0.08)",
                       cursor: "none",
                       textAlign: "left",
+                      minHeight: 52,
                     }}
                   >
                     <div
@@ -188,6 +204,11 @@ export default function MobileNavDrawer() {
                       {item.label}
                     </span>
                     <div style={{ flex: 1 }} />
+                    {item.href.startsWith("/") && (
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.3 }}>
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="#AA9273" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
                     <span
                       style={{
                         fontFamily: "Courier New, monospace",

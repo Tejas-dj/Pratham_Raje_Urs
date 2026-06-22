@@ -6,13 +6,11 @@ import Preloader from "@/components/preloader/Preloader";
 import FilmStripNav from "@/components/navigation/FilmStripNav";
 import MobileNavDrawer from "@/components/navigation/MobileNavDrawer";
 import Hero from "@/components/hero/Hero";
+import FilmMarquee from "@/components/hero/FilmMarquee";
 import AboutSection from "@/components/about/AboutSection";
-import JournalSection from "@/components/journal/JournalSection";
 import ConnectSection from "@/components/connect/ConnectSection";
-import PhotographySection from "@/components/photography/PhotographySection";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-// Heavy 3D sections deferred for performance
 const TheVault = dynamic(() => import("@/components/vault/TheVault"), {
   ssr: false,
   loading: () => (
@@ -52,6 +50,35 @@ const ServicesSection = dynamic(() => import("@/components/services/ServicesSect
   ),
 });
 
+const PhotographyTeaser = dynamic(() => import("@/components/photography/PhotographyTeaser"), {
+  ssr: false,
+  loading: () => (
+    <section
+      id="photography"
+      style={{
+        minHeight: "60vh",
+        background: "#111823",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "var(--font-cinzel), serif",
+          fontSize: 12,
+          letterSpacing: "0.4em",
+          color: "rgba(170,146,115,0.3)",
+          textTransform: "uppercase",
+          animation: "film-flicker 2s infinite alternate",
+        }}
+      >
+        Developing stills…
+      </div>
+    </section>
+  ),
+});
+
 export default function HomePage() {
   const [preloaderDone, setPreloaderDone] = useState(false);
   const isMobile = useIsMobile();
@@ -62,20 +89,16 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Preloader */}
       <Preloader onComplete={handlePreloaderComplete} />
-
-      {/* Navigation — desktop strip vs mobile drawer */}
       {isMobile ? <MobileNavDrawer /> : <FilmStripNav />}
 
-      {/* Main content */}
       <main>
         <Hero preloaderDone={preloaderDone} />
-        <AboutSection />
+        <FilmMarquee />
         <TheVault />
+        <PhotographyTeaser />
+        <AboutSection />
         <ServicesSection />
-        <PhotographySection />
-        <JournalSection />
         <ConnectSection />
       </main>
     </>

@@ -43,7 +43,7 @@ export default function InteractivePortrait() {
       ref={containerRef}
       style={{
         position: "relative",
-        width: 280,
+        width: "clamp(280px, 25vw, 400px)",
         flexShrink: 0,
       }}
     >
@@ -51,8 +51,8 @@ export default function InteractivePortrait() {
       <div
         style={{
           position: "relative",
-          width: 280,
-          height: 380,
+          width: "100%",
+          aspectRatio: "280 / 380",
           borderRadius: 2,
           overflow: "hidden",
           border: "1px solid rgba(170,146,115,0.2)",
@@ -66,7 +66,7 @@ export default function InteractivePortrait() {
           placeholder="blur"
           blurDataURL={getBlurDataUrl("/images/HeadShot_Pratham.jpeg")}
           style={{ objectFit: "cover", filter: "brightness(0.85) contrast(1.1)" }}
-          sizes="280px"
+          sizes="(max-width: 768px) 280px, 25vw"
         />
 
         {/* Film grain overlay on portrait */}
@@ -142,7 +142,7 @@ export default function InteractivePortrait() {
       <div
         style={{
           marginTop: 14,
-          padding: "12px 16px",
+          padding: "clamp(12px, 1.2vw, 18px) clamp(16px, 1.5vw, 24px)",
           border: "1px solid rgba(170,146,115,0.15)",
           borderRadius: 2,
           background: "rgba(170,146,115,0.04)",
@@ -151,7 +151,7 @@ export default function InteractivePortrait() {
         <div
           style={{
             fontFamily: "var(--font-cinzel), serif",
-            fontSize: 13,
+            fontSize: "clamp(13px, 1.1vw, 16px)",
             fontWeight: 700,
             color: "#AA9273",
             letterSpacing: "0.15em",
@@ -163,7 +163,7 @@ export default function InteractivePortrait() {
         <div
           style={{
             fontFamily: "var(--font-inter), sans-serif",
-            fontSize: 11,
+            fontSize: "clamp(11px, 0.9vw, 14px)",
             color: "rgba(248,244,237,0.4)",
             letterSpacing: "0.1em",
           }}
@@ -179,7 +179,6 @@ export default function InteractivePortrait() {
             letterSpacing: "0.15em",
           }}
         >
-          Born: 04.08.2006 · Mysuru, Karnataka
         </div>
       </div>
     </div>

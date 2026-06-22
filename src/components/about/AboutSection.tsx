@@ -1,9 +1,43 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
-import FilmRoll from "./FilmRoll";
 import InteractivePortrait from "./InteractivePortrait";
+
+function CountUp({ target, suffix, trigger, delay }: { target: number; suffix: string; trigger: boolean; delay: number }) {
+  const [count, setCount] = useState(0);
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!trigger || hasRun.current) return;
+    hasRun.current = true;
+
+    const timeout = setTimeout(() => {
+      const duration = 1800;
+      const steps = 60;
+      const increment = target / steps;
+      let current = 0;
+      let step = 0;
+
+      const interval = setInterval(() => {
+        step++;
+        const progress = step / steps;
+        const eased = 1 - Math.pow(1 - progress, 3);
+        current = Math.round(eased * target);
+        setCount(Math.min(current, target));
+
+        if (step >= steps) {
+          setCount(target);
+          clearInterval(interval);
+        }
+      }, duration / steps);
+    }, delay * 1000);
+
+    return () => clearTimeout(timeout);
+  }, [trigger, target, delay]);
+
+  return <>{count}{suffix}</>;
+}
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -23,7 +57,7 @@ export default function AboutSection() {
         position: "relative",
         minHeight: "100vh",
         background: "#111823",
-        padding: "100px 0 80px",
+        padding: "clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 120px)",
         overflow: "hidden",
       }}
       aria-label="About Pratham Raje Urs"
@@ -73,9 +107,9 @@ export default function AboutSection() {
 
       <div
         style={{
-          maxWidth: 1200,
+          maxWidth: "min(90vw, 1400px)",
           margin: "0 auto",
-          padding: "0 24px",
+          padding: "0 clamp(24px, 4vw, 64px)",
         }}
       >
         {/* Opening quote */}
@@ -85,13 +119,13 @@ export default function AboutSection() {
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           style={{
             textAlign: "center",
-            marginBottom: 72,
+            marginBottom: "clamp(48px, 6vw, 96px)",
           }}
         >
           <p
             style={{
               fontFamily: "var(--font-cinzel), serif",
-              fontSize: "clamp(1.1rem, 3vw, 2rem)",
+              fontSize: "clamp(1.2rem, 3.5vw, 2.4rem)",
               fontWeight: 400,
               color: "#AA9273",
               fontStyle: "italic",
@@ -117,62 +151,11 @@ export default function AboutSection() {
           </footer>
         </motion.blockquote>
 
-        {/* Section title */}
-        <motion.div
-          initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
-          animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          style={{ marginBottom: 40 }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 16,
-              marginBottom: 8,
-            }}
-          >
-            <div style={{ width: 40, height: 1, background: "#AA9273", opacity: 0.4 }} />
-            <span
-              style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: 10,
-                letterSpacing: "0.4em",
-                color: "rgba(170,146,115,0.5)",
-                textTransform: "uppercase",
-              }}
-            >
-              Origin Reel
-            </span>
-          </div>
-          <h2
-            style={{
-              fontFamily: "var(--font-cinzel), serif",
-              fontSize: "clamp(1.4rem, 3.5vw, 2.4rem)",
-              fontWeight: 800,
-              color: "#F8F4ED",
-              letterSpacing: "0.08em",
-            }}
-          >
-            The Story Behind the Frame
-          </h2>
-        </motion.div>
-
-        {/* Film Roll */}
-        <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(8px)", scale: 0.98 }}
-          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.35 }}
-          style={{ marginBottom: 60 }}
-        >
-          <FilmRoll />
-        </motion.div>
-
         {/* Portrait + bio row */}
         <div
           style={{
             display: "flex",
-            gap: 48,
+            gap: "clamp(32px, 5vw, 72px)",
             alignItems: "flex-start",
             justifyContent: "center",
             flexWrap: "wrap",
@@ -192,12 +175,12 @@ export default function AboutSection() {
             initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
             animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.9, delay: 0.6 }}
-            style={{ flex: 1, minWidth: 280, maxWidth: 600 }}
+            style={{ flex: 1, minWidth: 280, maxWidth: 700 }}
           >
             <p
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
-                fontSize: 15,
+                fontSize: "clamp(15px, 1.1vw, 18px)",
                 lineHeight: 1.9,
                 color: "rgba(248,244,237,0.7)",
                 marginBottom: 20,
@@ -211,7 +194,7 @@ export default function AboutSection() {
             <p
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
-                fontSize: 15,
+                fontSize: "clamp(15px, 1.1vw, 18px)",
                 lineHeight: 1.9,
                 color: "rgba(248,244,237,0.7)",
                 marginBottom: 20,
@@ -226,7 +209,7 @@ export default function AboutSection() {
             <p
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
-                fontSize: 15,
+                fontSize: "clamp(15px, 1.1vw, 18px)",
                 lineHeight: 1.9,
                 color: "rgba(248,244,237,0.7)",
               }}
@@ -237,17 +220,17 @@ export default function AboutSection() {
             {/* Stats row */}
             <div
               style={{
-                marginTop: 36,
+                marginTop: "clamp(36px, 4vw, 56px)",
                 display: "flex",
                 flexWrap: "wrap",
                 gap: 24,
               }}
             >
               {[
-                { num: "6+", label: "Years of work experience" },
-                { num: "4+", label: "Short films directed" },
-                { num: "1", label: "Phalke selection" },
-                { num: "∞", label: "Feelings chased" },
+                { target: 6, suffix: "+", label: "Years of work experience" },
+                { target: 4, suffix: "+", label: "Short films directed" },
+                { target: 2, suffix: "", label: "Feature films" },
+                { target: 100, suffix: "+", label: "Satisfied customers" },
               ].map((stat, i) => (
                 <motion.div
                   key={i}
@@ -259,18 +242,18 @@ export default function AboutSection() {
                   <div
                     style={{
                       fontFamily: "var(--font-cinzel), serif",
-                      fontSize: 28,
+                      fontSize: "clamp(28px, 3vw, 40px)",
                       fontWeight: 900,
                       color: "#AA9273",
                       textShadow: "0 0 20px rgba(170,146,115,0.3)",
                     }}
                   >
-                    {stat.num}
+                    <CountUp target={stat.target} suffix={stat.suffix} trigger={inView} delay={0.7 + i * 0.1} />
                   </div>
                   <div
                     style={{
                       fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: 10,
+                      fontSize: "clamp(10px, 0.8vw, 13px)",
                       letterSpacing: "0.2em",
                       color: "rgba(248,244,237,0.4)",
                       textTransform: "uppercase",

@@ -2,6 +2,8 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import { useCursorContext } from "@/providers/CursorProvider";
 
 interface NavFrameProps {
@@ -9,15 +11,17 @@ interface NavFrameProps {
   href: string;
   clip?: string;
   isActive?: boolean;
-  onClick?: (e: React.MouseEvent) => void;
 }
 
-export default function NavFrame({ label, href, clip, isActive, onClick }: NavFrameProps) {
+export default function NavFrame({ label, href, clip, isActive }: NavFrameProps) {
   const [hovered, setHovered] = useState(false);
-  // Stable server value "42" is replaced after mount — prevents hydration mismatch from Math.random()
   const [frameCode, setFrameCode] = useState("42");
   const videoRef = useRef<HTMLVideoElement>(null);
   const { setCursor, resetCursor } = useCursorContext();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const isRoute = href.startsWith("/");
 
   useEffect(() => {
     setFrameCode(String(Math.floor(Math.random() * 90) + 10));
@@ -40,28 +44,19 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
     resetCursor();
   };
 
-  return (
-    <motion.a
-      href={href}
-      onClick={onClick}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "auto",
-        minWidth: 80,
-        padding: "0 12px",
-        height: 52,
-        textDecoration: "none",
-        overflow: "hidden",
-        flexShrink: 0,
-      }}
-      aria-label={`Navigate to ${label}`}
-    >
+  const handleClick = (e: React.MouseEvent) => {
+    if (isRoute) return; // Let Link handle it
+    e.preventDefault();
+    const id = href.replace("#", "");
+    if (pathname !== "/") {
+      router.push("/" + href);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const content = (
+    <>
       {/* Frame border */}
       <div
         style={{
@@ -75,7 +70,6 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
         }}
       />
 
-      {/* Video preview — develops on hover */}
       {clip && (
         <video
           ref={videoRef}
@@ -98,7 +92,6 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
         />
       )}
 
-      {/* Dark overlay */}
       <div
         style={{
           position: "absolute",
@@ -108,7 +101,6 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
         }}
       />
 
-      {/* Frame number (top left) */}
       <div
         style={{
           position: "absolute",
@@ -124,7 +116,6 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
         {frameCode}A
       </div>
 
-      {/* Label */}
       <motion.span
         style={{
           position: "relative",
@@ -143,7 +134,6 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
         {label}
       </motion.span>
 
-      {/* Gold underline */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: isActive || hovered ? 1 : 0 }}
@@ -159,6 +149,48 @@ export default function NavFrame({ label, href, clip, isActive, onClick }: NavFr
           boxShadow: "0 0 4px rgba(170,146,115,0.6)",
         }}
       />
+    </>
+  );
+
+  const sharedStyle: React.CSSProperties = {
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "auto",
+    minWidth: 80,
+    padding: "0 12px",
+    height: 52,
+    textDecoration: "none",
+    overflow: "hidden",
+    flexShrink: 0,
+  };
+
+  if (isRoute) {
+    return (
+      <Link
+        href={href}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        style={sharedStyle}
+        aria-label={`Navigate to ${label}`}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <motion.a
+      href={href}
+      onClick={handleClick}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      style={sharedStyle}
+      aria-label={`Navigate to ${label}`}
+    >
+      {content}
     </motion.a>
   );
 }

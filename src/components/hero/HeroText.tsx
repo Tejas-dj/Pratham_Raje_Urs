@@ -11,66 +11,59 @@ interface HeroTextProps {
 export default function HeroText({ ready }: HeroTextProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
-  const sublineRef = useRef<HTMLParagraphElement>(null);
   const reduced = useReducedMotion();
 
   useEffect(() => {
     if (!ready) return;
+
+    const FADE_DELAY = 6000;
+
     if (reduced) {
-      // Instant reveal for accessibility
-      [titleRef, taglineRef, sublineRef].forEach((r) => {
-        if (r.current) {
-          r.current.style.opacity = "1";
-          r.current.style.transform = "none";
-        }
-      });
-      return;
+      const t = setTimeout(() => {
+        [titleRef, taglineRef].forEach((r) => {
+          if (r.current) {
+            r.current.style.opacity = "1";
+            r.current.style.transform = "none";
+          }
+        });
+      }, FADE_DELAY);
+      return () => clearTimeout(t);
     }
 
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    let tl: gsap.core.Timeline;
+    const t = setTimeout(() => {
+      tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    // Title — chars stagger up from below
-    if (titleRef.current) {
-      const chars = titleRef.current.querySelectorAll(".char");
-      tl.fromTo(
-        chars,
-        { y: 80, opacity: 0, filter: "blur(4px)" },
-        {
-          y: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          stagger: 0.04,
-          duration: 1.0,
-          ease: "power3.out",
-        },
-        0
-      );
-    }
+      if (titleRef.current) {
+        const chars = titleRef.current.querySelectorAll(".char");
+        tl.fromTo(
+          chars,
+          { y: 40, opacity: 0, filter: "blur(6px)" },
+          {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            stagger: 0.06,
+            duration: 1.8,
+            ease: "power2.out",
+          },
+          0
+        );
+      }
 
-    // Tagline — typewriter (clip-path reveal)
-    if (taglineRef.current) {
-      tl.fromTo(
-        taglineRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        1.2
-      );
-    }
-
-    // Sub-headline fade
-    if (sublineRef.current) {
-      tl.fromTo(
-        sublineRef.current,
-        { opacity: 0, y: -15 },
-        { opacity: 1, y: 0, duration: 0.7 },
-        2.0
-      );
-    }
-
-
+      if (taglineRef.current) {
+        tl.fromTo(
+          taglineRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 1.4, ease: "power2.out" },
+          1.8
+        );
+      }
+    }, FADE_DELAY);
 
     return () => {
-      tl.kill();
+      clearTimeout(t);
+      if (tl) tl.kill();
     };
   }, [ready, reduced]);
 
@@ -84,8 +77,6 @@ export default function HeroText({ ready }: HeroTextProps) {
       ))}
     </span>
   ));
-
-
 
   return (
     <div
@@ -130,14 +121,12 @@ export default function HeroText({ ready }: HeroTextProps) {
           fontWeight: 400,
           letterSpacing: "0.3em",
           color: "#F8F4ED",
-          margin: "0 0 16px",
+          margin: 0,
           opacity: 0,
         }}
       >
         Chasing Feelings. Framing Stories.
       </p>
-
-
     </div>
   );
 }

@@ -2,19 +2,25 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import NavFrame from "./NavFrame";
 import { NAV_ITEMS } from "@/lib/data";
 
 export default function FilmStripNav() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (pathname === "/photography") {
+      setActiveSection("photography");
+      return;
+    }
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 80);
 
-      // Detect active section
-      const sections = ["hero", "about", "vault", "services", "photography", "journal", "connect"];
+      const sections = ["hero", "vault", "photography", "about", "connect"];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 200) {
@@ -24,16 +30,10 @@ export default function FilmStripNav() {
       }
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  function handleNavClick(e: React.MouseEvent, href: string) {
-    e.preventDefault();
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  }
+  }, [pathname]);
 
   return (
     <motion.nav
@@ -55,6 +55,7 @@ export default function FilmStripNav() {
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
+        viewTransitionName: "site-header",
       }}
       aria-label="Main navigation"
     >
@@ -106,7 +107,6 @@ export default function FilmStripNav() {
           gap: 0,
         }}
       >
-        {/* Sprocket holes before frames */}
         {[...Array(3)].map((_, i) => (
           <React.Fragment key={`sprocket-l-${i}`}>
             <div
@@ -131,11 +131,9 @@ export default function FilmStripNav() {
             href={item.href}
             clip={item.clip}
             isActive={activeSection === item.id}
-            onClick={(e) => handleNavClick(e, item.href)}
           />
         ))}
 
-        {/* Sprocket holes after frames */}
         {[...Array(3)].map((_, i) => (
           <div
             key={`sprocket-r-${i}`}

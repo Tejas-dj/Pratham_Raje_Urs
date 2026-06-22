@@ -2,118 +2,19 @@
 
 import React, { useRef, useState, useCallback } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import Link from "next/link";
 import { useCursorContext } from "@/providers/CursorProvider";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import PhotoLightbox from "./PhotoLightbox";
+import { PHOTOS, FEATURED_PHOTOS } from "@/lib/data";
 import type { Photo } from "@/types";
 
-/* ─── Photo data ─────────────────────────────────────────────────────────── */
-const PHOTOS: Photo[] = [
-  {
-    id: 1,
-    src: "/images/V_motionblur.webp",
-    alt: "Golden-hour sunflower field",
-    project: "She Asked for Sunflowers",
-    year: "2024",
-    category: "film-stills",
-    role: "Director | DOP",
-    btsNote: "Shot entirely during a 15-minute magic hour window before the storm hit.",
-    aspect: "tall",
-  },
-  {
-    id: 2,
-    src: "/images/Model_Team.webp",
-    alt: "Rain-streaked café window portrait",
-    project: "Before The Coffee Gets Cold",
-    year: "2024",
-    category: "film-stills",
-    role: "DOP",
-    btsNote: "Used a custom prism filter to catch the neon reflections off the wet window.",
-    aspect: "wide",
-  },
-  {
-    id: 3,
-    src: "/images/still_christmas.png",
-    alt: "Festive living room, warm light",
-    project: "The Christmas Guest",
-    year: "2023",
-    category: "film-stills",
-    role: "Director",
-    btsNote: "We lit the entire scene using only practical tungsten bulbs and the Christmas tree lights.",
-    aspect: "square",
-  },
-  {
-    id: 4,
-    src: "/images/Two_women.webp",
-    alt: "Red umbrella in monsoon cobblestones",
-    project: "Mysuru Streets",
-    year: "2024",
-    category: "street",
-    role: "Photographer",
-    aspect: "tall",
-  },
-  {
-    id: 5,
-    src: "/images/Beach_Couple.webp",
-    alt: "Golden-hour garden ceremony",
-    project: "Wedding Cinema: Talon",
-    year: "2025",
-    category: "portraits",
-    role: "Director | Editor",
-    btsNote: "Captured on a vintage 35mm lens to give the digital sensor an organic, timeless feel.",
-    aspect: "wide",
-  },
-  {
-    id: 6,
-    src: "/images/still_dot.png",
-    alt: "Silhouette against concrete wall",
-    project: "DOT.",
-    year: "2024",
-    category: "film-stills",
-    role: "DOP",
-    btsNote: "The stark contrast was achieved with a single 10K light positioned 50 feet down the alley.",
-    aspect: "tall",
-  },
-  {
-    id: 7,
-    src: "/images/still_bts.webp",
-    alt: "Blue-hour rooftop shoot",
-    project: "Behind The Frame",
-    year: "2025",
-    category: "bts",
-    role: "Director",
-    aspect: "wide",
-  },
-  {
-    id: 8,
-    src: "/images/Beach_Scenic.webp",
-    alt: "Karnataka sunrise paddy fields",
-    project: "Karnataka Diaries",
-    year: "2023",
-    category: "landscapes",
-    role: "DOP | Drone Op",
-    btsNote: "Woke up at 4 AM to hike 3 miles just to catch the morning mist rolling off the fields.",
-    aspect: "wide",
-  },
-  {
-    id: 9,
-    src: "/images/still_sees_kaddi.png",
-    alt: "Night alley, dramatic sidelight",
-    project: "Sees Kaddi",
-    year: "2023",
-    category: "portraits",
-    role: "Actor | Co-Director",
-    aspect: "tall",
-  },
-];
-
-/* ─── Aspect heights ─────────────────────────────────────────────────────── */
-const ASPECT_HEIGHTS: Record<string, number> = {
-  tall: 360,
-  wide: 230,
-  square: 280,
+const ASPECT_HEIGHTS: Record<string, string> = {
+  tall: "85vh",
+  wide: "38vh",
+  square: "55vh",
 };
 
-/* ─── Film-frame corner accent ───────────────────────────────────────────── */
 const CORNERS = [
   { top: 8, left: 8, borderTop: "1px solid rgba(170,146,115,0.35)", borderLeft: "1px solid rgba(170,146,115,0.35)" },
   { top: 8, right: 8, borderTop: "1px solid rgba(170,146,115,0.35)", borderRight: "1px solid rgba(170,146,115,0.35)" },
@@ -121,19 +22,19 @@ const CORNERS = [
   { bottom: 8, right: 8, borderBottom: "1px solid rgba(170,146,115,0.35)", borderRight: "1px solid rgba(170,146,115,0.35)" },
 ] as const;
 
-/* ─── PhotoCard ──────────────────────────────────────────────────────────── */
-function PhotoCard({
+function TeaserCard({
   photo,
   index,
   onOpen,
 }: {
-  photo: (typeof PHOTOS)[0];
+  photo: Photo;
   index: number;
   onOpen: (index: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const { setCursor, resetCursor } = useCursorContext();
+  const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-6% 0px" });
   const height = ASPECT_HEIGHTS[photo.aspect];
 
@@ -147,7 +48,7 @@ function PhotoCard({
         delay: (index % 3) * 0.09,
         ease: [0.22, 1, 0.36, 1],
       }}
-      style={{ breakInside: "avoid", marginBottom: 12, cursor: "none" }}
+      style={{ breakInside: "avoid", marginBottom: 0, cursor: "none" }}
     >
       <div
         role="button"
@@ -157,23 +58,21 @@ function PhotoCard({
         onKeyDown={(e) => e.key === "Enter" && onOpen(index)}
         onMouseEnter={() => {
           setHovered(true);
-          setCursor("crosshair");
+          if (!isMobile) setCursor("crosshair");
         }}
         onMouseLeave={() => {
           setHovered(false);
-          resetCursor();
+          if (!isMobile) resetCursor();
         }}
         style={{
           position: "relative",
           width: "100%",
           height,
           overflow: "hidden",
-          borderRadius: 2,
+          borderRadius: 0,
           background: "#45302A",
-          display: "block",
         }}
       >
-        {/* ── Image with zoom on hover ── */}
         <motion.img
           src={photo.src}
           alt={photo.alt}
@@ -194,7 +93,6 @@ function PhotoCard({
           draggable={false}
         />
 
-        {/* ── Film-frame corners ── */}
         {CORNERS.map((cs, ci) => (
           <div
             key={ci}
@@ -202,7 +100,6 @@ function PhotoCard({
           />
         ))}
 
-        {/* ── Frame number (top-right, always visible) ── */}
         <div
           style={{
             position: "absolute",
@@ -218,7 +115,6 @@ function PhotoCard({
           {String(photo.id).padStart(2, "0")}
         </div>
 
-        {/* ── Hover overlay: project name + year ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: hovered ? 1 : 0 }}
@@ -234,7 +130,6 @@ function PhotoCard({
             padding: "16px 14px 14px",
           }}
         >
-          {/* Category pill */}
           <motion.span
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6 }}
@@ -255,10 +150,9 @@ function PhotoCard({
               backdropFilter: "blur(4px)",
             }}
           >
-            {photo.category}
+            {photo.category.replace("-", " ")}
           </motion.span>
 
-          {/* Project title */}
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
@@ -276,7 +170,6 @@ function PhotoCard({
             {photo.project}
           </motion.p>
 
-          {/* Role & Year */}
           <motion.span
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
@@ -290,10 +183,8 @@ function PhotoCard({
           >
             {photo.role} &nbsp;&middot;&nbsp; {photo.year}
           </motion.span>
-
         </motion.div>
 
-        {/* ── "Open" expand icon, center, only on hover ── */}
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.7 }}
@@ -330,17 +221,19 @@ function PhotoCard({
   );
 }
 
-/* ─── Section ────────────────────────────────────────────────────────────── */
-export default function PhotographySection() {
+export default function PhotographyTeaser() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: false, margin: "-15%" });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const isMobile = useIsMobile();
+  const { setCursor, resetCursor } = useCursorContext();
+
+  const featuredPhotos = PHOTOS.filter((p) => FEATURED_PHOTOS.includes(p.id));
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "center center"],
   });
-
   const scale = useTransform(scrollYProgress, [0, 1], [0.93, 1.0]);
   const opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
 
@@ -352,10 +245,10 @@ export default function PhotographySection() {
       <section
         id="photography"
         ref={sectionRef}
-        style={{ position: "relative", background: "#111823", padding: "100px 0 80px", overflow: "hidden" }}
+        style={{ position: "relative", background: "#111823", padding: "100px 0 0", overflow: "hidden" }}
         aria-label="Photography by Pratham Raje Urs"
       >
-        {/* ── Section header ── */}
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -404,45 +297,35 @@ export default function PhotographySection() {
           </p>
         </motion.div>
 
-        {/* ── Masonry gallery ── */}
+        {/* Masonry gallery — 6 featured photos */}
+        {/* Full-bleed masonry gallery */}
         <motion.div
           style={{
             scale,
             opacity,
             transformOrigin: "top center",
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 24px",
           }}
         >
-          {/* 
-            CSS columns masonry:
-            3 cols on desktop (≥900px), 2 on tablet, 1 on mobile.
-            We use a wrapping div with an inline <style> for the responsive breakpoints
-            since this is a client component — keeps it self-contained.
-          */}
           <style>{`
-            .gallery-masonry {
-              columns: 3 260px;
-              column-gap: 12px;
+            .teaser-masonry {
+              columns: 3;
+              column-gap: 0;
             }
             @media (max-width: 780px) {
-              .gallery-masonry {
-                columns: 2 160px;
-                column-gap: 10px;
+              .teaser-masonry {
+                columns: 2;
               }
             }
             @media (max-width: 480px) {
-              .gallery-masonry {
-                columns: 2 150px;
-                column-gap: 8px;
+              .teaser-masonry {
+                columns: 2;
               }
             }
           `}</style>
 
-          <div className="gallery-masonry">
-            {PHOTOS.map((photo, i) => (
-              <PhotoCard
+          <div className="teaser-masonry">
+            {featuredPhotos.map((photo, i) => (
+              <TeaserCard
                 key={photo.id}
                 photo={photo}
                 index={i}
@@ -451,7 +334,60 @@ export default function PhotographySection() {
             ))}
           </div>
 
-          {/* ── Keyboard hint ── */}
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{ textAlign: "center", padding: "48px 0 24px" }}
+          >
+            <Link
+              href="/photography"
+              onMouseEnter={() => !isMobile && setCursor("crosshair")}
+              onMouseLeave={() => !isMobile && resetCursor()}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "14px 36px",
+                border: "1px solid rgba(170,146,115,0.4)",
+                borderRadius: 2,
+                fontFamily: "var(--font-cinzel), serif",
+                fontSize: "clamp(0.7rem, 1.2vw, 0.85rem)",
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                color: "#AA9273",
+                textDecoration: "none",
+                textTransform: "uppercase",
+                cursor: "none",
+                transition: "all 0.35s ease",
+                background: "transparent",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.borderColor = "#AA9273";
+                e.currentTarget.style.background = "rgba(170,146,115,0.06)";
+                e.currentTarget.style.boxShadow = "0 0 30px rgba(170,146,115,0.08)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.borderColor = "rgba(170,146,115,0.4)";
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              View Full Contact Sheet
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
+          </motion.div>
+
+          {/* Hint */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
@@ -462,7 +398,7 @@ export default function PhotographySection() {
               color: "rgba(170,146,115,0.28)",
               letterSpacing: "0.3em",
               textAlign: "center",
-              marginTop: 32,
+              paddingBottom: 40,
               textTransform: "uppercase",
             }}
           >
@@ -472,10 +408,9 @@ export default function PhotographySection() {
 
       </section>
 
-      {/* ── Lightbox (portal-level, outside section) ── */}
       {lightboxIndex !== null && (
         <PhotoLightbox
-          photos={PHOTOS}
+          photos={featuredPhotos}
           initialIndex={lightboxIndex}
           onClose={closeLightbox}
         />

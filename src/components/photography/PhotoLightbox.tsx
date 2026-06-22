@@ -2,22 +2,93 @@
 
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-export interface LightboxPhoto {
-  id: number;
-  src: string;
-  alt: string;
-  project: string;
-  year: string;
-  category: string;
-  role: string;
-  btsNote?: string;
-}
+import type { Photo } from "@/types";
 
 interface PhotoLightboxProps {
-  photos: LightboxPhoto[];
+  photos: Photo[];
   initialIndex: number;
   onClose: () => void;
+}
+
+function SprocketStrip({ side }: { side: "left" | "right" }) {
+  const holes = Array.from({ length: 12 });
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        [side]: 0,
+        bottom: 0,
+        width: 28,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        pointerEvents: "none",
+        zIndex: 4,
+      }}
+    >
+      {holes.map((_, i) => (
+        <div
+          key={i}
+          style={{
+            width: 10,
+            height: 6,
+            borderRadius: 1,
+            background: "rgba(170,146,115,0.06)",
+            border: "1px solid rgba(170,146,115,0.1)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ExifStrip({ exif }: { exif: NonNullable<Photo["exif"]> }) {
+  const entries = [
+    exif.camera,
+    exif.lens,
+    exif.focalLength,
+    exif.aperture && `ƒ/${exif.aperture}`,
+    exif.iso && `ISO ${exif.iso}`,
+    exif.shutter,
+  ].filter(Boolean);
+
+  if (entries.length === 0) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.2 }}
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "6px 16px",
+        justifyContent: "center",
+        padding: "10px 20px",
+        marginTop: 8,
+        background: "rgba(69,48,42,0.35)",
+        border: "1px solid rgba(170,146,115,0.12)",
+        borderRadius: 2,
+      }}
+    >
+      {entries.map((entry, i) => (
+        <span
+          key={i}
+          style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: 9,
+            letterSpacing: "0.15em",
+            color: "rgba(170,146,115,0.55)",
+            textTransform: "uppercase",
+          }}
+        >
+          {entry}
+        </span>
+      ))}
+    </motion.div>
+  );
 }
 
 export default function PhotoLightbox({
@@ -26,7 +97,7 @@ export default function PhotoLightbox({
   onClose,
 }: PhotoLightboxProps) {
   const [current, setCurrent] = useState(initialIndex);
-  const [direction, setDirection] = useState(0); // +1 → next, -1 → prev
+  const [direction, setDirection] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
@@ -40,7 +111,6 @@ export default function PhotoLightbox({
     setCurrent((c) => (c - 1 + photos.length) % photos.length);
   }, [photos.length]);
 
-  // ── Keyboard ──────────────────────────────────────────────────────────────
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -51,13 +121,11 @@ export default function PhotoLightbox({
     return () => window.removeEventListener("keydown", handler);
   }, [goNext, goPrev, onClose]);
 
-  // ── Scroll lock ───────────────────────────────────────────────────────────
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  // ── Touch / swipe ─────────────────────────────────────────────────────────
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
@@ -100,25 +168,28 @@ export default function PhotoLightbox({
         }}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        // Click backdrop (not image) → close
         onClick={(e) => e.target === e.currentTarget && onClose()}
       >
-        {/* ── Top bar ── */}
+        {/* Film sprocket strips */}
+        <SprocketStrip side="left" />
+        <SprocketStrip side="right" />
+
+        {/* Top bar */}
         <div
           style={{
             position: "absolute",
             top: 0,
-            left: 0,
-            right: 0,
-            padding: "20px 28px",
+            left: 28,
+            right: 28,
+            padding: "20px 24px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            zIndex: 2,
+            zIndex: 5,
             background: "linear-gradient(to bottom, rgba(17,24,35,0.8) 0%, transparent 100%)",
           }}
         >
-          {/* Counter */}
+          {/* Frame number */}
           <span
             style={{
               fontFamily: "'Courier New', monospace",
@@ -127,7 +198,7 @@ export default function PhotoLightbox({
               color: "rgba(170,146,115,0.55)",
             }}
           >
-            {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;{String(photos.length).padStart(2, "0")}
+            FRAME {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;{String(photos.length).padStart(2, "0")}
           </span>
 
           {/* Category tag */}
@@ -140,7 +211,7 @@ export default function PhotoLightbox({
               textTransform: "uppercase",
             }}
           >
-            {photo.category}
+            {photo.category.replace("-", " ")}
           </span>
 
           {/* Close button */}
@@ -176,7 +247,7 @@ export default function PhotoLightbox({
           </button>
         </div>
 
-        {/* ── Image area ── */}
+        {/* Image area */}
         <div
           style={{
             position: "relative",
@@ -184,18 +255,19 @@ export default function PhotoLightbox({
             maxWidth: 1000,
             flex: 1,
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             overflow: "hidden",
-            padding: "80px 80px 100px",
+            padding: "80px 56px 100px",
           }}
         >
           {/* Film-frame corner brackets */}
           {[
-            { top: 80, left: 80, borderTop: "1px solid rgba(170,146,115,0.2)", borderLeft: "1px solid rgba(170,146,115,0.2)" },
-            { top: 80, right: 80, borderTop: "1px solid rgba(170,146,115,0.2)", borderRight: "1px solid rgba(170,146,115,0.2)" },
-            { bottom: 100, left: 80, borderBottom: "1px solid rgba(170,146,115,0.2)", borderLeft: "1px solid rgba(170,146,115,0.2)" },
-            { bottom: 100, right: 80, borderBottom: "1px solid rgba(170,146,115,0.2)", borderRight: "1px solid rgba(170,146,115,0.2)" },
+            { top: 72, left: 48, borderTop: "1px solid rgba(170,146,115,0.2)", borderLeft: "1px solid rgba(170,146,115,0.2)" },
+            { top: 72, right: 48, borderTop: "1px solid rgba(170,146,115,0.2)", borderRight: "1px solid rgba(170,146,115,0.2)" },
+            { bottom: 92, left: 48, borderBottom: "1px solid rgba(170,146,115,0.2)", borderLeft: "1px solid rgba(170,146,115,0.2)" },
+            { bottom: 92, right: 48, borderBottom: "1px solid rgba(170,146,115,0.2)", borderRight: "1px solid rgba(170,146,115,0.2)" },
           ].map((cs, i) => (
             <div
               key={i}
@@ -216,7 +288,7 @@ export default function PhotoLightbox({
               alt={photo.alt}
               style={{
                 maxWidth: "100%",
-                maxHeight: "100%",
+                maxHeight: "70vh",
                 objectFit: "contain",
                 display: "block",
                 filter: "brightness(0.92) contrast(1.05)",
@@ -225,20 +297,24 @@ export default function PhotoLightbox({
               draggable={false}
             />
           </AnimatePresence>
+
+          {/* EXIF data strip */}
+          {photo.exif && <ExifStrip exif={photo.exif} />}
         </div>
 
-        {/* ── Bottom metadata ── */}
+        {/* Bottom metadata */}
         <div
           style={{
             position: "absolute",
             bottom: 0,
-            left: 0,
-            right: 0,
-            padding: "20px 80px 28px",
+            left: 28,
+            right: 28,
+            padding: "20px 48px 28px",
             display: "flex",
             alignItems: "flex-end",
             justifyContent: "space-between",
             background: "linear-gradient(to top, rgba(17,24,35,0.9) 0%, transparent 100%)",
+            zIndex: 5,
           }}
         >
           <div>
@@ -312,7 +388,7 @@ export default function PhotoLightbox({
                 letterSpacing: "0.15em",
                 display: "block",
                 marginBottom: 4,
-                textTransform: "uppercase"
+                textTransform: "uppercase",
               }}
             >
               {photo.role}
@@ -330,7 +406,7 @@ export default function PhotoLightbox({
           </div>
         </div>
 
-        {/* ── Prev / Next arrows ── */}
+        {/* Prev / Next arrows */}
         {[
           { label: "Previous", side: "left" as const, onClick: goPrev, icon: "←" },
           { label: "Next", side: "right" as const, onClick: goNext, icon: "→" },
@@ -342,7 +418,7 @@ export default function PhotoLightbox({
             style={{
               position: "absolute",
               top: "50%",
-              [side]: 20,
+              [side]: 36,
               transform: "translateY(-50%)",
               background: "rgba(17,24,35,0.6)",
               border: "1px solid rgba(170,146,115,0.2)",
@@ -357,7 +433,7 @@ export default function PhotoLightbox({
               fontSize: 20,
               transition: "border-color 0.2s, color 0.2s, background 0.2s",
               backdropFilter: "blur(8px)",
-              zIndex: 3,
+              zIndex: 5,
             }}
             onMouseEnter={(e) => {
               const btn = e.currentTarget as HTMLButtonElement;
@@ -376,36 +452,38 @@ export default function PhotoLightbox({
           </button>
         ))}
 
-        {/* ── Dot indicators ── */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 90,
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            gap: 6,
-            zIndex: 3,
-          }}
-        >
-          {photos.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
-              aria-label={`Go to photo ${i + 1}`}
-              style={{
-                width: i === current ? 20 : 5,
-                height: 5,
-                borderRadius: 3,
-                border: "none",
-                background: i === current ? "#AA9273" : "rgba(170,146,115,0.25)",
-                transition: "width 0.3s ease, background 0.3s ease",
-                cursor: "none",
-                padding: 0,
-              }}
-            />
-          ))}
-        </div>
+        {/* Dot indicators — only show if <= 30 photos */}
+        {photos.length <= 30 && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 90,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: 6,
+              zIndex: 5,
+            }}
+          >
+            {photos.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
+                aria-label={`Go to photo ${i + 1}`}
+                style={{
+                  width: i === current ? 20 : 5,
+                  height: 5,
+                  borderRadius: 3,
+                  border: "none",
+                  background: i === current ? "#AA9273" : "rgba(170,146,115,0.25)",
+                  transition: "width 0.3s ease, background 0.3s ease",
+                  cursor: "none",
+                  padding: 0,
+                }}
+              />
+            ))}
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );

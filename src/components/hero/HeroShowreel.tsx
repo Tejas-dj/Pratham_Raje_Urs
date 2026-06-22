@@ -99,16 +99,6 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
         }}
       />
 
-      {/* ── Vignette ── */}
-      <div
-        className="film-vignette"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 4,
-          opacity: 0.30,
-        }}
-      />
 
 
 

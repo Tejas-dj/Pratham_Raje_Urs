@@ -116,6 +116,20 @@
   100% { filter: grayscale(0) brightness(1) sepia(0); }
 }
 
+@keyframes marquee-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes marquee-scroll-right {
+  0% { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-strip:hover {
+  animation-play-state: paused !important;
+}
+
 /* ─── Base Reset ──────────────────────────────────────────────────────────── */
 :root {
   --background: #111823;
@@ -280,6 +294,46 @@ p:last-child {
   outline-offset: 2px;
 }
 
+/* ─── View Transitions (Route Navigation) ────────────────────────────────── */
+@keyframes film-burn-out {
+  from { opacity: 1; filter: brightness(1); }
+  to { opacity: 0; filter: brightness(1.8) sepia(0.3); }
+}
+
+@keyframes film-burn-in {
+  from { opacity: 0; filter: brightness(1.8) sepia(0.3); }
+  to { opacity: 1; filter: brightness(1); }
+}
+
+::view-transition-old(.nav-forward) {
+  animation: 300ms ease-in both film-burn-out;
+}
+::view-transition-new(.nav-forward) {
+  animation: 400ms ease-out 200ms both film-burn-in;
+}
+::view-transition-old(.nav-back) {
+  animation: 300ms ease-in both film-burn-out;
+}
+::view-transition-new(.nav-back) {
+  animation: 400ms ease-out 200ms both film-burn-in;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* ─── Touch Device Cursor Override ────────────────────────────────────────── */
+@media (pointer: coarse) {
+  *, *::before, *::after { cursor: auto !important; }
+}
+
 /* ─── Reduced Motion ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -288,5 +342,11 @@ p:last-child {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

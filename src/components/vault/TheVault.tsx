@@ -6,21 +6,11 @@ import ProjectCard from "./ProjectCard";
 import CinematicModal from "./CinematicModal";
 import { PROJECTS } from "@/lib/data";
 import type { Project } from "@/types";
-import { useCursorContext } from "@/providers/CursorProvider";
-
-const FILTERS = ["All", "Narrative", "Wedding", "Acting"];
 
 export default function TheVault() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const { setCursor, resetCursor } = useCursorContext();
-
-  const filtered = PROJECTS.filter((p) => {
-    if (activeFilter === "All") return true;
-    return p.category.toLowerCase() === activeFilter.toLowerCase();
-  });
 
   return (
     <section
@@ -71,46 +61,10 @@ export default function TheVault() {
               fontWeight: 800,
               color: "#F8F4ED",
               letterSpacing: "0.08em",
-              marginBottom: 24,
             }}
           >
             The Vault
           </h2>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              flexWrap: "wrap",
-            }}
-          >
-            {FILTERS.map((f) => (
-              <motion.button
-                key={f}
-                onClick={() => setActiveFilter(f)}
-                onMouseEnter={() => setCursor("crosshair")}
-                onMouseLeave={resetCursor}
-                whileTap={{ scale: 0.97 }}
-                style={{
-                  padding: "8px 20px",
-                  background: activeFilter === f ? "rgba(170,146,115,0.12)" : "transparent",
-                  border: `1px solid ${activeFilter === f ? "rgba(170,146,115,0.4)" : "rgba(170,146,115,0.1)"}`,
-                  borderRadius: 2,
-                  color: activeFilter === f ? "#AA9273" : "rgba(248,244,237,0.4)",
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  cursor: "none",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                {f}
-              </motion.button>
-            ))}
-          </div>
         </motion.div>
 
         {/* Responsive Grid */}
@@ -131,7 +85,7 @@ export default function TheVault() {
           className="vault-grid"
         >
           <AnimatePresence mode="popLayout">
-            {filtered.map((project, i) => (
+            {PROJECTS.map((project, i) => (
               <motion.div
                 key={project.id}
                 layout

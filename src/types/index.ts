@@ -49,3 +49,46 @@ export interface SoundState {
   volume: number;
   toggle: () => void;
 }
+
+/* ─── Photography ────────────────────────────────────────────────────────── */
+
+export type PhotoCategory = 'film-stills' | 'portraits' | 'bts' | 'street' | 'landscapes';
+
+export interface PhotoExif {
+  camera?: string;
+  lens?: string;
+  focalLength?: string;
+  aperture?: string;
+  iso?: string;
+  shutter?: string;
+}
+
+export interface Photo {
+  id: number;
+  src: string;
+  blurDataURL?: string;
+  alt: string;
+  project: string;
+  year: string;
+  category: PhotoCategory;
+  role: string;
+  btsNote?: string;
+  aspect: 'tall' | 'wide' | 'square';
+  exif?: PhotoExif;
+}
+
+/* ─── Reels ──────────────────────────────────────────────────────────────── */
+
+export type ReelCategory = 'narrative' | 'bts' | 'wedding' | 'experimental';
+
+export interface Reel {
+  id: string;
+  title: string;
+  description: string;
+  category: ReelCategory;
+  poster: string;
+  videoSrc: string;
+  duration: number;
+  featured?: boolean;
+  year: number;
+}

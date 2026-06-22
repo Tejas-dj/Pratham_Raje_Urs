@@ -1,0 +1,124 @@
+.leader {
+  position: fixed;
+  inset: 0;
+  background: #111823;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Side perforation strips */
+.perfLeft,
+.perfRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  background: #45302A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+.perfLeft { left: 0; border-right: 1px solid rgba(170,146,115,0.15); }
+.perfRight { right: 0; border-left: 1px solid rgba(170,146,115,0.15); }
+
+.perf {
+  width: 12px;
+  height: 18px;
+  border: 1.5px solid rgba(170,146,115,0.35);
+  border-radius: 2px;
+  background: #111823;
+  flex-shrink: 0;
+}
+
+/* Countdown ring */
+.countdownWrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdownNumber {
+  font-family: var(--font-cinzel), serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: #F8F4ED;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  animation: miniFlicker 0.15s steps(2) infinite;
+  text-shadow: 0 0 30px rgba(255,255,255,0.25);
+}
+
+.countdownRing {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(170,146,115,0.3);
+  border-radius: 50%;
+}
+.countdownRing::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(170,146,115,0.12);
+  border-radius: 50%;
+}
+
+/* Center cross lines */
+.crossH, .crossV {
+  position: absolute;
+  background: rgba(170,146,115,0.18);
+}
+.crossH { left: -50px; right: -50px; height: 1px; top: 50%; }
+.crossV { top: -50px; bottom: -50px; width: 1px; left: 50%; }
+
+/* Label below countdown */
+.label {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(10px, 1.5vw, 14px);
+  font-weight: 700;
+  color: rgba(170,146,115,0.5);
+  letter-spacing: 0.5em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* Burn overlay */
+.burnOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #fff9e8, #fff8d4);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Film brand label */
+.filmLabel {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  color: rgba(170,146,115,0.3);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes miniFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
