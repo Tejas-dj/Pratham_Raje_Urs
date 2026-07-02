@@ -16,6 +16,15 @@ const FALLBACK_RATIOS: Record<string, number> = {
 const EAGER_COUNT = 6;
 const GALLERY_SIZES = "(max-width: 780px) 50vw, (max-width: 1200px) 33vw, 400px";
 
+/** Deterministic pseudo-random [0,1) from an integer seed — consistent per photo. */
+function seededRand(seed: number): number {
+  const x = Math.sin(seed * 9301 + 49297) * 49297;
+  return x - Math.floor(x);
+}
+
+/* Size multiplier range: images display between 75% and 125% of their natural height */
+const SIZE_JITTER = 0.25;
+
 const CORNERS = [
   { top: 6, left: 6, borderTop: "1px solid rgba(170,146,115,0.3)", borderLeft: "1px solid rgba(170,146,115,0.3)" },
   { top: 6, right: 6, borderTop: "1px solid rgba(170,146,115,0.3)", borderRight: "1px solid rgba(170,146,115,0.3)" },
@@ -35,8 +44,13 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
   const { setCursor, resetCursor } = useCursorContext();
   const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-6% 0px" });
-  const ratio =
+  const baseRatio =
     photo.width && photo.height ? photo.width / photo.height : FALLBACK_RATIOS[photo.aspect];
+
+  // Deterministic per-photo size jitter: multiplies the aspect ratio so
+  // the rendered height varies ±25%, creating an organic, mixed layout.
+  const jitter = 1 + (seededRand(photo.id) * 2 - 1) * SIZE_JITTER;
+  const ratio = baseRatio * jitter;
 
   return (
     <motion.div
@@ -123,62 +137,6 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
         >
           {String(photo.id).padStart(2, "0")}
         </div>
-
-        {/* Hover overlay */}
-        {photo.project && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.35 }}
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
-              pointerEvents: "none",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              padding: "16px 12px 12px",
-            }}
-          >
-            {/* Project title */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-              transition={{ duration: 0.3, delay: 0.07 }}
-              style={{
-                fontFamily: "var(--font-cinzel), serif",
-                fontSize: "clamp(0.72rem, 1.3vw, 0.95rem)",
-                fontWeight: 700,
-                color: "#F8F4ED",
-                letterSpacing: "0.08em",
-                margin: "0 0 4px",
-                lineHeight: 1.25,
-              }}
-            >
-              {photo.project}
-            </motion.p>
-
-            {/* Role & Year */}
-            {(photo.role || photo.year) && (
-              <motion.span
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-                style={{
-                  fontFamily: "'Courier New', monospace",
-                  fontSize: 9,
-                  color: "rgba(170,146,115,0.65)",
-                  letterSpacing: "0.15em",
-                }}
-              >
-                {photo.role}
-                {photo.role && photo.year ? "  ·  " : ""}
-                {photo.year}
-              </motion.span>
-            )}
-          </motion.div>
-        )}
 
         {/* Expand icon */}
         <motion.div

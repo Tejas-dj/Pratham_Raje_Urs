@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useMemo } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useCursorContext } from "@/providers/CursorProvider";
 import PhotoLightbox from "./PhotoLightbox";
@@ -11,12 +11,71 @@ import { PHOTOS } from "@/lib/data";
 const EAGER_COUNT = 6;
 const GALLERY_SIZES = "(max-width: 780px) 50vw, (max-width: 1200px) 33vw, 400px";
 
-/* ─── Aspect heights ─────────────────────────────────────────────────────── */
-const ASPECT_HEIGHTS: Record<string, number> = {
+/** Fisher-Yates shuffle — never mutates the source array. */
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/** Derives a shoot/group key so images from the same session can be spread apart. */
+function getShootKey(photo: { alt: string; project?: string }): string {
+  if (photo.project) return photo.project;
+  const m = photo.alt.match(/—\s*(.+?)(?:\s+\d+)?$/);
+  return m ? m[1].trim() : `solo-${photo.alt}`;
+}
+
+/**
+ * Spread-shuffle: groups by shoot → round-robin interleave → cleanup pass.
+ */
+function spreadShuffle<T extends { alt: string; project?: string }>(arr: T[]): T[] {
+  const groups = new Map<string, T[]>();
+  for (const item of arr) {
+    const key = getShootKey(item);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(item);
+  }
+  const buckets = [...groups.values()].map((g) => shuffle(g));
+  buckets.sort((a, b) => b.length - a.length);
+  const result: T[] = [];
+  const maxLen = Math.max(...buckets.map((g) => g.length));
+  for (let i = 0; i < maxLen; i++) {
+    for (const bucket of buckets) {
+      if (i < bucket.length) result.push(bucket[i]);
+    }
+  }
+  for (let i = 1; i < result.length; i++) {
+    if (getShootKey(result[i]) === getShootKey(result[i - 1])) {
+      for (let j = i + 2; j < result.length; j++) {
+        if (
+          getShootKey(result[j]) !== getShootKey(result[i - 1]) &&
+          (i + 1 >= result.length || getShootKey(result[j]) !== getShootKey(result[i + 1]))
+        ) {
+          [result[i], result[j]] = [result[j], result[i]];
+          break;
+        }
+      }
+    }
+  }
+  return result;
+}
+
+/** Deterministic pseudo-random [0,1) from an integer seed — consistent per photo. */
+function seededRand(seed: number): number {
+  const x = Math.sin(seed * 9301 + 49297) * 49297;
+  return x - Math.floor(x);
+}
+
+/* ─── Base aspect heights — each card gets a ±30% jitter for visual variety ── */
+const BASE_HEIGHTS: Record<string, number> = {
   tall: 360,
   wide: 230,
   square: 280,
 };
+const HEIGHT_JITTER = 0.30;
 
 /* ─── Film-frame corner accent ───────────────────────────────────────────── */
 const CORNERS = [
@@ -40,7 +99,9 @@ function PhotoCard({
   const [hovered, setHovered] = useState(false);
   const { setCursor, resetCursor } = useCursorContext();
   const inView = useInView(ref, { once: true, margin: "-6% 0px" });
-  const height = ASPECT_HEIGHTS[photo.aspect];
+  // Deterministic per-photo height jitter: ±30% of the base height
+  const jitter = 1 + (seededRand(photo.id) * 2 - 1) * HEIGHT_JITTER;
+  const height = Math.round((BASE_HEIGHTS[photo.aspect] ?? 280) * jitter);
 
   return (
     <motion.div
@@ -130,80 +191,7 @@ function PhotoCard({
           {String(photo.id).padStart(2, "0")}
         </div>
 
-        {/* ── Hover overlay: project name + year ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.35 }}
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)",
-            pointerEvents: "none",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            padding: "16px 14px 14px",
-          }}
-        >
-          {/* Category pill */}
-          <motion.span
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6 }}
-            transition={{ duration: 0.3, delay: 0.04 }}
-            style={{
-              display: "inline-block",
-              alignSelf: "flex-start",
-              padding: "3px 8px",
-              border: "1px solid rgba(170,146,115,0.4)",
-              borderRadius: 2,
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: 8,
-              letterSpacing: "0.25em",
-              color: "rgba(170,146,115,0.85)",
-              textTransform: "uppercase",
-              marginBottom: 8,
-              background: "rgba(170,146,115,0.06)",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            {photo.category}
-          </motion.span>
 
-          {/* Project title */}
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-            transition={{ duration: 0.3, delay: 0.07 }}
-            style={{
-              fontFamily: "var(--font-cinzel), serif",
-              fontSize: "clamp(0.75rem, 1.4vw, 1rem)",
-              fontWeight: 700,
-              color: "#F8F4ED",
-              letterSpacing: "0.08em",
-              margin: "0 0 4px",
-              lineHeight: 1.25,
-            }}
-          >
-            {photo.project}
-          </motion.p>
-
-          {/* Role & Year */}
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: 10,
-              color: "rgba(170,146,115,0.7)",
-              letterSpacing: "0.15em",
-            }}
-          >
-            {photo.role} &nbsp;&middot;&nbsp; {photo.year}
-          </motion.span>
-
-        </motion.div>
 
         {/* ── "Open" expand icon, center, only on hover ── */}
         <motion.div
@@ -247,6 +235,7 @@ export default function PhotographySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: false, margin: "-15%" });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const shuffledPhotos = useMemo(() => spreadShuffle(PHOTOS), []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -353,7 +342,7 @@ export default function PhotographySection() {
           `}</style>
 
           <div className="gallery-masonry">
-            {PHOTOS.map((photo, i) => (
+            {shuffledPhotos.map((photo, i) => (
               <PhotoCard
                 key={photo.id}
                 photo={photo}
@@ -385,12 +374,12 @@ export default function PhotographySection() {
       </section>
 
       {/* ── Warms the browser cache for full-res photos during idle time ── */}
-      <LightboxPreloader photos={PHOTOS} />
+      <LightboxPreloader photos={shuffledPhotos} />
 
       {/* ── Lightbox (portal-level, outside section) ── */}
       {lightboxIndex !== null && (
         <PhotoLightbox
-          photos={PHOTOS}
+          photos={shuffledPhotos}
           initialIndex={lightboxIndex}
           onClose={closeLightbox}
         />

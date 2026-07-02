@@ -244,20 +244,7 @@ export default function PhotoLightbox({
             FRAME {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;{String(photos.length).padStart(2, "0")}
           </span>
 
-          {/* Category tag */}
-          {showCategory && photo.category && (
-            <span
-              style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: 10,
-                letterSpacing: "0.35em",
-                color: "rgba(170,146,115,0.45)",
-                textTransform: "uppercase",
-              }}
-            >
-              {photo.category.replace("-", " ")}
-            </span>
-          )}
+
 
           {/* Close button */}
           <button
@@ -382,117 +369,7 @@ export default function PhotoLightbox({
           {photo.exif && <ExifStrip exif={photo.exif} />}
         </div>
 
-        {/* Bottom metadata */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 28,
-            right: 28,
-            padding: "20px 48px 28px",
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            background: "linear-gradient(to top, rgba(17,24,35,0.9) 0%, transparent 100%)",
-            zIndex: 5,
-          }}
-        >
-          <div>
-            {photo.project && (
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={`project-${current}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    fontFamily: "var(--font-cinzel), serif",
-                    fontSize: "clamp(0.85rem, 1.6vw, 1.15rem)",
-                    fontWeight: 700,
-                    color: "#AA9273",
-                    letterSpacing: "0.12em",
-                    marginBottom: 4,
-                  }}
-                >
-                  {photo.project}
-                </motion.p>
-              </AnimatePresence>
-            )}
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={`alt-${current}`}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, delay: 0.05 }}
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: 11,
-                  color: "rgba(248,244,237,0.4)",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {photo.alt}
-              </motion.p>
-            </AnimatePresence>
-            {photo.btsNote && (
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={`bts-${current}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  style={{
-                    fontFamily: "var(--font-inter), sans-serif",
-                    fontSize: 11,
-                    color: "rgba(170,146,115,0.8)",
-                    marginTop: 8,
-                    maxWidth: 500,
-                    lineHeight: 1.4,
-                    fontStyle: "italic",
-                  }}
-                >
-                  * {photo.btsNote}
-                </motion.p>
-              </AnimatePresence>
-            )}
-          </div>
 
-          {(photo.role || photo.year) && (
-            <div style={{ textAlign: "right" }}>
-              {photo.role && (
-                <span
-                  style={{
-                    fontFamily: "'Courier New', monospace",
-                    fontSize: 11,
-                    color: "rgba(170,146,115,0.5)",
-                    letterSpacing: "0.15em",
-                    display: "block",
-                    marginBottom: 4,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {photo.role}
-                </span>
-              )}
-              {photo.year && (
-                <span
-                  style={{
-                    fontFamily: "'Courier New', monospace",
-                    fontSize: 12,
-                    color: "rgba(170,146,115,0.35)",
-                    letterSpacing: "0.15em",
-                  }}
-                >
-                  {photo.year}
-                </span>
-              )}
-            </div>
-          )}
-        </div>
 
         {/* Prev / Next arrows */}
         {[

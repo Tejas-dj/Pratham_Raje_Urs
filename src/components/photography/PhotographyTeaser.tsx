@@ -165,75 +165,7 @@ function TeaserCard({
           {String(photo.id).padStart(2, "0")}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.35 }}
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)",
-            pointerEvents: "none",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            padding: "16px 14px 14px",
-          }}
-        >
-          <motion.span
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6 }}
-            transition={{ duration: 0.3, delay: 0.04 }}
-            style={{
-              display: "inline-block",
-              alignSelf: "flex-start",
-              padding: "3px 8px",
-              border: "1px solid rgba(170,146,115,0.4)",
-              borderRadius: 2,
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: 8,
-              letterSpacing: "0.25em",
-              color: "rgba(170,146,115,0.85)",
-              textTransform: "uppercase",
-              marginBottom: 8,
-              background: "rgba(170,146,115,0.06)",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            {photo.category?.replace("-", " ")}
-          </motion.span>
 
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-            transition={{ duration: 0.3, delay: 0.07 }}
-            style={{
-              fontFamily: "var(--font-cinzel), serif",
-              fontSize: "clamp(0.75rem, 1.4vw, 1rem)",
-              fontWeight: 700,
-              color: "#F8F4ED",
-              letterSpacing: "0.08em",
-              margin: "0 0 4px",
-              lineHeight: 1.25,
-            }}
-          >
-            {photo.project}
-          </motion.p>
-
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: 10,
-              color: "rgba(170,146,115,0.7)",
-              letterSpacing: "0.15em",
-            }}
-          >
-            {photo.role} &nbsp;&middot;&nbsp; {photo.year}
-          </motion.span>
-        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
