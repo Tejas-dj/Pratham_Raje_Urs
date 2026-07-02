@@ -59,8 +59,8 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
       </div>
 
       {/* Image area */}
-      <div style={{ position: "relative", height: 180, overflow: "hidden" }}>
-        <Image
+      <div style={{ position: "relative", height: 180, overflow: "hidden", background: "#1a1e28" }}>
+        {image && <Image
           src={image}
           alt={title}
           fill
@@ -73,7 +73,7 @@ export default function FilmFrame({ year, title, description, image, hasVideo, i
             transform: hovered ? "scale(1.04)" : "scale(1)",
           }}
           sizes="280px"
-        />
+        />}
 
         {/* "He Stars In This" type overlay */}
         {hovered && hasVideo && (

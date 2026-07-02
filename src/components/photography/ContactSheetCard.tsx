@@ -4,13 +4,17 @@ import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useCursorContext } from "@/providers/CursorProvider";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import CldPhoto from "@/components/common/CldPhoto";
 import type { Photo } from "@/types";
 
-const ASPECT_HEIGHTS: Record<string, number> = {
-  tall: 360,
-  wide: 230,
-  square: 280,
+const FALLBACK_RATIOS: Record<string, number> = {
+  tall: 3 / 4,
+  wide: 16 / 9,
+  square: 1,
 };
+
+const EAGER_COUNT = 6;
+const GALLERY_SIZES = "(max-width: 780px) 50vw, (max-width: 1200px) 33vw, 400px";
 
 const CORNERS = [
   { top: 6, left: 6, borderTop: "1px solid rgba(170,146,115,0.3)", borderLeft: "1px solid rgba(170,146,115,0.3)" },
@@ -31,7 +35,8 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
   const { setCursor, resetCursor } = useCursorContext();
   const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-6% 0px" });
-  const height = ASPECT_HEIGHTS[photo.aspect];
+  const ratio =
+    photo.width && photo.height ? photo.width / photo.height : FALLBACK_RATIOS[photo.aspect];
 
   return (
     <motion.div
@@ -43,12 +48,12 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
         delay: (index % 3) * 0.09,
         ease: [0.22, 1, 0.36, 1],
       }}
-      style={{ breakInside: "avoid", marginBottom: 12, cursor: "none" }}
+      style={{ breakInside: "avoid", marginBottom: 4, cursor: "none" }}
     >
       <div
         role="button"
         tabIndex={0}
-        aria-label={`Open ${photo.project}: ${photo.alt}`}
+        aria-label={photo.project ? `Open ${photo.project}: ${photo.alt}` : `Open ${photo.alt}`}
         onClick={() => onOpen(index)}
         onKeyDown={(e) => e.key === "Enter" && onOpen(index)}
         onMouseEnter={() => {
@@ -62,7 +67,7 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
         style={{
           position: "relative",
           width: "100%",
-          height,
+          aspectRatio: ratio,
           overflow: "hidden",
           borderRadius: 2,
           background: "#45302A",
@@ -70,25 +75,30 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
         }}
       >
         {/* Image — "develops" on hover */}
-        <motion.img
-          src={photo.src}
-          alt={photo.alt}
-          loading="lazy"
-          decoding="async"
-          animate={{ scale: hovered ? 1.06 : 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            filter: hovered
-              ? "grayscale(0) brightness(0.95) contrast(1.05)"
-              : "grayscale(0.6) brightness(0.78) contrast(1.02)",
-            transition: "filter 0.5s ease",
-          }}
-          draggable={false}
-        />
+        {photo.src && (
+          <motion.div
+            animate={{ scale: hovered ? 1.06 : 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            style={{ position: "absolute", inset: 0 }}
+          >
+            <CldPhoto
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              sizes={GALLERY_SIZES}
+              loading={index < EAGER_COUNT ? "eager" : "lazy"}
+              decoding="async"
+              draggable={false}
+              style={{
+                objectFit: "cover",
+                filter: hovered
+                  ? "grayscale(0) brightness(0.95) contrast(1.05)"
+                  : "grayscale(0.6) brightness(0.78) contrast(1.02)",
+                transition: "filter 0.5s ease",
+              }}
+            />
+          </motion.div>
+        )}
 
         {/* Film-frame corners */}
         {CORNERS.map((cs, ci) => (
@@ -115,78 +125,60 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
         </div>
 
         {/* Hover overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.35 }}
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
-            pointerEvents: "none",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            padding: "16px 12px 12px",
-          }}
-        >
-          {/* Category pill */}
-          <motion.span
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6 }}
-            transition={{ duration: 0.3, delay: 0.04 }}
+        {photo.project && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: hovered ? 1 : 0 }}
+            transition={{ duration: 0.35 }}
             style={{
-              display: "inline-block",
-              alignSelf: "flex-start",
-              padding: "3px 8px",
-              border: "1px solid rgba(170,146,115,0.4)",
-              borderRadius: 2,
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: 8,
-              letterSpacing: "0.25em",
-              color: "rgba(170,146,115,0.85)",
-              textTransform: "uppercase",
-              marginBottom: 8,
-              background: "rgba(170,146,115,0.06)",
-              backdropFilter: "blur(4px)",
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
+              pointerEvents: "none",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              padding: "16px 12px 12px",
             }}
           >
-            {photo.category.replace("-", " ")}
-          </motion.span>
+            {/* Project title */}
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
+              transition={{ duration: 0.3, delay: 0.07 }}
+              style={{
+                fontFamily: "var(--font-cinzel), serif",
+                fontSize: "clamp(0.72rem, 1.3vw, 0.95rem)",
+                fontWeight: 700,
+                color: "#F8F4ED",
+                letterSpacing: "0.08em",
+                margin: "0 0 4px",
+                lineHeight: 1.25,
+              }}
+            >
+              {photo.project}
+            </motion.p>
 
-          {/* Project title */}
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-            transition={{ duration: 0.3, delay: 0.07 }}
-            style={{
-              fontFamily: "var(--font-cinzel), serif",
-              fontSize: "clamp(0.72rem, 1.3vw, 0.95rem)",
-              fontWeight: 700,
-              color: "#F8F4ED",
-              letterSpacing: "0.08em",
-              margin: "0 0 4px",
-              lineHeight: 1.25,
-            }}
-          >
-            {photo.project}
-          </motion.p>
-
-          {/* Role & Year */}
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: 9,
-              color: "rgba(170,146,115,0.65)",
-              letterSpacing: "0.15em",
-            }}
-          >
-            {photo.role} &nbsp;&middot;&nbsp; {photo.year}
-          </motion.span>
-        </motion.div>
+            {/* Role & Year */}
+            {(photo.role || photo.year) && (
+              <motion.span
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: 9,
+                  color: "rgba(170,146,115,0.65)",
+                  letterSpacing: "0.15em",
+                }}
+              >
+                {photo.role}
+                {photo.role && photo.year ? "  ·  " : ""}
+                {photo.year}
+              </motion.span>
+            )}
+          </motion.div>
+        )}
 
         {/* Expand icon */}
         <motion.div

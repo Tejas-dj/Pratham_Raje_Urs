@@ -26,8 +26,8 @@ export default function ContactSheetGallery({
     target: sectionRef,
     offset: ["start end", "center center"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1.0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.99, 1.0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0.88, 1]);
 
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -55,32 +55,27 @@ export default function ContactSheetGallery({
         scale,
         opacity,
         transformOrigin: "top center",
-        maxWidth: 1200,
-        margin: "0 auto",
-        padding: "0 24px",
+        // Breaks out of any ancestor's width/padding so this always spans the
+        // full viewport, no matter how wide the screen is.
+        width: "100vw",
+        marginLeft: "calc(50% - 50vw)",
+        marginRight: "calc(50% - 50vw)",
       }}
     >
       <style>{`
         .contact-sheet-masonry {
-          columns: 4 240px;
-          column-gap: 12px;
+          columns: 260px;
+          column-gap: 4px;
         }
         @media (max-width: 1024px) {
           .contact-sheet-masonry {
-            columns: 3 220px;
-            column-gap: 12px;
+            columns: 220px;
           }
         }
         @media (max-width: 780px) {
           .contact-sheet-masonry {
-            columns: 2 160px;
-            column-gap: 10px;
-          }
-        }
-        @media (max-width: 480px) {
-          .contact-sheet-masonry {
-            columns: 2 150px;
-            column-gap: 8px;
+            columns: 2;
+            column-gap: 3px;
           }
         }
       `}</style>
@@ -118,7 +113,7 @@ export default function ContactSheetGallery({
           color: "rgba(170,146,115,0.25)",
           letterSpacing: "0.3em",
           textAlign: "center",
-          marginTop: 40,
+          margin: "40px 0 0",
           textTransform: "uppercase",
         }}
       >

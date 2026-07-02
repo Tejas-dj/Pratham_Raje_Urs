@@ -1,21 +1,48 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { cloudinaryImage, cloudinaryVideo } from "@/lib/cloudinary";
 
+// Top strip — every preview clip in the Videos library, always playing.
+const STRIP_VIDEOS = [
+  { src: cloudinaryVideo("DOT._I_KANNADA_SHORT_FILM_swxfw5"), title: "DOT." },
+  { src: cloudinaryVideo("Before_The_Coffee_Gets_Cold_fhvaao"), title: "Before The Coffee Gets Cold" },
+  { src: cloudinaryVideo("SHE_ASKED_FOR_SUNFLOWERS_id1iwo"), title: "She Asked for Sunflowers" },
+  {
+    src: cloudinaryVideo(
+      "The_Christmas_Guest_A_Short_Film_That_Will_Stay_With_You_-_Talon_Production_House_144p_aqxk6u",
+    ),
+    title: "The Christmas Guest",
+  },
+  { src: cloudinaryVideo("Nasheya_Gungale_Music_Video_pihf6d"), title: "Nasheya Gungale" },
+  { src: cloudinaryVideo("JEWELLERY_AD_zzdsjb"), title: "Jewellery Ad" },
+  { src: cloudinaryVideo("Shazia_Khan_AD_gnr0fo"), title: "Shazia Khan Ad" },
+  { src: cloudinaryVideo("Sees_Kaddi-Trailer_awtp8z"), title: "Sees Kaddi" },
+];
+
+// Bottom strip — a random slice of landscape stills from the photography library.
 const STRIP_IMAGES = [
-  { src: "/images/She asked for Sunflowers.jpeg", title: "She Asked for Sunflowers" },
-  { src: "/images/The Christmas Guest.jpeg", title: "The Christmas Guest" },
-  { src: "/images/Before The Coffee Gets Cold.jpeg", title: "Before The Coffee Gets Cold" },
-  { src: "/images/DOT..jpeg", title: "DOT." },
-  { src: "/images/V_motionblur.webp", title: "Motion" },
-  { src: "/images/Beach_Couple.webp", title: "Coastal Love" },
-  { src: "/images/Model_Team.webp", title: "The Ensemble" },
-  { src: "/images/Two_women.webp", title: "Monsoon Walk" },
-  { src: "/images/Beach_Scenic.webp", title: "Karnataka Coast" },
-  { src: "/images/still_bts.webp", title: "Behind The Frame" },
-  { src: "/images/still_christmas.png", title: "Festive Warmth" },
-  { src: "/images/still_dot.png", title: "Existence" },
+  { src: cloudinaryImage("BEACH_1-08_w7pjgh"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("IMAGE_-12_ynydq5"), title: "Behind The Frame" },
+  { src: cloudinaryImage("BEACH_1-06_x1mk6j"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("DSC00950_g5ai2c"), title: "On Set" },
+  { src: cloudinaryImage("BEACH_1-09_kjpjja"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("shradha_team-05_qfbsyd"), title: "Shradha Team" },
+  { src: cloudinaryImage("BEACH_1-17_jntr4z"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("DSC01155_b0kmvt"), title: "On Set" },
+  { src: cloudinaryImage("shradha_team-01_dal4gm"), title: "Shradha Team" },
+  { src: cloudinaryImage("BEACH_1-07_kbziko"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("shradha_team-03_uaswej"), title: "Shradha Team" },
+  { src: cloudinaryImage("DSC01329_ir9f96"), title: "On Set" },
+  { src: cloudinaryImage("DSC01055_xxbbwd"), title: "Mysuru Streets" },
+  { src: cloudinaryImage("IMAGE_-11_b6ofm8"), title: "Behind The Frame" },
+  { src: cloudinaryImage("Sees_Kaddi_Landscape_f2y5dm"), title: "Sees Kaddi" },
+  { src: cloudinaryImage("BEACH_1-05_cmeemu"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("DSC01262_s8b80e"), title: "On Set" },
+  { src: cloudinaryImage("IMAGE_-03_s8espp"), title: "Behind The Frame" },
+  { src: cloudinaryImage("shradha_team-07_pgfsgv"), title: "Shradha Team" },
+  { src: cloudinaryImage("shradha_team-14_apndxu"), title: "Shradha Team" },
 ];
 
 function SprocketHoles({ count }: { count: number }) {
@@ -38,7 +65,14 @@ function SprocketHoles({ count }: { count: number }) {
   );
 }
 
-function FilmFrame({ src, title, index }: { src: string; title: string; index: number }) {
+interface FilmFrameProps {
+  src: string;
+  title: string;
+  index: number;
+  isVideo?: boolean;
+}
+
+function FilmFrame({ src, title, index, isVideo }: FilmFrameProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -66,7 +100,7 @@ function FilmFrame({ src, title, index }: { src: string; title: string; index: n
         <SprocketHoles count={13} />
       </div>
 
-      {/* Image frame */}
+      {/* Frame */}
       <div
         style={{
           position: "relative",
@@ -74,20 +108,42 @@ function FilmFrame({ src, title, index }: { src: string; title: string; index: n
           height: 120,
           overflow: "hidden",
           margin: "0 auto",
+          background: src ? undefined : "#1a1e28",
         }}
       >
-        <Image
-          src={src}
-          alt={title}
-          fill
-          sizes="200px"
-          style={{
-            objectFit: "cover",
-            transition: "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease",
-            transform: isHovered ? "scale(1.12)" : "scale(1)",
-            filter: isHovered ? "brightness(1.1) saturate(1.2)" : "brightness(0.85) saturate(0.9)",
-          }}
-        />
+        {src && isVideo && (
+          <video
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transition: "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease",
+              transform: isHovered ? "scale(1.12)" : "scale(1)",
+              filter: isHovered ? "brightness(1.1) saturate(1.2)" : "brightness(0.85) saturate(0.9)",
+            }}
+          />
+        )}
+        {src && !isVideo && (
+          <Image
+            src={src}
+            alt={title}
+            fill
+            sizes="200px"
+            style={{
+              objectFit: "cover",
+              transition: "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease",
+              transform: isHovered ? "scale(1.12)" : "scale(1)",
+              filter: isHovered ? "brightness(1.1) saturate(1.2)" : "brightness(0.85) saturate(0.9)",
+            }}
+          />
+        )}
 
         {/* Film frame counter */}
         <div
@@ -151,9 +207,6 @@ export default function FilmMarquee() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const topImages = STRIP_IMAGES.slice(0, 6);
-  const bottomImages = STRIP_IMAGES.slice(6);
-
   const gap = isMobile ? 12 : 18;
 
   return (
@@ -166,7 +219,7 @@ export default function FilmMarquee() {
         padding: isMobile ? "24px 0" : "40px 0",
       }}
     >
-      {/* Top strip — scrolls left */}
+      {/* Top strip — scrolls left, all preview clips playing */}
       <div
         style={{
           position: "relative",
@@ -211,13 +264,13 @@ export default function FilmMarquee() {
             animation: `marquee-scroll-left ${isMobile ? 14 : 20}s linear infinite`,
           }}
         >
-          {[...topImages, ...topImages, ...topImages, ...topImages].map((img, i) => (
-            <FilmFrame key={`top-${i}`} src={img.src} title={img.title} index={i % topImages.length} />
+          {[...STRIP_VIDEOS, ...STRIP_VIDEOS, ...STRIP_VIDEOS, ...STRIP_VIDEOS].map((clip, i) => (
+            <FilmFrame key={`top-${i}`} src={clip.src} title={clip.title} index={i % STRIP_VIDEOS.length} isVideo />
           ))}
         </div>
       </div>
 
-      {/* Bottom strip — scrolls right */}
+      {/* Bottom strip — scrolls right, landscape stills */}
       <div
         style={{
           position: "relative",
@@ -261,8 +314,8 @@ export default function FilmMarquee() {
             animation: `marquee-scroll-right ${isMobile ? 16 : 24}s linear infinite`,
           }}
         >
-          {[...bottomImages, ...bottomImages, ...bottomImages, ...bottomImages].map((img, i) => (
-            <FilmFrame key={`bot-${i}`} src={img.src} title={img.title} index={i % bottomImages.length + 6} />
+          {[...STRIP_IMAGES, ...STRIP_IMAGES].map((img, i) => (
+            <FilmFrame key={`bot-${i}`} src={img.src} title={img.title} index={(i % STRIP_IMAGES.length) + 8} />
           ))}
         </div>
       </div>

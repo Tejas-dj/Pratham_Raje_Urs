@@ -16,7 +16,7 @@ export default function HeroText({ ready }: HeroTextProps) {
   useEffect(() => {
     if (!ready) return;
 
-    const FADE_DELAY = 6000;
+    const FADE_DELAY = 1500;
 
     if (reduced) {
       const t = setTimeout(() => {

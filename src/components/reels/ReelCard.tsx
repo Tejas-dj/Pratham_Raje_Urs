@@ -79,7 +79,7 @@ export default function ReelCard({ reel, index, onPlay }: ReelCardProps) {
         }}
       >
         {/* Poster */}
-        <img
+        {reel.poster && <img
           src={reel.poster}
           alt={reel.title}
           loading="lazy"
@@ -92,7 +92,7 @@ export default function ReelCard({ reel, index, onPlay }: ReelCardProps) {
             filter: "brightness(0.8) contrast(1.05)",
           }}
           draggable={false}
-        />
+        />}
 
         {/* Hover video preview */}
         <motion.video

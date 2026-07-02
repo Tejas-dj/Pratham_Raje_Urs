@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { PHOTOS } from "@/lib/data";
+import CldPhoto from "@/components/common/CldPhoto";
 
 const CORNERS = [
   { top: 12, left: 12, borderTop: "1px solid rgba(170,146,115,0.3)", borderLeft: "1px solid rgba(170,146,115,0.3)" },
@@ -14,9 +14,10 @@ const CORNERS = [
 interface ContactSheetHeroProps {
   featuredSrc: string;
   featuredAlt: string;
+  frameCount: number;
 }
 
-export default function ContactSheetHero({ featuredSrc, featuredAlt }: ContactSheetHeroProps) {
+export default function ContactSheetHero({ featuredSrc, featuredAlt, frameCount }: ContactSheetHeroProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-5%" });
 
@@ -39,12 +40,16 @@ export default function ContactSheetHero({ featuredSrc, featuredAlt }: ContactSh
           marginBottom: 32,
         }}
       >
-        <img
+        <CldPhoto
           src={featuredSrc}
           alt={featuredAlt}
+          fill
+          crop="fill"
+          gravity="auto"
+          sizes="100vw"
+          loading="eager"
+          preload
           style={{
-            width: "100%",
-            height: "100%",
             objectFit: "cover",
             filter: "brightness(0.75) contrast(1.08)",
           }}
@@ -97,7 +102,7 @@ export default function ContactSheetHero({ featuredSrc, featuredAlt }: ContactSh
           marginBottom: 16,
         }}
       >
-        {PHOTOS.length} FRAMES &middot; 2022&ndash;2026
+        {frameCount} FRAMES &middot; 2022&ndash;2026
       </motion.p>
 
       {/* Manifesto */}

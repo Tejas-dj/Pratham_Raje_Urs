@@ -4,107 +4,12 @@ import React, { useRef, useState, useCallback } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useCursorContext } from "@/providers/CursorProvider";
 import PhotoLightbox from "./PhotoLightbox";
-import type { Photo } from "@/types";
+import LightboxPreloader from "./LightboxPreloader";
+import CldPhoto from "@/components/common/CldPhoto";
+import { PHOTOS } from "@/lib/data";
 
-/* ─── Photo data ─────────────────────────────────────────────────────────── */
-const PHOTOS: Photo[] = [
-  {
-    id: 1,
-    src: "/images/V_motionblur.webp",
-    alt: "Golden-hour sunflower field",
-    project: "She Asked for Sunflowers",
-    year: "2024",
-    category: "film-stills",
-    role: "Director | DOP",
-    btsNote: "Shot entirely during a 15-minute magic hour window before the storm hit.",
-    aspect: "tall",
-  },
-  {
-    id: 2,
-    src: "/images/Model_Team.webp",
-    alt: "Rain-streaked café window portrait",
-    project: "Before The Coffee Gets Cold",
-    year: "2024",
-    category: "film-stills",
-    role: "DOP",
-    btsNote: "Used a custom prism filter to catch the neon reflections off the wet window.",
-    aspect: "wide",
-  },
-  {
-    id: 3,
-    src: "/images/still_christmas.png",
-    alt: "Festive living room, warm light",
-    project: "The Christmas Guest",
-    year: "2023",
-    category: "film-stills",
-    role: "Director",
-    btsNote: "We lit the entire scene using only practical tungsten bulbs and the Christmas tree lights.",
-    aspect: "square",
-  },
-  {
-    id: 4,
-    src: "/images/Two_women.webp",
-    alt: "Red umbrella in monsoon cobblestones",
-    project: "Mysuru Streets",
-    year: "2024",
-    category: "street",
-    role: "Photographer",
-    aspect: "tall",
-  },
-  {
-    id: 5,
-    src: "/images/Beach_Couple.webp",
-    alt: "Golden-hour garden ceremony",
-    project: "Wedding Cinema: Talon",
-    year: "2025",
-    category: "portraits",
-    role: "Director | Editor",
-    btsNote: "Captured on a vintage 35mm lens to give the digital sensor an organic, timeless feel.",
-    aspect: "wide",
-  },
-  {
-    id: 6,
-    src: "/images/still_dot.png",
-    alt: "Silhouette against concrete wall",
-    project: "DOT.",
-    year: "2024",
-    category: "film-stills",
-    role: "DOP",
-    btsNote: "The stark contrast was achieved with a single 10K light positioned 50 feet down the alley.",
-    aspect: "tall",
-  },
-  {
-    id: 7,
-    src: "/images/still_bts.webp",
-    alt: "Blue-hour rooftop shoot",
-    project: "Behind The Frame",
-    year: "2025",
-    category: "bts",
-    role: "Director",
-    aspect: "wide",
-  },
-  {
-    id: 8,
-    src: "/images/Beach_Scenic.webp",
-    alt: "Karnataka sunrise paddy fields",
-    project: "Karnataka Diaries",
-    year: "2023",
-    category: "landscapes",
-    role: "DOP | Drone Op",
-    btsNote: "Woke up at 4 AM to hike 3 miles just to catch the morning mist rolling off the fields.",
-    aspect: "wide",
-  },
-  {
-    id: 9,
-    src: "/images/still_sees_kaddi.png",
-    alt: "Night alley, dramatic sidelight",
-    project: "Sees Kaddi",
-    year: "2023",
-    category: "portraits",
-    role: "Actor | Co-Director",
-    aspect: "tall",
-  },
-];
+const EAGER_COUNT = 6;
+const GALLERY_SIZES = "(max-width: 780px) 50vw, (max-width: 1200px) 33vw, 400px";
 
 /* ─── Aspect heights ─────────────────────────────────────────────────────── */
 const ASPECT_HEIGHTS: Record<string, number> = {
@@ -174,25 +79,32 @@ function PhotoCard({
         }}
       >
         {/* ── Image with zoom on hover ── */}
-        <motion.img
-          src={photo.src}
-          alt={photo.alt}
-          loading="lazy"
-          decoding="async"
-          animate={{ scale: hovered ? 1.07 : 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            filter: hovered
-              ? "brightness(0.6) contrast(1.08)"
-              : "brightness(0.82) contrast(1.05)",
-            transition: "filter 0.5s ease",
-          }}
-          draggable={false}
-        />
+        {photo.src && (
+          <motion.div
+            animate={{ scale: hovered ? 1.07 : 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            style={{ position: "absolute", inset: 0 }}
+          >
+            <CldPhoto
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              crop="fill"
+              gravity="auto"
+              sizes={GALLERY_SIZES}
+              loading={index < EAGER_COUNT ? "eager" : "lazy"}
+              decoding="async"
+              draggable={false}
+              style={{
+                objectFit: "cover",
+                filter: hovered
+                  ? "brightness(0.6) contrast(1.08)"
+                  : "brightness(0.82) contrast(1.05)",
+                transition: "filter 0.5s ease",
+              }}
+            />
+          </motion.div>
+        )}
 
         {/* ── Film-frame corners ── */}
         {CORNERS.map((cs, ci) => (
@@ -471,6 +383,9 @@ export default function PhotographySection() {
         </motion.div>
 
       </section>
+
+      {/* ── Warms the browser cache for full-res photos during idle time ── */}
+      <LightboxPreloader photos={PHOTOS} />
 
       {/* ── Lightbox (portal-level, outside section) ── */}
       {lightboxIndex !== null && (

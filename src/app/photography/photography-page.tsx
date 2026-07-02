@@ -4,16 +4,14 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import ContactSheetHero from "@/components/photography/ContactSheetHero";
-import FilterBar from "@/components/photography/FilterBar";
 import ContactSheetGallery from "@/components/photography/ContactSheetGallery";
 import PhotoLightbox from "@/components/photography/PhotoLightbox";
-import { PHOTOS, FEATURED_PHOTOS } from "@/lib/data";
-import type { PhotoCategory } from "@/types";
+import LightboxPreloader from "@/components/photography/LightboxPreloader";
+import { PHOTOS } from "@/lib/data";
 
 const BATCH_SIZE = 20;
 
 export default function PhotographyPage() {
-  const [activeCategory, setActiveCategory] = useState<PhotoCategory | "all">("all");
   const [page, setPage] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [darkroomDone, setDarkroomDone] = useState(false);
@@ -24,25 +22,15 @@ export default function PhotographyPage() {
     return () => clearTimeout(t);
   }, []);
 
-  const filteredPhotos = useMemo(
-    () =>
-      activeCategory === "all"
-        ? PHOTOS
-        : PHOTOS.filter((p) => p.category === activeCategory),
-    [activeCategory]
-  );
+  // Thumbnail-folder images are low-res poster crops for other pages — never show them here.
+  const galleryPhotos = useMemo(() => PHOTOS.filter((p) => !p.isThumbnail), []);
 
   const visiblePhotos = useMemo(
-    () => filteredPhotos.slice(0, page * BATCH_SIZE),
-    [filteredPhotos, page]
+    () => galleryPhotos.slice(0, page * BATCH_SIZE),
+    [galleryPhotos, page]
   );
 
-  const hasMore = visiblePhotos.length < filteredPhotos.length;
-
-  const handleFilterChange = useCallback((cat: PhotoCategory | "all") => {
-    setActiveCategory(cat);
-    setPage(1);
-  }, []);
+  const hasMore = visiblePhotos.length < galleryPhotos.length;
 
   const handleLoadMore = useCallback(() => {
     setPage((p) => p + 1);
@@ -56,7 +44,7 @@ export default function PhotographyPage() {
     setLightboxIndex(null);
   }, []);
 
-  const featuredPhoto = PHOTOS.find((p) => p.id === FEATURED_PHOTOS[0]);
+  const featuredPhoto = galleryPhotos[0];
 
   return (
     <>
@@ -106,11 +94,9 @@ export default function PhotographyPage() {
           <ContactSheetHero
             featuredSrc={featuredPhoto.src}
             featuredAlt={featuredPhoto.alt}
+            frameCount={galleryPhotos.length}
           />
         )}
-
-        {/* Filters */}
-        <FilterBar active={activeCategory} onChange={handleFilterChange} />
 
         {/* Gallery */}
         <ContactSheetGallery
@@ -122,12 +108,16 @@ export default function PhotographyPage() {
 
       </div>
 
+      {/* Warms the browser cache for full-res photos during idle time */}
+      <LightboxPreloader photos={galleryPhotos} />
+
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <PhotoLightbox
           photos={visiblePhotos}
           initialIndex={lightboxIndex}
           onClose={closeLightbox}
+          showCategory={false}
         />
       )}
     </>

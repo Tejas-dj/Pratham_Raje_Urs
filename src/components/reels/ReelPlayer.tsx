@@ -282,20 +282,24 @@ export default function ReelPlayer({ reels, initialReel, onClose }: ReelPlayerPr
                 onClick={togglePlay}
                 onKeyDown={(e) => e.key === " " && togglePlay()}
               >
-                <video
-                  ref={videoRef}
-                  key={reel.id}
-                  src={reel.videoSrc}
-                  poster={reel.poster}
-                  playsInline
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    cursor: "none",
-                  }}
-                />
+                {reel.videoSrc ? (
+                  <video
+                    ref={videoRef}
+                    key={reel.id}
+                    src={reel.videoSrc}
+                    poster={reel.poster || undefined}
+                    playsInline
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      cursor: "none",
+                    }}
+                  />
+                ) : (
+                  <div style={{ position: "absolute", inset: 0, background: "#1a1e28" }} />
+                )}
 
                 {/* Pause indicator */}
                 <AnimatePresence>
@@ -433,18 +437,22 @@ export default function ReelPlayer({ reels, initialReel, onClose }: ReelPlayerPr
                     position: "relative",
                   }}
                 >
-                  <img
-                    src={r.poster}
-                    alt={r.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      filter: "brightness(0.6)",
-                    }}
-                    draggable={false}
-                  />
+                  {r.poster ? (
+                    <img
+                      src={r.poster}
+                      alt={r.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        filter: "brightness(0.6)",
+                      }}
+                      draggable={false}
+                    />
+                  ) : (
+                    <div style={{ width: "100%", height: "100%", background: "#1a1e28" }} />
+                  )}
                   <span
                     style={{
                       position: "absolute",

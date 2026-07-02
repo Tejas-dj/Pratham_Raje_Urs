@@ -85,22 +85,26 @@ export default function CuttingRoomHero({ reel, onPlay }: CuttingRoomHeroProps) 
           onClick={() => onPlay(reel)}
           onKeyDown={(e) => e.key === "Enter" && onPlay(reel)}
         >
-          <video
-            ref={videoRef}
-            src={reel.videoSrc}
-            poster={reel.poster}
-            muted
-            playsInline
-            loop
-            autoPlay
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-              filter: "brightness(0.75) contrast(1.05)",
-            }}
-          />
+          {reel.videoSrc ? (
+            <video
+              ref={videoRef}
+              src={reel.videoSrc}
+              poster={reel.poster || undefined}
+              muted
+              playsInline
+              loop
+              autoPlay
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+                filter: "brightness(0.75) contrast(1.05)",
+              }}
+            />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, background: "#1a1e28" }} />
+          )}
 
           {/* Gradient scrim */}
           <div

@@ -87,7 +87,7 @@ export default function FilmStripNav() {
       {/* Logo */}
       <div style={{ marginLeft: 8, marginRight: 24, flexShrink: 0 }}>
         <img
-          src="/images/talon-logo.svg"
+          src="/images/Talon_production_LOGO.svg"
           alt="Talon Production House"
           style={{
             height: 60,

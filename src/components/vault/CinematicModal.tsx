@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import type { Project } from "@/types";
+import { getYoutubeEmbedUrl } from "@/lib/youtube";
 
 interface CinematicModalProps {
   project: Project | null;
@@ -16,18 +17,21 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
   const [playing, setPlaying] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const [showContent, setShowContent] = useState(false);
+  const [wantsTrailer, setWantsTrailer] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
       setPlaying(false);
       setCountdown(3);
       setShowContent(false);
+      setWantsTrailer(false);
       return;
     }
 
     // Film countdown before content
     setCountdown(3);
     setShowContent(false);
+    setWantsTrailer(false);
 
     let count = 3;
     const interval = setInterval(() => {
@@ -187,7 +191,120 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
 
                 {/* Video or poster */}
                 <div style={{ position: "relative", aspectRatio: "16/9", background: "#111823" }}>
-                  {project.video ? (
+                  {project.isFeatureFilm ? (
+                    wantsTrailer && project.trailerYoutubeUrl ? (
+                      <iframe
+                        key={project.trailerYoutubeUrl}
+                        src={getYoutubeEmbedUrl(project.trailerYoutubeUrl)}
+                        title={`${project.title} — Trailer`}
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <>
+                        {(project.posterLandscape || project.poster) && (
+                          <Image
+                            src={project.posterLandscape || project.poster}
+                            alt={project.title}
+                            fill
+                            style={{ objectFit: "cover", opacity: 0.3, filter: "blur(2px) grayscale(0.4)" }}
+                          />
+                        )}
+                        <div
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 20,
+                            padding: 32,
+                            textAlign: "center",
+                            background: "rgba(17,24,35,0.55)",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "var(--font-inter), sans-serif",
+                              fontSize: 10,
+                              letterSpacing: "0.35em",
+                              color: "#AA9273",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Feature Film
+                          </span>
+                          <p
+                            style={{
+                              fontFamily: "var(--font-inter), sans-serif",
+                              fontSize: 13,
+                              color: "rgba(248,244,237,0.75)",
+                              lineHeight: 1.6,
+                              maxWidth: 440,
+                            }}
+                          >
+                            {project.title} is a full-length feature. The trailer is on YouTube — the complete
+                            film streams on {project.externalWatchLabel ?? "Amazon Prime"}.
+                          </p>
+                          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+                            {project.trailerYoutubeUrl && (
+                              <button
+                                onClick={() => setWantsTrailer(true)}
+                                style={{
+                                  padding: "12px 22px",
+                                  background: "#AA9273",
+                                  border: "none",
+                                  borderRadius: 2,
+                                  color: "#111823",
+                                  fontFamily: "var(--font-inter), sans-serif",
+                                  fontSize: 11,
+                                  fontWeight: 700,
+                                  letterSpacing: "0.15em",
+                                  textTransform: "uppercase",
+                                  cursor: "none",
+                                }}
+                              >
+                                ▶ Watch Trailer
+                              </button>
+                            )}
+                            {project.externalWatchUrl && (
+                              <button
+                                onClick={() =>
+                                  window.open(project.externalWatchUrl, "_blank", "noopener,noreferrer")
+                                }
+                                style={{
+                                  padding: "12px 22px",
+                                  background: "transparent",
+                                  border: "1px solid rgba(170,146,115,0.4)",
+                                  borderRadius: 2,
+                                  color: "#AA9273",
+                                  fontFamily: "var(--font-inter), sans-serif",
+                                  fontSize: 11,
+                                  fontWeight: 700,
+                                  letterSpacing: "0.15em",
+                                  textTransform: "uppercase",
+                                  cursor: "none",
+                                }}
+                              >
+                                Watch Full Film on {project.externalWatchLabel ?? "Amazon Prime"}
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </>
+                    )
+                  ) : project.youtubeUrl ? (
+                    <iframe
+                      key={project.youtubeUrl}
+                      src={getYoutubeEmbedUrl(project.youtubeUrl)}
+                      title={project.title}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : project.video ? (
                     <video
                       ref={videoRef}
                       src={project.video}
@@ -196,13 +313,15 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                       onPlay={() => setPlaying(true)}
                       onPause={() => setPlaying(false)}
                     />
-                  ) : (
+                  ) : project.poster ? (
                     <Image
-                      src={project.poster}
+                      src={project.posterLandscape || project.poster}
                       alt={project.title}
                       fill
                       style={{ objectFit: "cover" }}
                     />
+                  ) : (
+                    <div style={{ position: "absolute", inset: 0, background: "#1a1e28" }} />
                   )}
 
                   {/* Projector beam overlay */}
@@ -215,8 +334,8 @@ export default function CinematicModal({ project, isOpen, onClose }: CinematicMo
                     }}
                   />
 
-                  {/* Play/pause overlay */}
-                  {project.video && (
+                  {/* Play/pause overlay — local fallback clip only; YouTube/feature-film flows use their own controls */}
+                  {!project.isFeatureFilm && !project.youtubeUrl && project.video && (
                     <button
                       onClick={togglePlay}
                       style={{

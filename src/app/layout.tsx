@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "Infinite Frames",
     images: [
       {
-        url: "/images/image_tester_1.png",
+        url: "/images/HeadShot_Pratham.jpeg",
         width: 1200,
         height: 630,
         alt: "Pratham Raje Urs | Infinite Frames",

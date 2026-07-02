@@ -1,5 +1,5 @@
-// Generates a tiny 1-colour SVG as a base64 data URL for next/image placeholder="blur".
-// The CSS blur filter Next.js applies makes the exact size irrelevant — only the hue matters.
+import { cloudinaryImage } from "./cloudinary";
+
 function colorSwatch(hex: string): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="8" height="8" fill="${hex}"/></svg>`;
   const b64 =
@@ -9,29 +9,26 @@ function colorSwatch(hex: string): string {
   return `data:image/svg+xml;base64,${b64}`;
 }
 
-// Dark warm-brown — matches card/frame backgrounds
 export const DEFAULT_BLUR = colorSwatch("#45302A");
 
-// Dominant-colour estimate per known image path
 const BLUR_MAP: Record<string, string> = {
-  "/images/HeadShot_Pratham.jpeg":             colorSwatch("#6B4E3D"),
-  "/images/image_tester_1.png":                colorSwatch("#45302A"),
-  "/images/Sees_Kaddi_Landscape.jpg":          colorSwatch("#3D4A2E"),
-  "/images/Talon_productions_logo.png":        colorSwatch("#111823"),
-  "/images/She asked for Sunflowers.jpeg":     colorSwatch("#8B6B35"),
-  "/images/The Christmas Guest.jpeg":          colorSwatch("#5C3020"),
-  "/images/Before The Coffee Gets Cold.jpeg":  colorSwatch("#4A3525"),
-  "/images/DOT..jpeg":                         colorSwatch("#1A1A2E"),
-  "/images/sees_kaddi.png":                    colorSwatch("#2A3545"),
-  "/images/V_motionblur.webp":                 colorSwatch("#6B5530"),
-  "/images/Model_Team.webp":                   colorSwatch("#55443A"),
-  "/images/still_christmas.png":               colorSwatch("#4A2018"),
-  "/images/Two_women.webp":                    colorSwatch("#3A3545"),
-  "/images/Beach_Couple.webp":                 colorSwatch("#7A6040"),
-  "/images/still_dot.png":                     colorSwatch("#1A1828"),
-  "/images/still_bts.webp":                    colorSwatch("#253040"),
-  "/images/Beach_Scenic.webp":                 colorSwatch("#3A5040"),
-  "/images/still_sees_kaddi.png":              colorSwatch("#2A2838"),
+  "/images/HeadShot_Pratham.jpeg": colorSwatch("#6B4E3D"),
+  [cloudinaryImage("She_asked_for_Sunflowers_u8xqju")]: colorSwatch("#8B6914"),
+  [cloudinaryImage("The_Christmas_Guest_aqgt7x")]: colorSwatch("#5C3A2E"),
+  [cloudinaryImage("Before_The_Coffee_Gets_Cold_y60aty")]: colorSwatch("#3D2B1F"),
+  [cloudinaryImage("DOT._tmlaig")]: colorSwatch("#2A2A2A"),
+  [cloudinaryImage("sees_kaddi_dp52bc")]: colorSwatch("#4A3728"),
+  [cloudinaryImage("Sees_Kaddi_Landscape_f2y5dm")]: colorSwatch("#3E4A3D"),
+  [cloudinaryImage("final-1_tuohjh")]: colorSwatch("#2E2218"),
+  [cloudinaryImage("DSC01296_rg69c2")]: colorSwatch("#4B5E3C"),
+  [cloudinaryImage("DSC01336_ae95n6")]: colorSwatch("#3A4D2E"),
+  [cloudinaryImage("DSC01177_p6nv4s")]: colorSwatch("#5A4832"),
+  [cloudinaryImage("DSC01047_twths2")]: colorSwatch("#4D6B3A"),
+  [cloudinaryImage("DSC01322_ztuwfa")]: colorSwatch("#3B4F2C"),
+  [cloudinaryImage("DSC01182_w1mmvq")]: colorSwatch("#4A5D3E"),
+  [cloudinaryImage("BEACH_1-11_bdyywp")]: colorSwatch("#6B8A5E"),
+  [cloudinaryImage("BEACH_1-03_mc0nra")]: colorSwatch("#5E7A52"),
+  [cloudinaryImage("BEACH_1-01_qhvnl0")]: colorSwatch("#7A9068"),
 };
 
 export function getBlurDataUrl(src: string): string {

@@ -2,12 +2,37 @@
 
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getCldImageUrl } from "next-cloudinary";
+import CldPhoto from "@/components/common/CldPhoto";
+import { extractPublicId } from "@/lib/cloudinary";
 import type { Photo } from "@/types";
 
 interface PhotoLightboxProps {
   photos: Photo[];
   initialIndex: number;
   onClose: () => void;
+  showCategory?: boolean;
+}
+
+const LIGHTBOX_ASPECT: Record<Photo["aspect"], string> = {
+  tall: "3 / 4",
+  wide: "16 / 9",
+  square: "1 / 1",
+};
+
+function isCloudinarySrc(src: string): boolean {
+  return !!src && !src.startsWith("/") && !src.startsWith("data:");
+}
+
+/** Builds a direct Cloudinary delivery URL for preloading/blur-up — never crops. */
+function lightboxUrl(src: string, width: number, quality: number | "auto"): string | undefined {
+  if (!isCloudinarySrc(src)) return undefined;
+  return getCldImageUrl({
+    src: extractPublicId(src),
+    width,
+    format: "auto",
+    quality,
+  });
 }
 
 function SprocketStrip({ side }: { side: "left" | "right" }) {
@@ -95,11 +120,29 @@ export default function PhotoLightbox({
   photos,
   initialIndex,
   onClose,
+  showCategory = true,
 }: PhotoLightboxProps) {
   const [current, setCurrent] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
+
+  useEffect(() => {
+    setLoaded(false);
+  }, [current]);
+
+  // Warm the browser's image cache for the adjacent full-res photos so
+  // Next/Prev feels instant instead of showing a bare blur-up each time.
+  useEffect(() => {
+    [current + 1, current - 1].forEach((i) => {
+      const idx = (i + photos.length) % photos.length;
+      const url = lightboxUrl(photos[idx]?.src ?? "", 1600, "auto");
+      if (!url) return;
+      const img = new Image();
+      img.src = url;
+    });
+  }, [current, photos]);
 
   const goNext = useCallback(() => {
     setDirection(1);
@@ -202,17 +245,19 @@ export default function PhotoLightbox({
           </span>
 
           {/* Category tag */}
-          <span
-            style={{
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: 10,
-              letterSpacing: "0.35em",
-              color: "rgba(170,146,115,0.45)",
-              textTransform: "uppercase",
-            }}
-          >
-            {photo.category.replace("-", " ")}
-          </span>
+          {showCategory && photo.category && (
+            <span
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: 10,
+                letterSpacing: "0.35em",
+                color: "rgba(170,146,115,0.45)",
+                textTransform: "uppercase",
+              }}
+            >
+              {photo.category.replace("-", " ")}
+            </span>
+          )}
 
           {/* Close button */}
           <button
@@ -276,7 +321,7 @@ export default function PhotoLightbox({
           ))}
 
           <AnimatePresence initial={false} custom={direction} mode="wait">
-            <motion.img
+            <motion.div
               key={current}
               custom={direction}
               variants={variants}
@@ -284,18 +329,53 @@ export default function PhotoLightbox({
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              src={photo.src}
-              alt={photo.alt}
               style={{
-                maxWidth: "100%",
+                position: "relative",
+                width: "min(100%, 900px)",
                 maxHeight: "70vh",
-                objectFit: "contain",
-                display: "block",
-                filter: "brightness(0.92) contrast(1.05)",
-                boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(170,146,115,0.08)",
+                aspectRatio: LIGHTBOX_ASPECT[photo.aspect] ?? "4 / 3",
+                display: photo.src ? "block" : "none",
               }}
-              draggable={false}
-            />
+            >
+              {/* Blur-up placeholder — shown instantly, fades out once the full image loads */}
+              {photo.src && isCloudinarySrc(photo.src) && (
+                <img
+                  src={lightboxUrl(photo.src, 60, 10)}
+                  alt=""
+                  aria-hidden
+                  draggable={false}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    filter: "brightness(0.92) contrast(1.05) blur(16px)",
+                    transform: "scale(1.05)",
+                    opacity: loaded ? 0 : 1,
+                    transition: "opacity 0.4s ease",
+                  }}
+                />
+              )}
+
+              {photo.src && (
+                <CldPhoto
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 900px"
+                  draggable={false}
+                  onLoad={() => setLoaded(true)}
+                  style={{
+                    objectFit: "contain",
+                    filter: "brightness(0.92) contrast(1.05)",
+                    boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(170,146,115,0.08)",
+                    opacity: !isCloudinarySrc(photo.src) || loaded ? 1 : 0,
+                    transition: "opacity 0.4s ease",
+                  }}
+                />
+              )}
+            </motion.div>
           </AnimatePresence>
 
           {/* EXIF data strip */}
@@ -318,25 +398,27 @@ export default function PhotoLightbox({
           }}
         >
           <div>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={`project-${current}`}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3 }}
-                style={{
-                  fontFamily: "var(--font-cinzel), serif",
-                  fontSize: "clamp(0.85rem, 1.6vw, 1.15rem)",
-                  fontWeight: 700,
-                  color: "#AA9273",
-                  letterSpacing: "0.12em",
-                  marginBottom: 4,
-                }}
-              >
-                {photo.project}
-              </motion.p>
-            </AnimatePresence>
+            {photo.project && (
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={`project-${current}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    fontFamily: "var(--font-cinzel), serif",
+                    fontSize: "clamp(0.85rem, 1.6vw, 1.15rem)",
+                    fontWeight: 700,
+                    color: "#AA9273",
+                    letterSpacing: "0.12em",
+                    marginBottom: 4,
+                  }}
+                >
+                  {photo.project}
+                </motion.p>
+              </AnimatePresence>
+            )}
             <AnimatePresence mode="wait">
               <motion.p
                 key={`alt-${current}`}
@@ -379,31 +461,37 @@ export default function PhotoLightbox({
             )}
           </div>
 
-          <div style={{ textAlign: "right" }}>
-            <span
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: 11,
-                color: "rgba(170,146,115,0.5)",
-                letterSpacing: "0.15em",
-                display: "block",
-                marginBottom: 4,
-                textTransform: "uppercase",
-              }}
-            >
-              {photo.role}
-            </span>
-            <span
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: 12,
-                color: "rgba(170,146,115,0.35)",
-                letterSpacing: "0.15em",
-              }}
-            >
-              {photo.year}
-            </span>
-          </div>
+          {(photo.role || photo.year) && (
+            <div style={{ textAlign: "right" }}>
+              {photo.role && (
+                <span
+                  style={{
+                    fontFamily: "'Courier New', monospace",
+                    fontSize: 11,
+                    color: "rgba(170,146,115,0.5)",
+                    letterSpacing: "0.15em",
+                    display: "block",
+                    marginBottom: 4,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {photo.role}
+                </span>
+              )}
+              {photo.year && (
+                <span
+                  style={{
+                    fontFamily: "'Courier New', monospace",
+                    fontSize: 12,
+                    color: "rgba(170,146,115,0.35)",
+                    letterSpacing: "0.15em",
+                  }}
+                >
+                  {photo.year}
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Prev / Next arrows */}

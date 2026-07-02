@@ -8,6 +8,7 @@ import { useMousePosition } from "@/hooks/useMousePosition";
 import { parallaxBlendFrag, filmGrainVert } from "@/shaders";
 import CameraLens from "./CameraLens";
 import FilmStrip3D from "./FilmStrip3D";
+import { cloudinaryVideo } from "@/lib/cloudinary";
 
 function BackgroundPlane({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
@@ -67,9 +68,9 @@ export default function HeroScene({ className }: HeroSceneProps) {
   const mouse = useMousePosition();
 
   const FILM_STRIPS = [
-    { src: "/videos/sample_video.mp4", pos: [-3.5, 0.5, -1.2] as [number, number, number], rot: [0.05, 0.15, -0.08] as [number, number, number] },
-    { src: "/videos/sample_video.mp4", pos: [3.2, -0.8, -1.8] as [number, number, number], rot: [-0.06, -0.1, 0.1] as [number, number, number] },
-    { src: "/videos/sample_video.mp4", pos: [0.2, 1.8, -1.5] as [number, number, number], rot: [0.08, 0.05, 0.05] as [number, number, number] },
+    { src: cloudinaryVideo("DOT_TEASER_fzvnic"), pos: [-3.5, 0.5, -1.2] as [number, number, number], rot: [0.05, 0.15, -0.08] as [number, number, number] },
+    { src: cloudinaryVideo("Sees_Kaddi-Trailer_awtp8z"), pos: [3.2, -0.8, -1.8] as [number, number, number], rot: [-0.06, -0.1, 0.1] as [number, number, number] },
+    { src: cloudinaryVideo("JEWELLERY_AD_zzdsjb"), pos: [0.2, 1.8, -1.5] as [number, number, number], rot: [0.08, 0.05, 0.05] as [number, number, number] },
   ];
 
   return (

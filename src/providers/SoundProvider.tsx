@@ -34,8 +34,9 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     showreelAudioRef.current = new Audio("/videos/website showreel_compressed.webm");
     showreelAudioRef.current.loop = true;
     showreelAudioRef.current.volume = 0;
-    clapRef.current = new Audio("/audio/clap.mp3");
-    clapRef.current.volume = 0.7;
+    // TODO: Replace with Cloudinary URL when configured
+    // clapRef.current = new Audio("/audio/clap.mp3");
+    // clapRef.current.volume = 0.7;
   }, []);
 
   const toggle = useCallback(() => {
