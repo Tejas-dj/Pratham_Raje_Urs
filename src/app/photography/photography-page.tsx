@@ -104,7 +104,7 @@ export default function PhotographyPage() {
     setLightboxIndex(null);
   }, []);
 
-  const featuredPhoto = galleryPhotos[0];
+  const featuredPhoto = galleryPhotos.find((p) => p.aspect === "wide") || galleryPhotos[0];
 
   return (
     <>

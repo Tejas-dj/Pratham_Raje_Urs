@@ -34,7 +34,8 @@ export default function ContactSheetHero({ featuredSrc, featuredAlt, frameCount 
         style={{
           position: "relative",
           width: "100%",
-          height: "clamp(220px, 40vw, 440px)",
+          aspectRatio: "16/9",
+          maxHeight: "75vh",
           overflow: "hidden",
           borderRadius: 2,
           marginBottom: 32,
@@ -85,7 +86,7 @@ export default function ContactSheetHero({ featuredSrc, featuredAlt, frameCount 
           textShadow: "0 0 30px rgba(170,146,115,0.3)",
         }}
       >
-        CONTACT SHEET
+        THE ARCHIVE
       </motion.h1>
 
       {/* Frame count */}

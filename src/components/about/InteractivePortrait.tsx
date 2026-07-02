@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import Image from "next/image";
+import CldPhoto from "@/components/common/CldPhoto";
 import { useMousePosition } from "@/hooks/useMousePosition";
-import { getBlurDataUrl } from "@/lib/blur-placeholders";
 
 export default function InteractivePortrait() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,13 +57,11 @@ export default function InteractivePortrait() {
           border: "1px solid rgba(170,146,115,0.2)",
         }}
       >
-        <Image
-          src="/images/HeadShot_Pratham.jpeg"
+        <CldPhoto
+          src="HeadShot_Pratham_mq7vbl"
           alt="Pratham Raje Urs"
           fill
           priority
-          placeholder="blur"
-          blurDataURL={getBlurDataUrl("/images/HeadShot_Pratham.jpeg")}
           style={{ objectFit: "cover", filter: "brightness(0.85) contrast(1.1)" }}
           sizes="(max-width: 768px) 280px, 25vw"
         />
