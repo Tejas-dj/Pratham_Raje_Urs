@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -9,14 +9,12 @@ import { useCursorContext } from "@/providers/CursorProvider";
 interface NavFrameProps {
   label: string;
   href: string;
-  clip?: string;
   isActive?: boolean;
 }
 
-export default function NavFrame({ label, href, clip, isActive }: NavFrameProps) {
+export default function NavFrame({ label, href, isActive }: NavFrameProps) {
   const [hovered, setHovered] = useState(false);
   const [frameCode, setFrameCode] = useState("42");
-  const videoRef = useRef<HTMLVideoElement>(null);
   const { setCursor, resetCursor } = useCursorContext();
   const router = useRouter();
   const pathname = usePathname();
@@ -29,18 +27,11 @@ export default function NavFrame({ label, href, clip, isActive }: NavFrameProps)
 
   const handleEnter = () => {
     setHovered(true);
-    if (videoRef.current && clip) {
-      videoRef.current.play().catch(() => {});
-    }
     setCursor("crosshair");
   };
 
   const handleLeave = () => {
     setHovered(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
     resetCursor();
   };
 
@@ -69,28 +60,6 @@ export default function NavFrame({ label, href, clip, isActive }: NavFrameProps)
           transition: "border-color 0.3s ease",
         }}
       />
-
-      {clip && (
-        <video
-          ref={videoRef}
-          src={clip}
-          muted
-          playsInline
-          loop
-          style={{
-            position: "absolute",
-            inset: 3,
-            width: "calc(100% - 6px)",
-            height: "calc(100% - 6px)",
-            objectFit: "cover",
-            filter: hovered
-              ? "grayscale(0) brightness(0.7) sepia(0.1)"
-              : "grayscale(1) brightness(0) sepia(1)",
-            transition: "filter 0.8s ease",
-            opacity: hovered ? 0.5 : 0,
-          }}
-        />
-      )}
 
       <div
         style={{

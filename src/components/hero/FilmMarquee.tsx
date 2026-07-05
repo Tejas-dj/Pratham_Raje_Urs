@@ -19,30 +19,34 @@ const STRIP_VIDEOS = [
   { src: cloudinaryVideo("JEWELLERY_AD_zzdsjb"), title: "Jewellery Ad" },
   { src: cloudinaryVideo("Shazia_Khan_AD_gnr0fo"), title: "Shazia Khan Ad" },
   { src: cloudinaryVideo("Sees_Kaddi-Trailer_awtp8z"), title: "Sees Kaddi" },
+  { src: cloudinaryVideo("O_Belake_sa9cpm"), title: "O Belake" },
+  { src: cloudinaryVideo("Metal_Mohana_sriucd"), title: "Metal Mohana" },
+  { src: cloudinaryVideo("Anshu_Kannada_Official_Trailer_kmopvm"), title: "Anshu" },
+  { src: cloudinaryVideo("Neenu_Nambo_Naale_luwciu"), title: "Neenu Nambo Naale" },
 ];
 
 // Bottom strip — a random slice of landscape stills from the photography library.
 const STRIP_IMAGES = [
-  { src: cloudinaryImage("BEACH_1-08_w7pjgh"), title: "Karnataka Diaries" },
-  { src: cloudinaryImage("IMAGE_-12_ynydq5"), title: "Behind The Frame" },
-  { src: cloudinaryImage("BEACH_1-06_x1mk6j"), title: "Karnataka Diaries" },
-  { src: cloudinaryImage("DSC00950_g5ai2c"), title: "On Set" },
-  { src: cloudinaryImage("BEACH_1-09_kjpjja"), title: "Karnataka Diaries" },
-  { src: cloudinaryImage("shradha_team-05_qfbsyd"), title: "Shradha Team" },
-  { src: cloudinaryImage("BEACH_1-17_jntr4z"), title: "Karnataka Diaries" },
-  { src: cloudinaryImage("DSC01155_b0kmvt"), title: "On Set" },
-  { src: cloudinaryImage("shradha_team-01_dal4gm"), title: "Shradha Team" },
-  { src: cloudinaryImage("BEACH_1-07_kbziko"), title: "Karnataka Diaries" },
-  { src: cloudinaryImage("shradha_team-03_uaswej"), title: "Shradha Team" },
-  { src: cloudinaryImage("DSC01329_ir9f96"), title: "On Set" },
-  { src: cloudinaryImage("DSC01055_xxbbwd"), title: "Mysuru Streets" },
-  { src: cloudinaryImage("IMAGE_-11_b6ofm8"), title: "Behind The Frame" },
-  { src: cloudinaryImage("Sees_Kaddi_Landscape_f2y5dm"), title: "Sees Kaddi" },
-  { src: cloudinaryImage("BEACH_1-05_cmeemu"), title: "Karnataka Diaries" },
-  { src: cloudinaryImage("DSC01262_s8b80e"), title: "On Set" },
   { src: cloudinaryImage("IMAGE_-03_s8espp"), title: "Behind The Frame" },
-  { src: cloudinaryImage("shradha_team-07_pgfsgv"), title: "Shradha Team" },
-  { src: cloudinaryImage("shradha_team-14_apndxu"), title: "Shradha Team" },
+  { src: cloudinaryImage("IMAGE_-01_hwkehj"), title: "Behind The Frame" },
+  { src: cloudinaryImage("DSC01369_voch9l"), title: "On Set" },
+  { src: cloudinaryImage("shradha_team-15_ttnb1f"), title: "Shradha Team" },
+  { src: cloudinaryImage("BEACH_1-08_w7pjgh"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("DSC01336_ae95n6"), title: "Before The Coffee Gets Cold" },
+  { src: cloudinaryImage("IMAGE_-18_jvh9hy"), title: "Behind The Frame" },
+  { src: cloudinaryImage("BEACH_1-01_qhvnl0"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("BEACH_1-20_wpxmup"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("shradha_team-03_uaswej"), title: "Shradha Team" },
+  { src: cloudinaryImage("IMG_9797_zfrzni"), title: "O Belake" },
+  { src: cloudinaryImage("BEACH_1-02_cskcde"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("IMG_9795_zoow2h"), title: "O Belake" },
+  { src: cloudinaryImage("IMAGE_-09_klrtif"), title: "Behind The Frame" },
+  { src: cloudinaryImage("BEACH_1-09_kjpjja"), title: "Karnataka Diaries" },
+  { src: cloudinaryImage("BEACH_1-11_bdyywp"), title: "Wedding Cinema: Talon" },
+  { src: cloudinaryImage("IMAGE_-16_khguzy"), title: "Behind The Frame" },
+  { src: cloudinaryImage("DSC01055_xxbbwd"), title: "Mysuru Streets" },
+  { src: cloudinaryImage("IMG_9790_bafsis"), title: "O Belake" },
+  { src: cloudinaryImage("BEACH_1-14_kb5bcb"), title: "Karnataka Diaries" },
 ];
 
 function SprocketHoles({ count }: { count: number }) {
@@ -68,11 +72,10 @@ function SprocketHoles({ count }: { count: number }) {
 interface FilmFrameProps {
   src: string;
   title: string;
-  index: number;
   isVideo?: boolean;
 }
 
-function FilmFrame({ src, title, index, isVideo }: FilmFrameProps) {
+function FilmFrame({ src, title, isVideo }: FilmFrameProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -145,48 +148,34 @@ function FilmFrame({ src, title, index, isVideo }: FilmFrameProps) {
           />
         )}
 
-        {/* Film frame counter */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 6,
-            right: 8,
-            fontFamily: "var(--font-inter), monospace",
-            fontSize: 9,
-            letterSpacing: "0.15em",
-            color: "rgba(170,146,115,0.5)",
-            textShadow: "0 1px 3px rgba(0,0,0,0.8)",
-          }}
-        >
-          {String(index + 1).padStart(2, "0")}A
-        </div>
-
-        {/* Title overlay on hover */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            padding: "24px 12px 8px",
-            background: "linear-gradient(transparent, rgba(10,14,20,0.9))",
-            opacity: isHovered ? 1 : 0,
-            transform: isHovered ? "translateY(0)" : "translateY(6px)",
-            transition: "opacity 0.4s ease, transform 0.4s ease",
-          }}
-        >
+        {/* Title overlay on hover — video frames only */}
+        {isVideo && (
           <div
             style={{
-              fontFamily: "var(--font-cinzel), serif",
-              fontSize: 11,
-              letterSpacing: "0.2em",
-              color: "#AA9273",
-              textTransform: "uppercase",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: "24px 12px 8px",
+              background: "linear-gradient(transparent, rgba(10,14,20,0.9))",
+              opacity: isHovered ? 1 : 0,
+              transform: isHovered ? "translateY(0)" : "translateY(6px)",
+              transition: "opacity 0.4s ease, transform 0.4s ease",
             }}
           >
-            {title}
+            <div
+              style={{
+                fontFamily: "var(--font-cinzel), serif",
+                fontSize: 11,
+                letterSpacing: "0.2em",
+                color: "#AA9273",
+                textTransform: "uppercase",
+              }}
+            >
+              {title}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Sprocket holes bottom */}
@@ -265,7 +254,7 @@ export default function FilmMarquee() {
           }}
         >
           {[...STRIP_VIDEOS, ...STRIP_VIDEOS, ...STRIP_VIDEOS, ...STRIP_VIDEOS].map((clip, i) => (
-            <FilmFrame key={`top-${i}`} src={clip.src} title={clip.title} index={i % STRIP_VIDEOS.length} isVideo />
+            <FilmFrame key={`top-${i}`} src={clip.src} title={clip.title} isVideo />
           ))}
         </div>
       </div>
@@ -315,7 +304,7 @@ export default function FilmMarquee() {
           }}
         >
           {[...STRIP_IMAGES, ...STRIP_IMAGES].map((img, i) => (
-            <FilmFrame key={`bot-${i}`} src={img.src} title={img.title} index={(i % STRIP_IMAGES.length) + 8} />
+            <FilmFrame key={`bot-${i}`} src={img.src} title={img.title} />
           ))}
         </div>
       </div>

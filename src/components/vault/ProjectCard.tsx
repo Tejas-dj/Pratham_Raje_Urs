@@ -178,20 +178,6 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         aria-hidden
       />
 
-      {/* Small bottom gradient for title legibility only */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "35%",
-          background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
-          pointerEvents: "none",
-        }}
-        aria-hidden
-      />
-
       {/* Year */}
       <div
         style={{
@@ -209,53 +195,6 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         {project.year}
       </div>
 
-      {/* Title */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          padding: "20px 16px 6px",
-        }}
-      >
-        <h3
-          style={{
-            fontFamily: "var(--font-cinzel), serif",
-            fontSize: "clamp(0.8rem, 1.4vw, 1rem)",
-            fontWeight: 700,
-            color: "#F8F4ED",
-            letterSpacing: "0.06em",
-            marginBottom: 0,
-          }}
-        >
-          {project.title}
-        </h3>
-
-        {/* Watch indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
-          transition={{ duration: 0.25 }}
-          style={{
-            marginTop: 8,
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: 9,
-            letterSpacing: "0.25em",
-            color: "#AA9273",
-            textTransform: "uppercase",
-          }}
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#AA9273">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="#AA9273" strokeWidth="1.5" />
-            <path d="M10 8l6 4-6 4V8z" />
-          </svg>
-          Click to Screen
-        </motion.div>
-      </div>
     </motion.div>
 
     {/* Role / work done — displayed outside and below the poster */}

@@ -123,16 +123,6 @@ export default function InteractivePortrait() {
             }}
           />
         ))}
-
-        {/* Vignette */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)",
-            pointerEvents: "none",
-          }}
-        />
       </div>
 
       {/* Name plate */}

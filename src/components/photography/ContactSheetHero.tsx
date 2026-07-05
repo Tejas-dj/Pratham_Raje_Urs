@@ -14,10 +14,11 @@ const CORNERS = [
 interface ContactSheetHeroProps {
   featuredSrc: string;
   featuredAlt: string;
+  featuredRatio: number;
   frameCount: number;
 }
 
-export default function ContactSheetHero({ featuredSrc, featuredAlt, frameCount }: ContactSheetHeroProps) {
+export default function ContactSheetHero({ featuredSrc, featuredAlt, featuredRatio, frameCount }: ContactSheetHeroProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-5%" });
 
@@ -34,7 +35,7 @@ export default function ContactSheetHero({ featuredSrc, featuredAlt, frameCount 
         style={{
           position: "relative",
           width: "100%",
-          aspectRatio: "16/9",
+          aspectRatio: featuredRatio,
           maxHeight: "75vh",
           overflow: "hidden",
           borderRadius: 2,

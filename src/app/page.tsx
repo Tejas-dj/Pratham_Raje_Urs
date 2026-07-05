@@ -89,6 +89,14 @@ export default function HomePage() {
 
   return (
     <>
+      {/* Preload the hero showreel so the browser fetches it before React boots.
+          Scoped to the home page only — other routes shouldn't pay this cost. */}
+      <link
+        rel="preload"
+        href="/videos/website showreel_compressed.webm"
+        as="video"
+        type="video/webm"
+      />
       <Preloader onComplete={handlePreloaderComplete} />
       {isMobile ? <MobileNavDrawer /> : <FilmStripNav />}
 

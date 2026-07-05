@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from "react";
+import React, { createContext, useContext, useRef, useState, useCallback } from "react";
 
 interface SoundContextValue {
   enabled: boolean;
@@ -8,55 +8,46 @@ interface SoundContextValue {
   toggle: () => void;
   setVolume: (v: number) => void;
   playClap: () => void;
-  /** Ref to the showreel audio element so HeroShowreel can sync it */
-  showreelAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
+  /** Called by the hero showreel's visibility observer as it scrolls in/out of view */
+  setInView: (v: boolean) => void;
+  /** Ref to the hero showreel's <video> element so the mute button can control its audio directly */
+  videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
 export const SoundContext = createContext<SoundContextValue>({
-  enabled: false,
+  enabled: true,
   volume: 0.4,
   toggle: () => {},
   setVolume: () => {},
   playClap: () => {},
-  showreelAudioRef: { current: null },
+  setInView: () => {},
+  videoRef: { current: null },
 });
 
 export function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [enabled, setEnabled] = useState(false);
+  // Sticky, user-driven override — once the user mutes, sound stays off
+  // regardless of scroll position or route, until they unmute it themselves.
+  const [userMuted, setUserMuted] = useState(false);
+  // Whether the hero showreel is currently visible on screen.
+  const [inView, setInView] = useState(true);
   const [volume, setVolumeState] = useState(0.4);
-  // Plays the showreel's audio track site-wide (loops, starts muted until user enables)
-  const showreelAudioRef = useRef<HTMLAudioElement | null>(null);
+  // The showreel video is the single source of both picture and sound —
+  // no separate audio element, so there's only ever one fetch of the file.
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const clapRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    // Use the showreel webm as the ambient audio source
-    showreelAudioRef.current = new Audio("/videos/website showreel_compressed.webm");
-    showreelAudioRef.current.loop = true;
-    showreelAudioRef.current.volume = 0;
-    // TODO: Replace with Cloudinary URL when configured
-    // clapRef.current = new Audio("/audio/clap.mp3");
-    // clapRef.current.volume = 0.7;
-  }, []);
+  const enabled = inView && !userMuted;
 
   const toggle = useCallback(() => {
-    setEnabled((prev) => {
-      const next = !prev;
-      if (showreelAudioRef.current) {
-        if (next) {
-          showreelAudioRef.current.volume = volume;
-          showreelAudioRef.current.play().catch(() => {});
-        } else {
-          showreelAudioRef.current.pause();
-        }
-      }
-      return next;
-    });
-  }, [volume]);
+    // The button reflects intent relative to what's currently audible:
+    // sound is on -> user wants it off (sticky); sound is off -> user
+    // wants it on (releases the sticky mute, resuming scroll-driven sound).
+    setUserMuted(enabled);
+  }, [enabled]);
 
   const setVolume = useCallback((v: number) => {
     setVolumeState(v);
-    if (showreelAudioRef.current) showreelAudioRef.current.volume = v;
+    if (videoRef.current) videoRef.current.volume = v;
   }, []);
 
   const playClap = useCallback(() => {
@@ -67,7 +58,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   }, [enabled]);
 
   return (
-    <SoundContext.Provider value={{ enabled, volume, toggle, setVolume, playClap, showreelAudioRef }}>
+    <SoundContext.Provider value={{ enabled, volume, toggle, setVolume, playClap, setInView, videoRef }}>
       {children}
     </SoundContext.Provider>
   );

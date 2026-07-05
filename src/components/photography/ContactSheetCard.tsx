@@ -105,10 +105,6 @@ export default function ContactSheetCard({ photo, index, onOpen }: ContactSheetC
               draggable={false}
               style={{
                 objectFit: "cover",
-                filter: hovered
-                  ? "grayscale(0) brightness(0.95) contrast(1.05)"
-                  : "grayscale(0.6) brightness(0.78) contrast(1.02)",
-                transition: "filter 0.5s ease",
               }}
             />
           </motion.div>

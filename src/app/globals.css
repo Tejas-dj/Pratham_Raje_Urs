@@ -202,26 +202,6 @@ p:last-child {
     inset 0 0 20px rgba(170, 146, 115, 0.03);
 }
 
-.film-vignette {
-  background: radial-gradient(
-    ellipse at center,
-    transparent 40%,
-    rgba(0, 0, 0, 0.7) 100%
-  );
-  pointer-events: none;
-}
-
-.film-scan-line {
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
-  pointer-events: none;
-}
-
 .film-perforation {
   width: 14px;
   height: 20px;

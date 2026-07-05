@@ -75,13 +75,6 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        {/* Preload the hero showreel so the browser fetches it before React boots */}
-        <link
-          rel="preload"
-          href="/videos/website showreel_compressed.webm"
-          as="video"
-          type="video/webm"
-        />
       </head>
       <body>
         <CursorProvider>

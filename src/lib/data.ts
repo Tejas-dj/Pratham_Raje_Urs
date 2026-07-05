@@ -85,6 +85,61 @@ export const PROJECTS: Project[] = [
     description:
       "A high-energy Kannada music video brought to life on set as Line Producer, keeping the shoot running so the performance and visuals could shine.",
   },
+  {
+    id: "o-belake",
+    title: "O Belake",
+    role: "Cinematographer",
+    poster: cloudinaryImage("O_Belake_Potrait_xt5pra"),
+    posterLandscape: cloudinaryImage("O_Belake_-_Music_Video_bgw5bd"),
+    video: cloudinaryVideo("O_Belake_sa9cpm"),
+    youtubeUrl: "https://www.youtube.com/watch?v=3QkRgVDSRBM",
+    badges: ["Music Video"],
+    year: 2025,
+    category: "commercial",
+    description:
+      "A soft, golden-lit Kannada music video where every frame chases warmth and longing. Pratham stepped behind the camera as Cinematographer to shape its light.",
+  },
+  {
+    id: "metal-mohana",
+    title: "Metal Mohana",
+    role: "Assistant Director",
+    poster: cloudinaryImage("Metal_Mohana_Potrait_ggp2wj"),
+    posterLandscape: cloudinaryImage("Metal_Mohana_uimjjc"),
+    video: cloudinaryVideo("Metal_Mohana_sriucd"),
+    youtubeUrl: "https://www.youtube.com/watch?v=ySt3wTUi1Wk",
+    badges: ["Music Video"],
+    year: 2025,
+    category: "commercial",
+    description:
+      "The official music video for Aditya Rajaram & Prerna Venkataramanan, a high-voltage set kept in sync by Pratham's work as Assistant Director.",
+  },
+  {
+    id: "anshu",
+    title: "Anshu",
+    role: "Assistant Director",
+    poster: cloudinaryImage("Anshu_Kannada_Official_Trailer_bkzwdp"),
+    video: cloudinaryVideo("Anshu_Kannada_Official_Trailer_kmopvm"),
+    youtubeUrl: "https://www.youtube.com/watch?v=agf_8syXWcQ",
+    badges: ["Official Trailer"],
+    year: 2025,
+    category: "narrative",
+    description:
+      "The official Kannada trailer for Anshu, starring Nisha Ravikrishnan and M C Channa Keshava. Pratham assisted direction on set to help shape this feature.",
+  },
+  {
+    id: "neenu-nambo-naale",
+    title: "Neenu Nambo Naale",
+    role: "2nd DOP (Video Song)",
+    poster: cloudinaryImage("Neenu_Nambo_Naale_Potrait_z3hzd6"),
+    posterLandscape: cloudinaryImage("Neenu_Nambo_Naale_tfjsam"),
+    video: cloudinaryVideo("Neenu_Nambo_Naale_luwciu"),
+    youtubeUrl: "https://www.youtube.com/watch?v=azlr8NfNLBo",
+    badges: ["Video Song"],
+    year: 2025,
+    category: "commercial",
+    description:
+      "A video song featuring Jaskaran Singh, Nisha Ravikrishnan, and M C Channa Keshava. Pratham shot as 2nd DOP, layering in extra angles of light and movement.",
+  },
 ];
 
 export const SERVICES: Service[] = [
@@ -164,7 +219,6 @@ export const PHOTOS: Photo[] = [
   { id: 8, src: cloudinaryImage("BEACH_1-03_mc0nra"), alt: "Karnataka sunrise paddy fields", project: "Karnataka Diaries", year: "2023", category: "landscapes", role: "DOP | Drone Op", btsNote: "Woke up at 4 AM to hike 3 miles just to catch the morning mist rolling off the fields.", aspect: "wide", width: 7008, height: 3944 },
   { id: 9, src: cloudinaryImage("sees_kaddi_dp52bc"), alt: "Night alley, dramatic sidelight", project: "Sees Kaddi", year: "2023", category: "film-stills", role: "Actor | Co-Director", aspect: "tall", isThumbnail: true, width: 278, height: 417 },
   { id: 10, src: cloudinaryImage("DSC01322_ztuwfa"), alt: "Ancient temple archway at dawn", project: "Karnataka Diaries", year: "2023", category: "landscapes", role: "Photographer", aspect: "tall", width: 2592, height: 4608 },
-  { id: 11, src: "/images/HeadShot_Pratham.jpeg", alt: "Director portrait with camera", project: "Self Portrait", year: "2024", category: "portraits", role: "Self", aspect: "tall", width: 1067, height: 1600 },
   { id: 12, src: cloudinaryImage("Sees_Kaddi_Landscape_f2y5dm"), alt: "Wide landscape from Sees Kaddi set", project: "Sees Kaddi", year: "2023", category: "bts", role: "Behind the Scenes", aspect: "wide", isThumbnail: true, width: 1080, height: 608 },
   { id: 13, src: cloudinaryImage("DSC01038-299_z68kmu"), alt: "Monsoon bridge silhouette", project: "Mysuru Monsoon", year: "2024", category: "street", role: "Photographer", aspect: "tall", width: 2453, height: 4354 },
   { id: 14, src: cloudinaryImage("DSC01055_xxbbwd"), alt: "Chai stall at dusk", project: "Mysuru Streets", year: "2024", category: "street", role: "Photographer", aspect: "wide", width: 4608, height: 2592 },
@@ -320,6 +374,13 @@ export const PHOTOS: Photo[] = [
   { id: 164, src: cloudinaryImage("BEACH_1-04_wtzpqr"), alt: "Photography by Pratham Raje Urs — Beach 1", aspect: "wide", width: 6536, height: 4357 },
   { id: 165, src: cloudinaryImage("BEACH_1-01_qhvnl0"), alt: "Photography by Pratham Raje Urs — Beach 1", aspect: "wide", width: 7008, height: 3944 },
   { id: 166, src: cloudinaryImage("ADJ07037_zjiqkf"), alt: "Photography by Pratham Raje Urs — frame 166", aspect: "tall", width: 3656, height: 4570 },
+  { id: 167, src: cloudinaryImage("IMG_9790_bafsis"), alt: "Lead actor draped in a pink shawl amid a mass courtyard gathering", project: "O Belake", year: "2025", category: "film-stills", role: "Cinematographer", aspect: "wide", width: 2270, height: 1290 },
+  { id: 168, src: cloudinaryImage("IMG_9791_mhbwby"), alt: "Close-up of the lead actor mid-performance, courtyard gathering behind him", project: "O Belake", year: "2025", category: "film-stills", role: "Cinematographer", aspect: "wide", width: 2278, height: 1274 },
+  { id: 169, src: cloudinaryImage("IMG_9795_zoow2h"), alt: "Lead actor singing amid the mass gathering, pink shawls in soft focus behind", project: "O Belake", year: "2025", category: "film-stills", role: "Cinematographer", aspect: "wide", width: 2253, height: 1290 },
+  { id: 170, src: cloudinaryImage("IMG_9797_zfrzni"), alt: "Wide shot of the mass courtyard gathering in front of the temple facade", project: "O Belake", year: "2025", category: "film-stills", role: "Cinematographer", aspect: "wide", width: 2249, height: 1290 },
+  { id: 171, src: cloudinaryImage("IMG_9798_zz6qw3"), alt: "Cast and crew seated together on the courtyard steps, wrapped in pink shawls", project: "O Belake", year: "2025", category: "film-stills", role: "Cinematographer", aspect: "wide", width: 2284, height: 1290 },
+  { id: 173, src: cloudinaryImage("IMG_9807_iy95ja"), alt: "O Belake reel cover — crowd sequence with title card", project: "O Belake", year: "2025", category: "film-stills", role: "Cinematographer", aspect: "tall", width: 1080, height: 1350 },
+  { id: 174, src: cloudinaryImage("IMG_9809_qf7wrm"), alt: "Classroom moment with schoolkids", aspect: "tall", width: 1080, height: 1350 },
 ];
 
 /* ─── Reels ──────────────────────────────────────────────────────────────── */
@@ -344,9 +405,9 @@ export const FEATURED_REELS: string[] = ["reel-sunflowers-bts", "reel-christmas-
 /* ─── Navigation ─────────────────────────────────────────────────────────── */
 
 export const NAV_ITEMS = [
-  { id: "home", label: "Home", href: "#hero", clip: cloudinaryVideo("DOT_TEASER_fzvnic") },
-  { id: "vault", label: "The Vault", href: "#vault", clip: cloudinaryVideo("Sees_Kaddi-Trailer_awtp8z") },
-  { id: "photography", label: "Photography", href: "/photography", clip: cloudinaryVideo("JEWELLERY_AD_zzdsjb") },
-
-  { id: "connect", label: "Connect", href: "#connect", clip: cloudinaryVideo("Shazia_Khan_AD_gnr0fo") },
+  { id: "home", label: "Home", href: "#hero" },
+  { id: "vault", label: "The Vault", href: "#vault" },
+  { id: "photography", label: "Photography", href: "/photography" },
+  { id: "about", label: "About", href: "#about" },
+  { id: "connect", label: "Connect", href: "#connect" },
 ];

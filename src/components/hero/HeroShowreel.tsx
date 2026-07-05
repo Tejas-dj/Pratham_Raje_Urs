@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import { useSoundContext } from "@/providers/SoundProvider";
 
 interface HeroShowreelProps {
   /** Called once the video has loaded enough to play */
@@ -8,13 +9,14 @@ interface HeroShowreelProps {
 }
 
 /**
- * Fullscreen autoplay muted looping video showreel.
- * Sits at z-index 1 (below 3D scene and text layers).
+ * Fullscreen autoplay looping video showreel — also the site's sole audio
+ * source (see SoundProvider). Sits at z-index 1 (below 3D scene and text layers).
  * Fades in cinematic-style once the browser fires `canplaythrough`.
  */
 export default function HeroShowreel({ onReady }: HeroShowreelProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
+  const { enabled, volume, videoRef: soundVideoRef, setInView } = useSoundContext();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -25,7 +27,13 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
       onReady?.();
     };
 
+    // Autoplay must start muted to be reliably allowed by every browser.
+    // Once playback has actually begun, unmuting via the `muted` property
+    // (rather than a fresh play() call) isn't subject to the same
+    // gesture/engagement restrictions, so this reflects the default
+    // "sound on" intent as soon as playback starts.
     video.muted = true;
+    video.volume = volume;
 
     // If already buffered enough (cached second visit), reveal immediately
     if (video.readyState >= 2) {
@@ -34,13 +42,44 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
       video.addEventListener("canplay", reveal, { once: true });
     }
 
-    video.play().catch(() => {
-      // Autoplay blocked — still show poster frame
-      reveal();
-    });
+    video.play()
+      .then(() => {
+        video.muted = !enabled;
+      })
+      .catch(() => {
+        // Autoplay blocked — still show poster frame
+        reveal();
+      });
 
-    return () => video.removeEventListener("canplay", reveal);
+    soundVideoRef.current = video;
+
+    return () => {
+      video.removeEventListener("canplay", reveal);
+      soundVideoRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onReady]);
+
+  // Keep the video's mute state in sync with whatever made `enabled` change —
+  // the mute button, or the showreel scrolling in/out of view below.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) video.muted = !enabled;
+  }, [enabled]);
+
+  // Auto-mute while the showreel is scrolled off screen, and restore sound
+  // when it scrolls back into view (unless the user has muted it themselves —
+  // SoundProvider ignores this signal in that case).
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [setInView]);
 
   return (
     <div
@@ -75,32 +114,6 @@ export default function HeroShowreel({ onReady }: HeroShowreelProps) {
           willChange: "opacity",
         }}
       />
-
-      {/* ── Dark cinematic gradient scrim — ensures text legibility ── */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `
-            linear-gradient(
-              to bottom,
-              rgba(17,24,35,0.15) 0%,
-              rgba(17,24,35,0.04) 30%,
-              rgba(17,24,35,0.04) 65%,
-              rgba(17,24,35,0.40) 100%
-            ),
-            radial-gradient(
-              ellipse at 50% 50%,
-              transparent 30%,
-              rgba(0,0,0,0.22) 100%
-            )
-          `,
-          zIndex: 2,
-        }}
-      />
-
-
-
 
       {/* ── Timecode — bottom right, like a camera LCD ── */}
       <div

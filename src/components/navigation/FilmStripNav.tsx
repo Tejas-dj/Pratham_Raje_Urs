@@ -129,7 +129,6 @@ export default function FilmStripNav() {
             key={item.id}
             label={item.label}
             href={item.href}
-            clip={item.clip}
             isActive={activeSection === item.id}
           />
         ))}
