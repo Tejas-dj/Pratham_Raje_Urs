@@ -1,22 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
 import NavFrame from "./NavFrame";
 import { NAV_ITEMS } from "@/lib/data";
 
 export default function FilmStripNav() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/photography") {
-      setActiveSection("photography");
-      return;
-    }
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 80);
 
@@ -33,7 +26,7 @@ export default function FilmStripNav() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, []);
 
   return (
     <motion.nav

@@ -27,13 +27,17 @@ export default function ScrollProgress() {
     <div
       style={{
         position: "fixed",
-        right: 12,
+        right: 6,
         top: "50%",
         transform: "translateY(-50%)",
-        zIndex: 9997,
+        zIndex: 9998,
         display: "flex",
         flexDirection: "column",
         gap: 4,
+        padding: "10px 6px",
+        background: "rgba(17,24,35,0.55)",
+        backdropFilter: "blur(6px)",
+        borderRadius: 4,
         pointerEvents: "none",
       }}
       aria-hidden

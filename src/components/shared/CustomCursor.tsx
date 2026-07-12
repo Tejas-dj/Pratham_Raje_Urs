@@ -12,6 +12,13 @@ export default function CustomCursor() {
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
+    // Matches the `(pointer: coarse)` rule in globals.css that already hides
+    // this cursor visually on touch devices — skip the mousemove listener and
+    // RAF loop entirely there too, since they'd just be updating a transform
+    // nobody can see.
+    const coarseQuery = window.matchMedia("(pointer: coarse)");
+    if (coarseQuery.matches) return;
+
     const handleMove = (e: MouseEvent) => {
       posRef.current = { x: e.clientX, y: e.clientY };
     };

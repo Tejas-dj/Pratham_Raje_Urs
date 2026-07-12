@@ -31,35 +31,13 @@ export interface Service {
   videoLoop?: string;
 }
 
-export interface JournalPost {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  excerpt: string;
-  image: string;
-  video?: string;
-  readTime: string;
-}
-
 export type CursorVariant = 'default' | 'crosshair' | 'video' | 'drag' | 'hidden';
-
-export interface CursorState {
-  variant: CursorVariant;
-  label?: string;
-}
 
 export interface MousePosition {
   x: number;
   y: number;
   normalizedX: number;
   normalizedY: number;
-}
-
-export interface SoundState {
-  enabled: boolean;
-  volume: number;
-  toggle: () => void;
 }
 
 /* ─── Photography ────────────────────────────────────────────────────────── */
@@ -90,20 +68,4 @@ export interface Photo {
   isThumbnail?: boolean;
   width?: number;
   height?: number;
-}
-
-/* ─── Reels ──────────────────────────────────────────────────────────────── */
-
-export type ReelCategory = 'narrative' | 'bts' | 'wedding' | 'experimental';
-
-export interface Reel {
-  id: string;
-  title: string;
-  description: string;
-  category: ReelCategory;
-  poster: string;
-  videoSrc: string;
-  duration: number;
-  featured?: boolean;
-  year: number;
 }

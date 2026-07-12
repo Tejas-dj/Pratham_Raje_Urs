@@ -1,4 +1,4 @@
-import type { Project, Service, Photo, Reel } from "@/types";
+import type { Project, Service, Photo } from "@/types";
 import { cloudinaryImage, cloudinaryVideo } from "./cloudinary";
 
 export const PROJECTS: Project[] = [
@@ -169,40 +169,6 @@ export const SERVICES: Service[] = [
     color: "#F8F4ED",
     icon: "aperture",
     videoLoop: cloudinaryVideo("DOT_TEASER_fzvnic"),
-  },
-];
-
-export const ABOUT_FRAMES: { year: string; title: string; description: string; image: string; hasVideo?: boolean }[] = [
-  {
-    year: "2006",
-    title: "Born in Mysuru",
-    description: "Under golden-hour Karnataka skies, in the shadow of a palace. Pratham Raje Urs draws first breath.",
-    image: cloudinaryImage("BEACH_1-01_qhvnl0"),
-  },
-  {
-    year: "2016",
-    title: "First Frame",
-    description: "A smartphone. A sunlit lane. The first time light was trapped in a frame. Nothing was ever the same.",
-    image: cloudinaryImage("DSC01296_rg69c2"),
-    hasVideo: true,
-  },
-  {
-    year: "2023",
-    title: "Sees Kaddi · Actor",
-    description: "The director steps in front of the lens. Understanding the actor's vulnerability from the inside.",
-    image: cloudinaryImage("Sees_Kaddi_Landscape_f2y5dm"),
-  },
-  {
-    year: "2024",
-    title: "Talon Production House",
-    description: "Founded in Bengaluru. A home for Kannada stories that dare to feel something.",
-    image: cloudinaryImage("final-1_tuohjh"),
-  },
-  {
-    year: "Now",
-    title: "Still Chasing Feelings",
-    description: "Every frame. Every film. Still chasing that one perfect feeling.",
-    image: cloudinaryImage("DSC01047_twths2"),
   },
 ];
 
@@ -383,31 +349,12 @@ export const PHOTOS: Photo[] = [
   { id: 174, src: cloudinaryImage("IMG_9809_qf7wrm"), alt: "Classroom moment with schoolkids", aspect: "tall", width: 1080, height: 1350 },
 ];
 
-/* ─── Reels ──────────────────────────────────────────────────────────────── */
-
-export const REELS: Reel[] = [
-  { id: "reel-sunflowers-bts", title: "Sunflowers BTS", description: "Behind the scenes of the sunflower field shoot at golden hour.", category: "bts", poster: cloudinaryImage("She_asked_for_Sunflowers_u8xqju"), videoSrc: "", duration: 32, featured: true, year: 2024 },
-  { id: "reel-christmas-mood", title: "Christmas Mood Edit", description: "A 45-second mood reel from The Christmas Guest, all practical lights.", category: "narrative", poster: cloudinaryImage("The_Christmas_Guest_aqgt7x"), videoSrc: cloudinaryVideo("The_Christmas_Guest_A_Short_Film_That_Will_Stay_With_You_-_Talon_Production_House_144p_aqxk6u"), duration: 45, featured: true, year: 2023 },
-  { id: "reel-coffee-teaser", title: "Before The Coffee Gets Cold — Teaser", description: "The official 30-second teaser cut for social.", category: "narrative", poster: cloudinaryImage("Before_The_Coffee_Gets_Cold_y60aty"), videoSrc: "", duration: 30, featured: true, year: 2024 },
-  { id: "reel-dot-visual", title: "DOT. Visual Poem", description: "An experimental 60-second visual poem in monochrome.", category: "experimental", poster: cloudinaryImage("DOT._tmlaig"), videoSrc: cloudinaryVideo("DOT_TEASER_fzvnic"), duration: 60, year: 2024 },
-  { id: "reel-talon-showreel", title: "Talon 2025 Showreel", description: "Talon Production House highlight reel — the year in frames.", category: "narrative", poster: cloudinaryImage("final-1_tuohjh"), videoSrc: cloudinaryVideo("Nasheya_Gungale_Music_Video_pihf6d"), duration: 58, year: 2025 },
-  { id: "reel-wedding-highlights", title: "Wedding Highlights — Coastal", description: "A cinematic wedding film condensed into a 45-second reel.", category: "wedding", poster: cloudinaryImage("BEACH_1-11_bdyywp"), videoSrc: "", duration: 45, year: 2025 },
-  { id: "reel-sees-kaddi-cut", title: "Sees Kaddi — Behind the Performance", description: "The raw acting process captured in 40 seconds.", category: "bts", poster: cloudinaryImage("sees_kaddi_dp52bc"), videoSrc: cloudinaryVideo("Sees_Kaddi-Trailer_awtp8z"), duration: 40, year: 2023 },
-  { id: "reel-monsoon-mysuru", title: "Monsoon Mysuru", description: "Rain, cobblestones, and the quiet poetry of a monsoon walk.", category: "experimental", poster: cloudinaryImage("DSC01177_p6nv4s"), videoSrc: "", duration: 35, year: 2024 },
-  { id: "reel-golden-hour-bts", title: "Golden Hour — How We Shoot It", description: "A 30-second breakdown of our golden hour lighting setup.", category: "bts", poster: cloudinaryImage("DSC01047_twths2"), videoSrc: "", duration: 30, year: 2025 },
-  { id: "reel-karnataka-timelapse", title: "Karnataka Sunrise Timelapse", description: "Paddy fields at dawn, compressed into 20 breathtaking seconds.", category: "experimental", poster: cloudinaryImage("BEACH_1-03_mc0nra"), videoSrc: "", duration: 20, year: 2023 },
-  { id: "reel-sunflower-poem", title: "Sunflowers — A Visual Letter", description: "A 50-second poetic edit from the sunflower fields of rural Karnataka.", category: "narrative", poster: cloudinaryImage("She_asked_for_Sunflowers_u8xqju"), videoSrc: "", duration: 50, year: 2024 },
-  { id: "reel-wedding-ceremony", title: "Wedding Ceremony — Temple", description: "Traditional ceremony shot with anamorphic lenses, 40-second edit.", category: "wedding", poster: cloudinaryImage("BEACH_1-01_qhvnl0"), videoSrc: "", duration: 40, year: 2025 },
-];
-
-export const FEATURED_REELS: string[] = ["reel-sunflowers-bts", "reel-christmas-mood", "reel-coffee-teaser"];
-
 /* ─── Navigation ─────────────────────────────────────────────────────────── */
 
 export const NAV_ITEMS = [
   { id: "home", label: "Home", href: "#hero" },
   { id: "vault", label: "The Vault", href: "#vault" },
-  { id: "photography", label: "Photography", href: "/photography" },
+  { id: "photography", label: "Photography", href: "#photography" },
   { id: "about", label: "About", href: "#about" },
   { id: "connect", label: "Connect", href: "#connect" },
 ];
